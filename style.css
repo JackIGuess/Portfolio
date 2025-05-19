@@ -1,0 +1,563 @@
+/* Reset and base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+.modal {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  position: fixed;
+  z-index: 999;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0, 0, 0, 0.95);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  overflow: auto;
+  transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+.modal.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+#modalTitle {
+  color: #1e90ff;
+  font-weight: 600;
+  position: relative;
+  display: inline-block;
+   text-align: center;
+  font-size: 2rem; /* adjust as needed */
+  margin-bottom: 4px;
+  padding-bottom: 0.5rem; /* space for underline */
+  margin-bottom: 0rem; 
+  transform: scale(1.2);
+  transition: none; /* no animation needed */
+}
+
+#modalTitle::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background-color: #1e90ff;
+  transform: scaleX(1);
+  transform-origin: left;
+  box-shadow: 0 0 8px #1e90ff;
+  transition: none;
+}
+
+#projectModal {
+  display: none;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.6s ease, visibility 0.6s ease;
+}
+
+#projectModal.active {
+  display: block; /* You can leave this on in JS as well */
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.subheading {
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: #white;
+  font-weight: 600;
+  font-size: 1.5rem;
+}
+
+.modal-content {
+  display: flex;
+  margin: 150px auto 5%; /* increased top margin, adjust 80px as needed */
+  padding: 20px;
+  background: #111;
+  border-radius: 12px;
+  width: 80%;
+  gap: 30px;
+  color: white;
+  flex-wrap: wrap;
+}
+
+.modal-content iframe {
+  flex: 1;
+  max-width: 1120px;
+  height: 630px;
+  border-radius: 12px; /* <-- this is new */
+  overflow: hidden;
+  border: 2px solid white; /* optional: to match image border */
+}
+
+.modal-description {
+  flex: 1;
+  min-width: 300px;
+ color: #d3d3d3;
+  padding-left: 30px;
+}
+
+.modal-close {
+  position: absolute;
+  top: 20px;
+  right: 40px;
+  font-size: 40px;
+  color: white;
+  cursor: pointer;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #f0f0f0 0%, #e6e6e6 100%);
+  color: #505050;
+  line-height: 1.6;
+}
+
+/* Nav */
+.nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: #151515;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  padding: 1rem;
+  z-index: 1000;
+}
+
+.nav-link.active,
+.nav a:hover,
+.nav a.active {
+  color: #1e90ff;
+  transform: scale(1.1);
+  transition: transform 0.2s ease, color 0.3s ease;
+}
+
+.nav a {
+  position: relative;
+  color: #bbb;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  transition: color 0.3s ease;
+}
+
+.nav a::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background-color: #1e90ff;
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+  transform-origin: right;
+  box-shadow: none;
+}
+
+.nav a:hover::after,
+.nav a.active::after {
+  transform: scaleX(1);
+  transform-origin: left;
+  box-shadow: 0 0 8px #1e90ff;
+}
+
+/* Hero */
+.hero {
+  height: 20vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: #242424;
+  /* Removed color: #242424; as it was overwritten */
+  padding-top: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero h1 {
+  font-size: 3rem;
+  font-weight: bold;
+  margin: 2rem 0 0 0;
+  color: #ffffff;
+  background: none;
+}
+
+.hero p {
+  font-size: 1.2rem;
+  color: #5c5c5c;
+  margin: 0 0 3rem 0;
+}
+
+.outlined-text {
+  color: white;
+  font-size: 1.0rem; /* Adjust as needed */
+  font-weight: regular;
+ 
+}
+
+/* Strip */
+.strip {
+  width: 100%;
+  max-width: 3000px;
+  height: 4px;
+  background-color: #151515;
+  margin: 0 auto 0;
+  border-radius: 2px;
+}
+
+/* Projects */
+.projects {
+  padding: 2rem;
+  text-align: center;
+  background-image: url('textures/UEGrid.png');
+  background-repeat: repeat;
+  background-color: #1e1e1e;
+  color: white;
+}
+
+.main-content {
+  background-image: url('textures/UEGrid.png');
+  background-repeat: repeat;
+  background-color: #1e1e1e;
+  padding-top: 3rem; /* to avoid overlap with fixed nav */
+}
+
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.project h3 {
+  color: white;
+  margin-bottom: 0;
+}
+
+.project p {
+  color: white;
+
+  margin-top: 0;
+}
+
+.project img {
+  width: 75%;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 12px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 2px solid white;
+}
+
+.project:hover img {
+  transform: scale(1.02);
+  box-shadow: 0 0 8px 2px rgba(30, 144, 255, 0.6); /* added blue glow */
+}
+
+/* Tags */
+.tags {
+  margin-top: 0.5rem;
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.modal {
+  outline: 5px solid red;
+}
+
+.tag {
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  color: white;
+  font-weight: 600;
+  text-transform: uppercase;
+  background-color: #666;
+}
+
+/* Example color classes */
+.tag.unreal { background-color: #1e90ff; }
+.tag.solo { background-color: #6a0dad; }
+.tag.group { background-color: #e74c3c; }
+.tag.cpp { background-color: #c39bd3; }
+.tag.fyp { background-color: #FFC0CB; }
+.tag.paperZD { background-color: #28b463; }
+.tag.Environment { background-color: #2c3e50; }
+.tag.LeadDesigner { background-color: #ffcc00; }
+.tag.Blueprint { background-color: #111184; }
+
+/* About and contact */
+.about, .contact {
+  padding: 4rem 2rem;
+  
+  text-align: center;
+  background-color: #242424;
+}
+
+.about {
+  width: 100vw;
+  padding: 4rem 2rem;
+  background-color: #242424;
+  color: white;
+}
+
+.about-split {
+  display: flex;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  gap: 2rem;
+  align-items: flex-start;
+  flex-wrap: nowrap;
+}
+
+.about-left {
+  flex: 0 0 600px;
+  max-width: 600px;
+   padding-right: 20px;
+    padding-top: 20px;
+}
+
+.about-image {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+
+  object-fit: cover;
+  border: 2px solid white;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
+}
+
+.about-middle {
+  flex: 2 1 50%;
+  min-width: 320px;
+  padding-right: 20px;
+}
+
+.about-middle h2 {
+  color: #1e90ff;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  font-size: 2rem;
+}
+
+.about-middle p {
+  line-height: 1.6;
+  margin-bottom: 1rem;
+  color: #d3d3d3;
+}
+
+.about-right {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem; /* spacing between About Me and Skills */
+  flex: 1 1 400px; /* let it grow/shrink */
+  min-width: 320px;
+  padding-left: 20px;
+  text-align: left;
+}
+
+.about-right-top, .about-right-bottom {
+  /* Optional styling for each section */
+}
+
+.about-right h2 {
+  color: #1e90ff;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  font-size: 2rem;
+}
+
+.about-right ul {
+  list-style-type: disc;
+  padding-left: 20px;
+  color: #d3d3d3;
+}
+
+.about-right li {
+  margin-bottom: 0.6rem;
+}
+
+/* Responsive: Stack columns vertically on small screens */
+@media (max-width: 768px) {
+  .about-split {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .about-left,
+  .about-middle,
+  .about-right {
+    flex: 1 1 100%;
+    max-width: 100%;
+    padding: 0;
+    text-align: center;
+  }
+
+  .about-right ul {
+    padding-left: 0;
+    list-style-position: inside;
+  }
+
+  .about-right li {
+    display: inline-block;
+    margin: 0 0.8rem 0.6rem 0.8rem;
+  }
+}
+
+
+.highlight {
+  color: #1e90ff;
+  font-weight: 600;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 2rem;
+  background-color: #151515;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .hero h1 {
+    font-size: 2rem;
+  }
+
+  .nav {
+    flex-direction: column;
+    gap: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .modal-content {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .modal-content iframe {
+    max-width: 90vw;
+    height: 50vw; /* Keeps a 16:9 ratio */
+  }
+
+  .modal-description {
+    text-align: center;
+  }
+}
+
+/* Contact buttons - skipped here for brevity */
+
+/* Shared button styles */
+.contact-btn {
+  display: inline-flex;
+  background-color: #0077b5; /* LinkedIn blue */
+  padding: 0.5rem 0.7rem;
+  border-radius: 6px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+  font-family: 'Segoe UI', sans-serif;
+  box-shadow: none;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border: 2px solid white;
+  margin-right: 0.5rem; /* space between buttons */
+}
+
+#contact h2 {
+  margin-bottom: 1.5rem; /* adds space below the heading */
+}
+
+.contact-buttons {
+  margin-top: 1rem; /* optional: space above the buttons */
+}
+
+.contact-btn:last-child {
+  margin-right: 0; /* no margin on last button */
+}
+
+.contact-btn:hover,
+.contact-btn:focus {
+  background-color: #005a8c; /* slightly darker blue */
+  outline: none;
+  box-shadow: 0 0 8px #1e90ff; /* glow effect */
+  transform: scale(1.1); /* scale up on hover */
+}
+
+
+/* LinkedIn button icon */
+.icon-linkedin {
+  background-color: #0077b5;
+  border-radius: 6px;
+  width: 40px;
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(10, 102, 194, 0.7);
+  transition: background-color 0.3s ease;
+}
+
+.icon-linkedin:hover {
+  background-color: #005582;
+}
+
+.icon-linkedin svg {
+  width: 20px;
+  height: 20px;
+  fill: white;
+}
+
+/* Email button icon */
+.icon-email {
+  background-color: #0a66c2; /* LinkedIn email blue */
+  border-radius: 6px;
+  width: 40px;
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(10, 102, 194, 0.7);
+  transition: background-color 0.3s ease;
+}
+
+.icon-email:hover {
+  background-color: #005582;
+}
+
+.icon-email svg {
+  width: 20px;
+  height: 20px;
+  fill: white;
+}
+
+/* Section heading color override */
+#projects h2,
+#about h2,
+#contact h2 {
+  color: #d0d0d0 !important;
+}
