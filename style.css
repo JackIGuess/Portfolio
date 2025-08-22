@@ -12,11 +12,11 @@ html {
 body {
   font-family: 'Segoe UI', sans-serif;
   background: linear-gradient(135deg, #f0f0f0 0%, #e6e6e6 100%);
-  color: #505050;
+  color: #ffffff;
   line-height: 1.6;
 }
 
-/* UPDATED MODAL STYLES FOR NEW LAYOUT */
+/* UPDATED MODAL STYLES FOR SIMPLIFIED LAYOUT */
 .modal {
   opacity: 0;
   visibility: hidden;
@@ -215,15 +215,15 @@ body {
   text-align: right;
 }
 
-/* Planning Section - restructured for centered slideshow */
-.modal-planning {
+/* Single Slideshow Section - replaces the old planning section */
+.modal-slideshow-section {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
 }
 
-.planning-title {
+.slideshow-title {
   color: #1e90ff;
   font-weight: 600;
   text-align: center;
@@ -235,7 +235,7 @@ body {
   width: 100%;
 }
 
-.planning-title::after {
+.slideshow-title::after {
   content: "";
   position: absolute;
   bottom: 0;
@@ -247,18 +247,7 @@ body {
   box-shadow: 0 0 8px #1e90ff;
 }
 
-/* Section titles for GDD and Planning */
-.section-subtitle {
-  color: #white;
-  font-weight: 600;
-  text-align: center;
-  font-size: 1.4rem;
-  margin: 1rem auto 1.5rem auto;
-  padding: 1rem 0 0.3rem 0;
-  width: 100%;
-}
-
-/* Slideshow Container - centered and much bigger */
+/* Slideshow Container - centered and responsive */
 .slideshow-container {
   position: relative;
   width: 100%;
@@ -268,25 +257,20 @@ body {
   overflow: hidden;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
   margin-bottom: 1.5rem;
+  height: 600px; /* Add this fixed height */
 }
 
 .slideshow-image {
   width: 100%;
-  height: auto;
-  min-height: 500px;
-  max-height: 700px;
+  height: 100%; /* Change from 'auto' to '100%' */
   object-fit: contain;
   display: block;
   cursor: pointer;
   transition: opacity 0.3s ease;
+  /* Remove min-height and max-height since we have fixed container height */
 }
 
-/* Remove old arrow buttons from inside slideshow */
-.slide-arrow {
-  display: none;
-}
-
-/* New navigation bar underneath slideshow */
+/* Navigation bar underneath slideshow */
 .slideshow-nav {
   display: flex;
   align-items: center;
@@ -329,80 +313,19 @@ body {
   border: 2px solid #1e90ff;
 }
 
-/* Context paragraph styling */
-.slideshow-context {
+/* Description text below slideshow */
+.slideshow-description {
   width: 100%;
   max-width: 800px;
-  margin: 0 auto;
-  padding-top: 1.5rem;
   text-align: center;
+  margin-top: 1rem;
 }
 
-.slideshow-context p {
-  color: #d0d0d0;
-  font-size: 0.95rem;
+.slideshow-description p {
   line-height: 1.6;
+  color: #d0d0d0;
   margin: 0;
-  padding: 0 2rem;
-}
-
-/* Planning text - centered */
-.planning-text {
-  width: 100%;
-  max-width: 800px;
-  text-align: center;
-  margin-top: 2rem;
-  margin-bottom: 0rem;
-}
-
-.planning-text h3 {
-  color: #white;
-  font-size: 1.3rem;
-  margin-bottom: 1rem;
-  font-weight: 600;
-  text-align: center;
-}
-
-.planning-text p {
-  line-height: 1.6;
-  color: #d0d0d0;
-  margin-bottom: 1rem;
-}
-
-/* Development slideshow for screenshots */
-.development-slideshow {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 2rem;
-}
-
-/* Second slideshow for planning docs */
-.planning-slideshow {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 2rem;
-}
-
-/* Remove old slideshow controls */
-.slideshow-controls {
-  display: none;
-}
-
-/* Single image fallback (for projects without slideshows) */
-.planning-image img {
-  width: 100%;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: transform 0.2s ease;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-}
-
-.planning-image img:hover {
-  transform: scale(1.02);
+  font-size: 1rem;
 }
 
 /* Lightbox for enlarged images */
@@ -444,7 +367,7 @@ body {
   font-size: 20px;
 }
 
-/* OLD MODAL STYLES REMOVED - keeping only what's needed for compatibility */
+/* Modal compatibility styles */
 #modalTitle {
   color: #1e90ff;
   font-weight: 600;
@@ -589,9 +512,10 @@ body {
 
 .project-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(350px, 400px));
   gap: 2rem;
   margin-top: 2rem;
+  justify-content: center;
 }
 
 .project h3 {
@@ -605,12 +529,12 @@ body {
 }
 
 .project img {
-  width: 75%;
-  height: 300px;
+  width: 100%;        /* Take full width of the 400px container */
+  height: 400px;      /* Set height to 400px */
   object-fit: cover;
-  border-radius: 12px;
+  border-radius: 8px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  border: 2px solid white;
+  border: 3px solid black;
 }
 
 .project:hover img {
@@ -639,6 +563,7 @@ body {
 
 /* Tag color classes */
 .tag.unreal { background-color: #000000; }
+.tag.unity { background-color: #333333; color: white; }
 .tag.solo { background-color: #6a0dad; }
 .tag.group { background-color: #e74c3c; }
 .tag.cpp { background-color: #c39bd3; }
@@ -650,26 +575,24 @@ body {
 .tag.gdscript { background-color: #1e90ff; }
 .tag.hammer { background-color: #A45729; }
 
-/* About and contact */
-.about, .contact {
+/* About and contact sections */
+.about {
+  padding: 4rem 2rem;
+  background-color: #242424;
+}
+
+.contact {
   padding: 4rem 2rem;
   text-align: center;
   background-color: #242424;
 }
 
-.about {
-  width: 100%;
-  padding: 4rem 2rem;
-  background-color: #242424;
-  color: white;
-}
-
 .about-split {
   display: flex;
   width: 100%;
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
-  gap: 2rem;
+  gap: 3rem;
   align-items: flex-start;
   flex-wrap: nowrap;
 }
@@ -678,66 +601,58 @@ body {
   flex: 0 0 600px;
   max-width: 600px;
   padding-right: 20px;
-  padding-top: 20px;
+  display: flex;
+  align-items: center; /* This centers the image vertically */
+  justify-content: center; /* This centers it horizontally too if needed */
 }
 
 .about-image {
   width: 100%;
-  height: auto;
-  border-radius: 12px;
+  height: 100%;
+  border-radius: 8px;
   object-fit: cover;
-  border: 2px solid white;
+  margin-top: 5rem;
+  border: 3px solid black;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
 }
 
-.about-middle {
-  flex: 2 1 50%;
-  min-width: 320px;
-  padding-right: 20px;
-}
-
-.about-middle h2 {
-  color: #1e90ff;
-  font-weight: 600;
+.about-right-top .strip {
+  margin-top: 2rem;
   margin-bottom: 1rem;
-  font-size: 2rem;
-}
-
-.about-middle p {
-  line-height: 1.6;
-  margin-bottom: 1rem;
-  color: #d3d3d3;
 }
 
 .about-right {
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  flex: 1 1 400px;
-  min-width: 320px;
+  flex: 1;
   padding-left: 20px;
   text-align: left;
-}
-
-.about-right-top, .about-right-bottom {
-  /* Optional styling for each section */
+  color: #ffffff;
 }
 
 .about-right h2 {
   color: #1e90ff;
   font-weight: 600;
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
   font-size: 2rem;
+}
+
+.about-right p {
+  color: #ffffff;
+  line-height: 1.6;
+  margin-bottom: 1rem;
 }
 
 .about-right ul {
   list-style-type: disc;
   padding-left: 20px;
-  color: #d3d3d3;
+  color: #ffffff;
 }
 
 .about-right li {
   margin-bottom: 0.6rem;
+  color: #ffffff;
 }
 
 .highlight {
@@ -768,7 +683,7 @@ footer {
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  border: 2px solid white;
+  border: 2px solid black;
   margin-right: 0.5rem;
 }
 
@@ -836,10 +751,21 @@ footer {
   fill: white;
 }
 
+/* Section headers */
 #projects h2,
-#about h2,
 #contact h2 {
   color: #d0d0d0 !important;
+}
+
+/* Force white text in about section */
+.about-right p, 
+.about-right li, 
+.about-right ul {
+  color: #ffffff !important;
+}
+
+.about-right h2 {
+  color: #1e90ff !important;
 }
 
 /* Responsive Design */
@@ -876,12 +802,8 @@ footer {
     flex: none;
   }
 
-  .modal-planning {
+  .modal-slideshow-section {
     flex-direction: column;
-  }
-
-  .planning-image {
-    flex: none;
   }
 
   .about-split {
@@ -890,7 +812,6 @@ footer {
   }
 
   .about-left,
-  .about-middle,
   .about-right {
     flex: 1 1 100%;
     max-width: 100%;
@@ -907,4 +828,5 @@ footer {
     display: inline-block;
     margin: 0 0.8rem 0.6rem 0.8rem;
   }
+
 }

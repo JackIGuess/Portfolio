@@ -34,7 +34,7 @@
         <h3>Project Description</h3>
         <div id="modalDescriptions"></div>
 
-        <h3>Project Requirements</h3>
+        <h3>My Role Within The Project</h3>
         <ul id="modalRequirements"></ul>
 
         <h3>What I Have Learnt</h3>
@@ -66,59 +66,26 @@
     <!-- Separator strip -->
     <div class="modal-strip"></div>
 
-    <!-- Planning Section -->
-    <div class="modal-planning">
-      <!-- Centered title with underline -->
-      <h3 class="planning-title">Planning & Development</h3>
+    <!-- Single Slideshow Section -->
+    <div class="modal-slideshow-section">
+      <!-- Centered title -->
+      <h3 class="slideshow-title">Project Documentation</h3>
       
-      <!-- GDD Section -->
-      <h4 class="section-subtitle">Game Design Document</h4>
-      <div class="slideshow-container" id="gddSlideshowContainer">
-        <img id="gddSlideshowImage" src="" alt="GDD slide" class="slideshow-image" onclick="enlargeImage(this.src)">
+      <!-- Single Slideshow -->
+      <div class="slideshow-container" id="slideshowContainer">
+        <img id="slideshowImage" src="" alt="Development shot" class="slideshow-image" onclick="enlargeImage(this.src)">
       </div>
       
-      <!-- GDD Navigation bar -->
-      <div class="slideshow-nav" id="gddSlideshowNav">
-        <button class="nav-arrow" onclick="changeGDDSlide(-1)">‹</button>
-        <span class="slide-counter" id="gddSlideCounter">1 / 1</span>
-        <button class="nav-arrow" onclick="changeGDDSlide(1)">›</button>
+      <!-- Navigation bar -->
+      <div class="slideshow-nav" id="slideshowNav">
+        <button class="nav-arrow" onclick="changeSlide(-1)">‹</button>
+        <span class="slide-counter" id="slideCounter">1 / 1</span>
+        <button class="nav-arrow" onclick="changeSlide(1)">›</button>
       </div>
       
-      <!-- Development Screenshots Section -->
-      <div class="development-slideshow" id="developmentSlideshowSection">
-        <h4 class="section-subtitle">Development Screenshots</h4>
-        <div class="slideshow-container" id="developmentSlideshowContainer">
-          <img id="developmentSlideshowImage" src="" alt="Development screenshot" class="slideshow-image" onclick="enlargeImage(this.src)">
-        </div>
-        
-        <!-- Development Navigation bar -->
-        <div class="slideshow-nav" id="developmentSlideshowNav">
-          <button class="nav-arrow" onclick="changeDevelopmentSlide(-1)">‹</button>
-          <span class="slide-counter" id="developmentSlideCounter">1 / 1</span>
-          <button class="nav-arrow" onclick="changeDevelopmentSlide(1)">›</button>
-        </div>
-      </div>
-      
-      <!-- Planning text -->
-      <div class="planning-text">
-        <h3>Development Process</h3>
-        <p id="modalPlanningText"></p>
-      </div>
-      
-      <!-- Planning Documentation Section -->
-      <div class="planning-slideshow" id="planningSlideshowSection">
-        <h4 class="section-subtitle">Planning Documentation</h4>
-        <div class="slideshow-container" id="planningSlideshowContainer">
-          <img id="planningSlideshowImage" src="" alt="Planning slide" class="slideshow-image" onclick="enlargeImage(this.src)">
-        </div>
-        
-        <!-- Planning Navigation bar -->
-        <div class="slideshow-nav" id="planningSlideshowNav">
-          <button class="nav-arrow" onclick="changePlanningSlide(-1)">‹</button>
-          <span class="slide-counter" id="planningSlideCounter">1 / 1</span>
-          <button class="nav-arrow" onclick="changePlanningSlide(1)">›</button>
-		  
-        </div>
+      <!-- Description text below slideshow -->
+      <div class="slideshow-description">
+        <p id="slideshowText"></p>
       </div>
     </div>
   </div>
@@ -155,7 +122,7 @@
       <h3>PolyKnight</h3>
       <p class="outlined-text">Soulslike game with modular combat systems</p>
       <div class="tags">
-        <span class="tag unreal">UE5</span>
+        
         <span class="tag solo">Solo</span>
         <span class="tag Blueprint">Blueprint</span>
       </div>
@@ -166,7 +133,7 @@
       <h3>Tempus Rattus</h3>
       <p class="outlined-text">Collaborative plague spreading game</p>
       <div class="tags">
-        <span class="tag unreal">UE5</span>
+        
         <span class="tag group">Group</span>
         <span class="tag LeadDesigner">Lead Designer</span>
         <span class="tag cpp">C++</span>
@@ -175,11 +142,11 @@
     </div>
 
     <div class="project">
-      <img src="images/Area_26.jpeg" alt="Area 26" onclick="openModal('Area26')" />
+      <img src="images/Area_26.png" alt="Area 26" onclick="openModal('Area26')" />
       <h3> Area 26</h3>
       <p class="outlined-text"> Horror-themed cleaner sim made in UE5</p>
       <div class="tags">
-        <span class="tag unreal">UE5</span>
+        
         <span class="tag group">Group</span>
         <span class="tag Blueprint">Blueprint</span>
       </div>
@@ -190,7 +157,7 @@
       <h3>PixelBorne</h3>
       <p class="outlined-text">Wave Based Survival game</p>
       <div class="tags">
-        <span class="tag unreal">UE5</span>
+        
         <span class="tag solo">Solo</span>
         <span class="tag paperZD">paperZD</span>
         <span class="tag Blueprint">Blueprint</span>
@@ -202,7 +169,7 @@
       <h3>C++ Dungeon Crawler</h3>
       <p class="outlined-text">Top Down Dungeon Crawler</p>
       <div class="tags">
-        <span class="tag unreal">UE5</span>
+        
         <span class="tag solo">Solo</span>
         <span class="tag paperZD">paperZD</span>
         <span class="tag cpp">C++</span>
@@ -226,29 +193,73 @@
       <h3>Landscape Project</h3>
       <p class="outlined-text">Environment in UE5</p>
       <div class="tags">
-        <span class="tag unreal">UE5</span>
+        
         <span class="tag solo">Solo</span>
         <span class="tag Environment">Environment</span>
       </div>
     </div>
     
     <div class="project">
-      <img src="images/Vampire_Survivors_Like.png" alt="2D Knight" onclick="openModal('VampireSurvivorsLike')" />
+      <img src="images/Vampire_Survivors_Like.png" alt="Vamp Project" onclick="openModal('VampireSurvivorsLike')" />
       <h3>Horde Survival</h3>
       <p class="outlined-text">Roguelike Horde Survival</p>
       <div class="tags">
-        <span class="tag godot">Godot</span>
+        
         <span class="tag solo">Solo</span>
         <span class="tag gdscript">GDScript</span>
       </div>
     </div>
 
+<div class="project">
+      <img src="images/Robot.png" alt="Robot Project" onclick="openModal('Robot Repair Shop')" />
+      <h3>Robot Repair Shop</h3>
+      <p class="outlined-text">Robot Repair Narrative</p>
+      <div class="tags">
+        
+        <span class="tag group">Group</span>
+        <span class="tag unity">C#</span>
+      </div>
+    </div>
+	
+	<div class="project">
+      <img src="images/Paragon.png" alt="Paragon Project" onclick="openModal('C++ AI Combat')" />
+      <h3>C++ AI Combat</h3>
+      <p class="outlined-text">Attacking, Investigating and Idle States</p>
+      <div class="tags">
+        
+        <span class="tag solo">Solo</span>
+        <span class="tag cpp">C++</span>
+      </div>
+    </div>
+	
+	<div class="project">
+      <img src="images/Fishing.png" alt="Fishing Project" onclick="openModal('Fishing Horror')" />
+      <h3>Fishing Horror</h3>
+      <p class="outlined-text">Fishing Horror in the 1900s</p>
+      <div class="tags">
+        
+        <span class="tag group">Group</span>
+        <span class="tag unity">C#</span>
+      </div>
+    </div>
+	
+	<div class="project">
+      <img src="images/Lancer.png" alt="Lancer Project" onclick="openModal('Lancer Framework')" />
+      <h3>Lancer Framework</h3>
+      <p class="outlined-text">Attacking, Investigating and Idle States</p>
+      <div class="tags">
+        
+        <span class="tag solo">Solo</span>
+        <span class="tag Blueprint">Blueprint</span>
+      </div>
+    </div>
+	
     <div class="project">
       <img src="images/2D_Knight.png" alt="2D Knight" onclick="openModal('2DKnight')" />
       <h3>2D Knight</h3>
       <p class="outlined-text">Sidescrolling Dungeon Crawler</p>
       <div class="tags">
-        <span class="tag unreal">UE5</span>
+        
         <span class="tag solo">Solo</span>
         <span class="tag paperZD">paperZD</span>
         <span class="tag Blueprint">Blueprint</span>
@@ -260,7 +271,6 @@
       <h3>2.5D Resource Collector</h3>
       <p class="outlined-text">Top Down Resource Collector</p>
       <div class="tags">
-        <span class="tag unreal">UE5</span>
         <span class="tag solo">Solo</span>
         <span class="tag paperZD">paperZD</span>
         <span class="tag Blueprint">Blueprint</span>
@@ -278,28 +288,34 @@
       <img src="images/Me.png" alt="Jacques Gwenin" class="about-image" />
     </div>
 	
-    <div class="about-right">
-      <div class="about-right-top">
-        <h2>About Me</h2>
-        <p>My name is Jacques Gwenin, and I am a final-year Games Design student at Staffordshire University. I have a deep passion for combat systems, environments, and level design, especially using Unreal Engine 5.</p>
+    <div class="about-right-top">
+  <h2>About Me</h2>
+  <p>I'm Jacques Gwenin, a Games Designer and Developer specialising in Unreal Engine 5 (Blueprint & C++), with additional experience in Unity (C#) and Godot (GDScript). I recently graduated from Staffordshire University, an Authorised Unreal Training Centre, with a First-Class Degree in Games Design.</p>
+  
+  <p>My skillset spans technical design, modular combat systems, AI behaviours, 2D/2.5D development (PaperZD), level and environmental design, and Unreal landscaping. I thrive in both creative and technical roles - from rapid prototyping and system design through to motion capture acting, Photoshop work, and delivering polished player experiences.</p>
+  
+  <p>I'm also a strong team player, with proven leadership and collaboration experience across both group and solo projects. Whether working on AI-driven combat encounters or building immersive game worlds, I approach challenges with a mix of creativity, problem-solving, and a hardworking, hands-on attitude, often influenced by my love for the outdoors.</p>
+  
+  <p>Now, I'm excited to take the next step into my first industry role, where I can bring my energy, adaptability, and dedication to delivering high-quality gameplay experiences. I'm approachable, professional, and always eager to learn - ready to contribute to a team and grow as a designer in the games industry!</p>
 
-        <p>Inspired by my love for fantasy and the outdoors, I channel creativity by exaggerating real-world elements to craft immersive, captivating worlds that invite players to explore and experience something truly unique, whether this be through programming, level, or environmental design.</p>
-
-        <p>Driven by a strong work ethic and a collaborative spirit, I thrive in team environments where clear communication and professional collaboration fuel innovation. I am committed to continuously pushing my creative boundaries, sharpening my skills, and building meaningful relationships to deliver outstanding projects.</p>
-      </div>
- 
-      <div class="about-right-bottom">
+ <div class="strip"></div>
+      
         <h2>Skills</h2>
         <ul>
           <li>Unreal Engine 5 (Blueprint & C++)</li>
+		  <li>Unity and C#</li>
+		  <li>Godot and GDScript</li>
+		  <li>Java Script</li>
+		  <li>Technical Design</li>
           <li>Modular Combat Systems</li>
           <li>PaperZD & 2D Development</li>
+		  <li>AI and AI Behaviour</li>
           <li>Level & Environmental Design</li>
           <li>Team Leadership & Collaboration</li>
           <li>Unreal Landscaping Experience</li>
           <li>Motion Capture Acting Experience</li>
           <li>Rapid Prototyping</li>
-          <li>Godot and GDScript</li>
+		  <li>Photoshop</li>
         </ul>
       </div>
     </div>
@@ -331,117 +347,41 @@
 </footer>
   
 <script>
-// Global slideshow variables
-let currentGDDSlide = 1;
-let totalGDDSlides = 1;
-let currentGDDSlides = [];
+// Simplified slideshow variables
+let currentSlide = 1;
+let totalSlides = 1;
+let currentSlides = [];
 
-let currentDevelopmentSlide = 1;
-let totalDevelopmentSlides = 1;
-let currentDevelopmentSlides = [];
-
-let currentPlanningSlide = 1;
-let totalPlanningSlides = 1;
-let currentPlanningSlides = [];
-
-// GDD Slideshow functions
-function initializeGDDSlideshow(slides) {
-  currentGDDSlides = slides;
-  totalGDDSlides = slides.length;
-  currentGDDSlide = 1;
-  updateGDDSlideDisplay();
+// Single slideshow functions
+function initializeSlideshow(slides) {
+  currentSlides = slides;
+  totalSlides = slides.length;
+  currentSlide = 1;
+  updateSlideDisplay();
 }
 
-function changeGDDSlide(direction) {
-  currentGDDSlide += direction;
+function changeSlide(direction) {
+  currentSlide += direction;
   
-  if (currentGDDSlide > totalGDDSlides) {
-    currentGDDSlide = 1;
-  } else if (currentGDDSlide < 1) {
-    currentGDDSlide = totalGDDSlides;
+  if (currentSlide > totalSlides) {
+    currentSlide = 1;
+  } else if (currentSlide < 1) {
+    currentSlide = totalSlides;
   }
   
-  updateGDDSlideDisplay();
+  updateSlideDisplay();
 }
 
-function updateGDDSlideDisplay() {
-  if (currentGDDSlides.length > 0) {
-    document.getElementById('gddSlideshowImage').src = currentGDDSlides[currentGDDSlide - 1];
-    document.getElementById('gddSlideCounter').textContent = `${currentGDDSlide} / ${totalGDDSlides}`;
+function updateSlideDisplay() {
+  if (currentSlides.length > 0) {
+    document.getElementById('slideshowImage').src = currentSlides[currentSlide - 1];
+    document.getElementById('slideCounter').textContent = `${currentSlide} / ${totalSlides}`;
     
-    // Enable/disable based on single slide
-    if (totalGDDSlides <= 1) {
-      document.getElementById('gddSlideshowNav').style.display = 'none';
+    // Hide navigation if only one slide
+    if (totalSlides <= 1) {
+      document.getElementById('slideshowNav').style.display = 'none';
     } else {
-      document.getElementById('gddSlideshowNav').style.display = 'flex';
-    }
-  }
-}
-
-// Development Slideshow functions
-function initializeDevelopmentSlideshow(slides) {
-  currentDevelopmentSlides = slides;
-  totalDevelopmentSlides = slides.length;
-  currentDevelopmentSlide = 1;
-  updateDevelopmentSlideDisplay();
-}
-
-function changeDevelopmentSlide(direction) {
-  currentDevelopmentSlide += direction;
-  
-  if (currentDevelopmentSlide > totalDevelopmentSlides) {
-    currentDevelopmentSlide = 1;
-  } else if (currentDevelopmentSlide < 1) {
-    currentDevelopmentSlide = totalDevelopmentSlides;
-  }
-  
-  updateDevelopmentSlideDisplay();
-}
-
-function updateDevelopmentSlideDisplay() {
-  if (currentDevelopmentSlides.length > 0) {
-    document.getElementById('developmentSlideshowImage').src = currentDevelopmentSlides[currentDevelopmentSlide - 1];
-    document.getElementById('developmentSlideCounter').textContent = `${currentDevelopmentSlide} / ${totalDevelopmentSlides}`;
-    
-    // Enable/disable based on single slide
-    if (totalDevelopmentSlides <= 1) {
-      document.getElementById('developmentSlideshowNav').style.display = 'none';
-    } else {
-      document.getElementById('developmentSlideshowNav').style.display = 'flex';
-    }
-  }
-}
-
-// Planning Slideshow functions
-function initializePlanningSlideshow(slides) {
-  currentPlanningSlides = slides;
-  totalPlanningSlides = slides.length;
-  currentPlanningSlide = 1;
-  updatePlanningSlideDisplay();
-}
-
-function changePlanningSlide(direction) {
-  currentPlanningSlide += direction;
-  
-  if (currentPlanningSlide > totalPlanningSlides) {
-    currentPlanningSlide = 1;
-  } else if (currentPlanningSlide < 1) {
-    currentPlanningSlide = totalPlanningSlides;
-  }
-  
-  updatePlanningSlideDisplay();
-}
-
-function updatePlanningSlideDisplay() {
-  if (currentPlanningSlides.length > 0) {
-    document.getElementById('planningSlideshowImage').src = currentPlanningSlides[currentPlanningSlide - 1];
-    document.getElementById('planningSlideCounter').textContent = `${currentPlanningSlide} / ${totalPlanningSlides}`;
-    
-    // Enable/disable based on single slide
-    if (totalPlanningSlides <= 1) {
-      document.getElementById('planningSlideshowNav').style.display = 'none';
-    } else {
-      document.getElementById('planningSlideshowNav').style.display = 'flex';
+      document.getElementById('slideshowNav').style.display = 'flex';
     }
   }
 }
@@ -450,126 +390,59 @@ const projectData = {
   "PolyKnight": {
     video: "https://www.youtube.com/embed/mKESpgLJ9u8",
     title: "PolyKnight",
-    summary: "A Soulslike AI and Combat project focused on modularity, dynamic, rewarding combat and game feel.",
+    summary: "A prototype Souls-like combat framework featuring stamina-based combat, AI-driven enemies, and a variety of attack and defensive mechanics.",
     requirements: [
-      "Created a modular combat system that allows for different animations and weapon types.",
-      "Implement responsive player controls with modular timing and inputs.",
-      "Designed unpredictable perceptive AI enemies with varied attack patterns and behaviors.",
-      "Developed a stamina-based combat system similar to Dark Souls, encouraging stamina management through guard breaks and critical attacks."
-    ],
-    descriptions: [
-      "This project was designed to enhance the core experience of Souls-like combat, with a strong emphasis on gameplay feel and impact. I implemented and refined features such as dynamic screen shakes, FOV zooms, impact VFX/SFX, sword trails, and responsive hit/block reactions to deliver a satisfying and immersive combat experience. My goal was to create a prototype that not only demonstrated technical execution but also conveyed strong player feedback and combat clarity - with challenging and unpredictable AI encounters. In the future, I plan to expand this prototype into a full Souls-like experience, including boss encounters, level design, player progression systems, inventory management, and checkpoint mechanics."
-      
-    ],
+  "Designed and implemented all combat mechanics including combos, stamina, blocking, dodging, and critical attacks.",
+  "Built AI behaviours with multiple states (Attacking, Blocking, Healing, Patrolling, Idle).",
+  "Developed custom components for player inputs, combos, health, and stamina systems.",
+  "Designed and tuned a boss encounter, balancing attack timings, rotations, and guard break mechanics.",
+  "Conducted research into Souls-like design, studying FromSoftware and indie examples to inform camera behaviour, enemy design, and combat flow."
+],
+    descriptions: ["PolyKnight is a fully modular combat system project inspired by FromSoftware titles and indie Souls-likes. Built in Unreal Engine 5 using a mix of Blueprint and C++, the project features advanced combat mechanics including stamina management, combo attacks, target locking, guard breaking, dodging, blocking, perfect blocking, light/heavy/sprint/jab/special attacks, and a boss encounter. Although held back by placeholder animations, PolyKnight demonstrates a flexible, scalable framework that could be expanded into a full narrative-driven action RPG with environmental storytelling and complex boss battles."],
     learnings: [
-      "Developed understanding of good Blueprint, Animation Notifies, Animations, VFX and Modular Systems.",
-      "How to emphasise 'Game feel' and dynamic combat.",
-      "How to Utilise State based and Utility based AI, with cooldowns and random chance behaviours to add a layer of unpredictability."
-    ],
+  "Gained deep understanding of combat design principles, particularly telegraphing, readability, and player feedback.",
+  "Discovered the challenges of root motion and animation systems, and developed a workaround using animation notifies for responsive combat.",
+  "Improved balancing and iteration skills through playtesting and feedback, adjusting damage values and guard break frequency.", 
+  "Strengthened ability to create modular, reusable systems that can scale into larger projects."
+],
     projectName: "PolyKnight",
     role: "Solo Developer",
     date: "2024",
     software: "Unreal Engine 5, Blueprint",
     slides: [
       "slides/polyknight/Slide1.png",
-      "slides/polyknight/Slide2.png",
-      "slides/polyknight/Slide3.png",
-      "slides/polyknight/Slide4.png",
-      "slides/polyknight/Slide5.png",
-      "slides/polyknight/Slide6.png",
-      "slides/polyknight/Slide7.png",
-      "slides/polyknight/Slide8.png",
-      "slides/polyknight/Slide9.png",
-      "slides/polyknight/Slide10.png",
-      "slides/polyknight/Slide11.png",
-      "slides/polyknight/Slide12.png",
-      "slides/polyknight/Slide13.png",
-      "slides/polyknight/Slide14.png",
-      "slides/polyknight/Slide15.png",
-      "slides/polyknight/Slide16.png",
-      "slides/polyknight/Slide17.png",
-      "slides/polyknight/Slide18.png",
-      "slides/polyknight/Slide19.png",
-      "slides/polyknight/Slide20.png",
-      "slides/polyknight/Slide21.png",
-      "slides/polyknight/Slide22.png",
-      "slides/polyknight/Slide23.png",
-      "slides/polyknight/Slide24.png",
-      "slides/polyknight/Slide25.png",
-      "slides/polyknight/Slide26.png",
-      "slides/polyknight/Slide27.png",
-      "slides/polyknight/Slide28.png",
-      "slides/polyknight/Slide29.png",
-      "slides/polyknight/Slide30.png",
-      "slides/polyknight/Slide31.png",
-      "slides/polyknight/Slide32.png",
-      "slides/polyknight/Slide33.png",
-      "slides/polyknight/Slide34.png",
-      "slides/polyknight/Slide35.png",
-      "slides/polyknight/Slide36.png",
-      "slides/polyknight/Slide37.png",
-      "slides/polyknight/Slide38.png",
-      "slides/polyknight/Slide39.png",
-      "slides/polyknight/Slide40.png",
-      "slides/polyknight/Slide41.png",
-      "slides/polyknight/Slide42.png",
-      "slides/polyknight/Slide43.png",
-      "slides/polyknight/Slide44.png",
-      "slides/polyknight/Slide45.png",
-      "slides/polyknight/Slide46.png",
-      "slides/polyknight/Slide47.png",
-      "slides/polyknight/Slide48.png",
-      "slides/polyknight/Slide49.png",
-      "slides/polyknight/Slide50.png",
-      "slides/polyknight/Slide51.png",
-      "slides/polyknight/Slide52.png",
-      "slides/polyknight/Slide53.png",
-      "slides/polyknight/Slide54.png",
-      "slides/polyknight/Slide55.png",
-      "slides/polyknight/Slide56.png",
-      "slides/polyknight/Slide57.png",
-      "slides/polyknight/Slide58.png",
-      "slides/polyknight/Slide59.png",
-      "slides/polyknight/Slide60.png",
-      "slides/polyknight/Slide61.png",
-      "slides/polyknight/Slide62.png",
-      "slides/polyknight/Slide63.png",
-      "slides/polyknight/Slide64.png",
-      "slides/polyknight/Slide65.png",
-      "slides/polyknight/Slide66.png",
-      "slides/polyknight/Slide67.png",
-      "slides/polyknight/Slide68.png"
-    ],
-    
-    planningSlides: [
-      "slides/polyknight/planning/Planning1.png",
-	  "slides/polyknight/planning/Planning2.png",
-	  "slides/polyknight/planning/Planning3.png"
+	  "slides/polyknight/Slide2.png",
+	  "slides/polyknight/Slide3.png",
+	  "slides/polyknight/Slide4.png",
+	  "slides/polyknight/Slide5.png",
+	  "slides/polyknight/Slide6.png",
+	  "slides/polyknight/Slide7.png",
+	  "slides/polyknight/Slide8.png",
+	  "slides/polyknight/Slide9.png",
+	  "slides/polyknight/Slide10.png"
 	  
-	  
-      
     ],
-    planningText: "The planning phase involved extensive research into soulslike mechanics and combat systems. The GDD slides show the complete game design documentation, the development screenshots demonstrate key milestones and iterative improvements, while the planning images below depict AI behaviour, and the Player Combat System and Inputs."
+    slideshowText: ""
   },
   
   "Area26": {
     video: "https://www.youtube.com/embed/2gDWDx6aeNE",
     title: "Area 26",
-    summary: "A horror-themed cleaner simulator set in a high-security alien facility. This group project emphasized environmental storytelling and subtle tension-building to create an unsettling but engaging experience.",
+    summary: "A collaborative horror project where players take the role of a cleaner in a secret underground facility after an alien containment breach. Balancing atmospheric tension with unique gameplay, players must complete modular cleaning tasks while avoiding the lurking threat.",
     requirements: [
-      "Create atmospheric horror experience without jump scares",
-      "Design intuitive cleaning mechanics and progression system",
-      "Implement environmental storytelling through visual details",
-      "Balance tension and gameplay clarity for optimal player experience"
-    ],
-    descriptions: [
-      "In this collaborative horror project, I focused on level design and technical design strategic to maximize atmospheric tension and to provide a modular cleaning framework to the Design Team. To clean a task, it has an adjustable 'Dirt amount' and type - could be blood, dirt, vomit. The cleaning tool can also have an adjustable wet amount, things need to be wet to be cleaned, and how effective they are is also interchangable."
-    ],
+  "Designed and implemented a modular cleaning framework, allowing tasks to be easily expanded and customised.",
+  "Created the level blockout in Unreal Engine, ensuring scale and flow matched design goals.",
+  "Conducted planning and layout in MagicaVoxel and Photoshop before moving into Unreal for iteration.",
+  "Adapted and collaborated with other designers to unify disparate systems into a cohesive cleaning mechanic.",
+  "Corrected initial map scale issues by creating a 1:1 accurate map, improving player navigation and immersion."
+],
+    descriptions: ["Area 26 combined horror and simulation elements, tasking the player with cleaning various hazardous messes - from blood to dirt to vomit - within a hostile sci-fi environment. The cleaning system was designed to be modular and highly flexible, with adjustable “dirt amounts,” types of mess, and tool effectiveness (including wetness mechanics). This gave the design team a framework to build varied, scalable tasks that deepened immersion.The game’s environments were blocked out in Unreal Engine, with planning supported by MagicaVoxel and Photoshop, ensuring strong level flow and pacing that maximised tension."],
     learnings: [
-      "Improved Techincal Design skills through more experience.",
-      "Learned how to balance horror elements with gameplay clarity.",
-      "Worked effectively within a small multidisciplinary team."
-    ],
+  "Strengthened my technical design abilities, particularly in modular frameworks that empower other designers.",
+  "Learned the importance of early planning and accurate scale in level design.",
+  "Enhanced team collaboration skills, resolving conflicting implementations into a cohesive system.",
+  "Gained experience balancing atmosphere and mechanics to sustain tension in a horror environment."
+],
     projectName: "Area 26",
     role: "Level Designer and Technical Designer",
     date: "2024",
@@ -577,241 +450,247 @@ const projectData = {
     slides: [
       "slides/area26/Slide1.png",
       "slides/area26/Slide2.png",
-      
+	  "slides/area26/Slide3.png",
+	  "slides/area26/Slide4.png"
     ],
-    planningSlides: [
-      "slides/area26/planning/Planning1.png",
-      "slides/area26/planning/Planning2.png",
-    ],
-    planningText: "Planning focused on creating atmospheric tension through careful level design, long hallways, blind corners combined with atmospheric sound. The slide above showcase the level layout and plan, whilst the slides below depict a diagram of the Spray Wipe system."
+    slideshowText: ""
   },
 
   "TempusRattus": {
     video: "https://www.youtube.com/embed/On4kEmmjCrk",
     title: "Tempus Rattus",
-    summary: "A cooperative plague-spreading game with a player skill tree.",
-	requirements: [
-      "Organised and Led Meetings allowing meaningful and engaging discussion.",
-	  "Designed and put together a level showcasing gameplay mechanics.",
-	  "Communicated and coordinated direction and project needs with other departments and my own team.",
-	  "Contributed to all animations through Motion Capturing.",
-	  "Worked under and utilised a C++ Framework by the Tech Department.",
-	  ],
-    descriptions: [
-	
-      "A cooperative stealth-based plague-spreading game featuring skill trees, unique levels, and AI-driven villagers and Plague Doctors. Players must use abilities, cover, and careful navigation to infect all villagers while avoiding detection. As Lead Designer, I defined the game’s creative direction and core mechanics, establishing the central gameplay loop and ensuring design cohesion across the team. I facilitated and led design discussions, aligning the team’s vision, and contributed directly by designing one of the levels to set a benchmark for gameplay quality and player experience.",
-    ],
+    summary: "A collaborative stealth-action game where players take control of a plague-spreading rat in 17th-century Europe, infecting villagers while evading the plague doctor.",
+    requirements: [
+  "Acted as Design Lead and Producer, organising meetings, assigning tasks, and setting weekly goals to keep the project on track.",
+  "Built AI functionality for the rat's abilities, ensuring engaging player–AI interactions.",
+  "Designed and implemented one of the levels, establishing a quality benchmark for mechanics and layout.",
+  "Contributed to motion capture acting, helping bring animations to life.",
+  "Coordinated across a large team, ensuring clear communication to prevent merge conflicts and workflow issues."
+],
+    descriptions: ["Tempus Rattus is a team-based university project developed by 20+ members. Players navigate environments using stealth mechanics such as bushes, mouse holes, and building undersides, while leveraging unique abilities to spread infection. A performance-based star system rewards strategic play, allowing players to allocate skill points to boost stats and upgrade abilities.Built on a C++ framework provided by the Tech Department, the game combined design, AI functionality, motion capture, and level design to create a polished prototype experience."],
     learnings: [
-      "Strengthened leadership skills in a collaborative team.",
-      "Developed a strong understanding of effective teamwork and collaboration under tight deadlines.",
-	  "Gained more experience in the Development pipeline, including Animating.",
-      "Improved iteration workflow and design documentation practices."
-    ],
+  "Developed leadership and organisational skills, balancing design vision with production responsibilities.",
+  "Improved team communication strategies, especially in large, partly remote teams.",
+  "Gained experience working with an external C++ framework, integrating gameplay systems within constraints.",
+  "Strengthened ability to set standards and guide a team, ensuring consistency across multiple designers."
+],
     projectName: "Tempus Rattus",
     role: "Lead Designer",
     date: "2024",
     software: "Unreal Engine 5, C++, Blueprint, Motion Capture",
     slides: [
       "slides/tempusrattus/Slide1.png",
-      "slides/tempusrattus/Slide2.png",
-      "slides/tempusrattus/Slide3.png",
-      "slides/tempusrattus/Slide4.png",
-      "slides/tempusrattus/Slide5.png",
-      "slides/tempusrattus/Slide6.png",
-      "slides/tempusrattus/Slide7.png",
-      "slides/tempusrattus/Slide8.png",
-      "slides/tempusrattus/Slide9.png",
-      "slides/tempusrattus/Slide10.png",
-      "slides/tempusrattus/Slide11.png",
-      "slides/tempusrattus/Slide12.png",
-      "slides/tempusrattus/Slide13.png",
-      "slides/tempusrattus/Slide14.png",
-      "slides/tempusrattus/Slide15.png",
-      "slides/tempusrattus/Slide16.png",
-      "slides/tempusrattus/Slide17.png",
-      "slides/tempusrattus/Slide18.png",
-      "slides/tempusrattus/Slide19.png",
-      "slides/tempusrattus/Slide20.png",
-      "slides/tempusrattus/Slide21.png",
-      "slides/tempusrattus/Slide22.png"
+	  "slides/tempusrattus/Slide2.png",
+	  "slides/tempusrattus/Slide3.png",
+	  "slides/tempusrattus/Slide4.png",
+	  "slides/tempusrattus/Slide5.png",
+	  "slides/tempusrattus/Slide6.png",
+	  "slides/tempusrattus/Slide7.png",
+	  "slides/tempusrattus/Slide8.png"
     ],
-    developmentSlides: [
-	  "slides/tempusrattus/development/Dev0.png",
-      "slides/tempusrattus/development/Dev1.png",
-      "slides/tempusrattus/development/Dev2.png",
-      "slides/tempusrattus/development/Dev3.png",
-	  "slides/tempusrattus/development/Dev4.png",
-	  "slides/tempusrattus/development/Dev5.png",
-	  "slides/tempusrattus/development/Dev6.png"
-    ],
-    planningSlides: [
-      "slides/tempusrattus/planning/Planning1.png",
-      "slides/tempusrattus/planning/Planning2.png",
-      "slides/tempusrattus/planning/Planning3.png",
-	  "slides/tempusrattus/planning/Planning4.png",
-	  "slides/tempusrattus/planning/Planning5.png"
-    ],
-    planningText: "Extensive planning went into balancing cooperative mechanics and stealth gameplay, through a widely used Miro Board and meetings. The GDD slides show my original pitch for the game, the development screenshots capture key milestones in level design and development, from prototyping in Synty Assets, a blockout in UE5 and the final Models and look. While the planning slides demonstrate flowcharts of Game mechanics and AI behaviour, and shots of the Miro Board."
+    slideshowText: ""
   },
 
   "C++DungeonCrawler": {
     video: "https://www.youtube.com/embed/YHhjJvPjehg",
     title: "C++ Dungeon Crawler",
-    summary: "A top-down dungeon crawler coded entirely in C++. This project focused on systems design and combat logic using Unreal's C++ workflow, with PaperZD animations.",
-    descriptions: [
-      "This project focused on systems design and combat logic using Unreal's C++ workflow. I wrote core combat systems including health, stamina, and knockback in C++, integrated PaperZD with custom animation states, and designed modular tile-based dungeon layouts that emphasized strategic gameplay and responsive character control."
-    ],
-    learnings: [
-      "Deepened my understanding of Unreal Engine's C++ architecture.",
-      "Improved debugging and workflow efficiency with Visual Studio and Rider.",
-      "Learned modular system design and reusability."
-    ],
+    summary: "",
+    descriptions: [],
+    learnings: [],
     projectName: "C++ Dungeon Crawler",
     role: "Solo Developer",
     date: "2024",
     software: "Unreal Engine 5, C++, PaperZD",
-    planningImage: "https://via.placeholder.com/400x300/800080/white?text=C%2B%2B+Dungeon+Planning",
-    planningText: "Planning involved designing modular systems and class hierarchies in C++. I created detailed UML diagrams to map out the relationships between different game systems and ensure clean, maintainable code."
+    slides: [
+      "slides/C++/Slide1.png"
+	  
+    ],
+    slideshowText: ""
   },
 
   "PixelBorne": {
     video: "https://www.youtube.com/embed/_CA-M8LUWf0",
     title: "PixelBorne",
-    summary: "A wave-based 2D survival game with an emphasis on game feel, animation timing, and scaling enemy challenge. Designed and programmed as a solo project.",
-    descriptions: [
-      "As the solo developer on this wave-based 2D survival game, I designed and balanced the wave system with increasing difficulty curves, implemented animated sprites and smooth transitions using PaperZD, and handled the complete UI implementation including health systems, scoring mechanisms, and power-up progression to create an engaging survival experience."
-    ],
-    learnings: [
-      "Enhanced my 2D game development skills with PaperZD.",
-      "Improved enemy AI behavior for wave-based encounters.",
-      "Learned how to optimize performance for 2D sprite-heavy games."
-    ],
+    summary: "",
+    descriptions: [],
+    learnings: [],
     projectName: "PixelBorne",
     role: "Solo Developer",
     date: "2024",
     software: "Unreal Engine 5, PaperZD, Blueprint",
-    planningImage: "https://via.placeholder.com/400x300/FF6347/white?text=PixelBorne+Planning",
-    planningText: "Planning focused on wave progression and difficulty curves. I created spreadsheets to balance enemy spawn rates, player progression, and power-up distribution to maintain engaging gameplay throughout."
+    slides: [
+	  "slides/pixelborne/Slide1.png"
+	
+	],
+    slideshowText: ""
   },
 
   "TF2": {
     video: "https://www.youtube.com/embed/4LLHukop_uk",
     title: "TF2 Map 'Prison'",
-    summary: "A symmetrical multi layered map themed around a Prison in a Desert, for the King of the Hill gamemode. I went through several iterations to achieve the final look and desired feel.",
-    requirements: [
-      "Design a balanced King of the Hill map with multiple layers",
-      "Create symmetrical layout for fair competitive gameplay",
-      "Implement clear sight lines and strategic positioning",
-      "Develop cohesive prison-desert aesthetic theme"
-    ],
-    descriptions: [
-      "For this TF2 map project, I took a comprehensive approach to level design by iterating and planning extensively in Photoshop before implementation. I gathered and analyzed group playtesting data through multiple iterations, then used the original Hammer Editor to set gameplay rules and strategically place assets to create a balanced, competitive King of the Hill experience."
-    ],
-    learnings: [
-      "Developed Good Understanding of Hammer and more versatility.",
-      "Learnt a better method to gathering data in playtests through more carefully crafted questions."
-    ],
+    summary: "",
+    requirements: [],
+    descriptions: [],
+    learnings: [],
     projectName: "TF2 Map 'Prison'",
     role: "Level Designer",
     date: "2024",
     software: "Hammer Editor",
     slides: [
-      "slides/tf2/Slide1.png",
-      "slides/tf2/Slide2.png",
-      "slides/tf2/Slide3.png",
-      "slides/tf2/Slide4.png"
-    ],
-    developmentSlides: [
-      "slides/tf2/development/Dev1.png",
-      "slides/tf2/development/Dev2.png",
-      "slides/tf2/development/Dev3.png",
-      "slides/tf2/development/Dev4.png",
-      "slides/tf2/development/Dev5.png"
-    ],
-    planningSlides: [
-      "slides/tf2/planning/Planning1.png",
-      "slides/tf2/planning/Planning2.png"
-    ],
-    planningText: "Planning involved multiple iterations using Photoshop for layout design and extensive playtesting. The GDD slides show the complete map design documentation, the development screenshots capture the iterative building process in Hammer Editor, while the planning slides demonstrate sight line analysis, layout sketches, and strategic positioning studies that ensured balanced gameplay for King of the Hill mode."
+	  "slides/TF2/Slide1.png",
+	  "slides/TF2/Slide2.png",
+	  "slides/TF2/Slide3.png",
+	  "slides/TF2/Slide4.png",
+	  "slides/TF2/Slide5.png",
+	  "slides/TF2/Slide6.png",
+	  "slides/TF2/Slide7.png"
+	
+	],
+    slideshowText: ""
   },
   
   "VampireSurvivorsLike": {
     video: "https://www.youtube.com/embed//w-tHehkkjFc",
     title: "Horde Survival Game",
-    summary: "A top down Horde Survivor, inspired by Vampire Survivors. It is currently a WIP, it features level ups and XP pickups, different projectiles and enemies - with plans to add wave spawning and a loot pool in the future, with Couch Co-op being the most important.",
-    descriptions: [
-      "For this Godot-based horde survival game inspired by Vampire Survivors, I created both purchased and custom pixel art assets using Pixelorama, carefully balanced weapon and enemy statistics to ensure fair and enjoyable gameplay, and developed a comprehensive progression system through scaling XP, health, and damage mechanics that maintains player engagement throughout extended play sessions."
-    ],
-    learnings: [
-      "Learned Godot and GDscript to a good level.",
-      "I can now create my own pixel assets if needed."
-    ],
+    summary: "",
+    descriptions: [],
+    learnings: [],
     projectName: "Horde Survival Game",
     role: "Solo Developer",
     date: "2024",
     software: "Godot, GDScript, Pixelorama",
-    planningImage: "https://via.placeholder.com/400x300/1e90ff/white?text=Horde+Survival+Planning",
-    planningText: "Planning involved studying successful horde survival games and identifying key mechanics. I designed progression systems and enemy scaling to maintain challenge and engagement throughout extended play sessions."
+    slides: [],
+    slideshowText: ""
   },
 
   "2DKnight": {
     video: "https://www.youtube.com/embed/YajV2QFLZoQ",
     title: "2D Knight",
-    summary: "A side-scrolling dungeon crawler using PaperZD. Emphasis on sword combat, character feedback, and dungeon navigation mechanics.",
-    descriptions: [
-      "In this side-scrolling dungeon crawler project, I implemented responsive sword attack combos with precise hit detection, designed interconnected side-scrolling levels featuring backtracking elements and key-based progression, and created smooth animation transitions using PaperZD's notify system and blendspaces to achieve fluid character movement and combat feedback."
-    ],
-    learnings: [
-      "Refined character movement and jump responsiveness.",
-      "Improved blendspace setup and animation sync.",
-      "Developed better audio feedback through SFX and layered sounds."
-    ],
+    summary: "",
+    descriptions: [],
+    learnings: [],
     projectName: "2D Knight",
     role: "Solo Developer",
     date: "2024",
     software: "Unreal Engine 5, PaperZD, Blueprint",
-    planningImage: "https://via.placeholder.com/400x300/28b463/white?text=2D+Knight+Planning",
-    planningText: "Planning focused on creating responsive combat mechanics and intuitive level design. I sketched out combat combos and level layouts to ensure smooth player progression through the dungeon environment."
+    slides: [
+	  "slides/2DKnight/Slide1.png"
+	
+	],
+    slideshowText: ""
   },
 
   "2.5DResourceCollector": {
     video: "https://www.youtube.com/embed/Cz6Z69CuXmQ?si=JStZ7zjOzXMBfJA5",
     title: "2.5D Resource Collector",
-    summary: "A top-down collection game combining 2.5D visuals with resource gathering and survival elements.",
-    descriptions: [
-      "This unique 2.5D project combined the visual appeal of 2D sprites with 3D world mechanics. I built comprehensive day/night cycles with dynamic resource respawning systems, created an intuitive UI for inventory management and collection feedback, and successfully used PaperZD to animate 2D sprites within a 3D world space, creating a distinctive visual style that bridged both dimensions."
-    ],
-    learnings: [
-      "Mastered combining 2D sprites with 3D world presentation.",
-      "Developed dynamic spawner logic and resource management.",
-      "Practiced creating visual clarity with UI and VFX."
-    ],
+    summary: "",
+    descriptions: [],
+    learnings: [],
     projectName: "2.5D Resource Collector",
     role: "Solo Developer",
     date: "2024",
     software: "Unreal Engine 5, PaperZD, Blueprint",
-    planningImage: "https://via.placeholder.com/400x300/2c3e50/white?text=Resource+Collector+Planning",
-    planningText: "Planning involved designing resource distribution and respawn systems. I created charts to balance resource scarcity with player progression, ensuring a satisfying collection and survival experience."
+    slides: [
+	  "slides/2.5DKnight/Slide1.png"
+	
+	],
+    slideshowText: ""
+  },
+  
+  "Lancer Framework": {
+    video: "https://www.youtube.com/embed/PkI-zcqwjUU",
+    title: "Lancer Framework",
+    summary: "",
+    descriptions: [],
+    learnings: [],
+    projectName: "Lancer Framework",
+    role: "Solo Developer",
+    date: "2024",
+    software: "Unreal Engine 5, Magica Voxel, Blueprint",
+    slides: [
+	  "slides/lancer/Slide1.png",
+	  "slides/lancer/Slide2.png",
+	  "slides/lancer/Slide3.png",
+	  "slides/lancer/Slide4.png"
+	
+	],
+    slideshowText: ""
+  },
+  
+  "Robot Repair Shop": {
+    video: "https://www.youtube.com/embed/MgosbriVylU",
+    title: "Robot Repair Shop",
+    summary: "",
+    descriptions: [],
+    learnings: [],
+    projectName: "Robot Repair Shop",
+    role: "Unity Developer",
+    date: "2025",
+    software: "Unity, Miro, Excel",
+    slides: [
+	  "slides/robot/Slide1.png",
+	  "slides/robot/Slide2.png",
+	  "slides/robot/Slide3.png",
+	  "slides/robot/Slide4.png",
+	  "slides/robot/Slide5.png",
+	  "slides/robot/Slide6.png"
+	
+	],
+    slideshowText: ""
+  },
+  
+  "Horror Fishing": {
+    video: "https://www.youtube.com/embed/cEhewTenL6Q",
+    title: "Horror Fishing",
+    summary: "",
+    descriptions: [],
+    learnings: [],
+    projectName: "Horror Fishing",
+    role: "Unity Developer",
+    date: "2025",
+    software: "Unity, Miro, Excel",
+    slides: [
+	  "slides/fishing/Slide1.png",
+	  "slides/fishing/Slide2.png",
+	  "slides/fishing/Slide3.png",
+	  "slides/fishing/Slide4.png"
+	
+	],
+    slideshowText: ""
+  },
+  "C++ AI Combat": {
+    video: "https://www.youtube.com/embed/MoQaRmIeLH4",
+    title: "C++ AI Combat",
+    summary: "",
+    descriptions: [],
+    learnings: [],
+    projectName: "C++ AI Combatk",
+    role: "Solo Developer",
+    date: "2024",
+    software: "Unreal Engine 5, C++, Rider, Visual Studio, Blueprint",
+    slides: [],
+    slideshowText: ""
   },
 
   "LandscapeProject": {
     video: "https://www.youtube.com/embed/mkpuZoS2DYA",
     title: "Landscape Project",
-    summary: "A solo environment project focused on landscape sculpting, foliage painting, and lighting setup in Unreal Engine 5.",
-    descriptions: [
-      "As the environment artist for this landscape project, I utilized UE5's advanced landscape sculpting tools to create realistic terrain formations, strategically painted foliage with careful attention to natural distribution patterns and performance optimization, and designed comprehensive lighting and atmospheric effects that supported both day and night cycles to create an immersive environmental experience."
-    ],
-    learnings: [
-      "Improved level art and lighting composition skills.",
-      "Learned efficient foliage workflows using procedural tools.",
-      "Refined understanding of landscape material blending."
-    ],
+    summary: "",
+    descriptions: [],
+    learnings: [],
     projectName: "Landscape Project",
     role: "Environment Artist",
     date: "2024",
     software: "Unreal Engine 5, Landscape Tools",
-    planningImage: "https://via.placeholder.com/400x300/228B22/white?text=Landscape+Planning",
-    planningText: "Planning involved researching real-world environments and translating them into game-ready landscapes. I studied terrain formation, vegetation distribution, and lighting conditions to create a believable and immersive environment."
+    slides: [
+	"slides/Landscape/Slide1.png",
+	"slides/Landscape/Slide2.png",
+	"slides/Landscape/Slide3.png",
+	"slides/Landscape/Slide4.png",
+	"slides/Landscape/Slide5.png"
+	
+	],
+    slideshowText: ""
   }
 };
 
@@ -835,21 +714,19 @@ function openModal(projectKey) {
   document.getElementById('modalDate').innerText = data.date || "2024";
   document.getElementById('modalSoftware').innerText = data.software || "Various";
 
-  // Populate descriptions (formerly responsibilities)
+  // Populate descriptions
   const descList = document.getElementById('modalDescriptions');
   descList.innerHTML = '';
   if (data.descriptions && data.descriptions.length > 0) {
-    // Create a single paragraph instead of list items
     const p = document.createElement('p');
-    p.innerText = data.descriptions[0]; // Use first description as paragraph
+    p.innerText = data.descriptions[0];
     p.style.lineHeight = '1.6';
     p.style.color = '#d0d0d0';
     p.style.marginBottom = '1rem';
     descList.appendChild(p);
   } else {
-    // Default description if none specified
     const p = document.createElement('p');
-    p.innerText = "Project description to be defined";
+    p.innerText = "";
     p.style.lineHeight = '1.6';
     p.style.color = '#d0d0d0';
     descList.appendChild(p);
@@ -865,42 +742,37 @@ function openModal(projectKey) {
       reqList.appendChild(li);
     });
   } else {
-    // Default requirements if none specified
     const li = document.createElement('li');
-    li.innerText = "Project requirements to be defined";
+    li.innerText = "";
     reqList.appendChild(li);
   }
 
   // Populate learnings
   const learningsList = document.getElementById('modalLearnings');
   learningsList.innerHTML = '';
-  data.learnings.forEach(point => {
+  if (data.learnings && data.learnings.length > 0) {
+    data.learnings.forEach(point => {
+      const li = document.createElement('li');
+      li.innerText = point;
+      learningsList.appendChild(li);
+    });
+  } else {
     const li = document.createElement('li');
-    li.innerText = point;
+    li.innerText = "";
     learningsList.appendChild(li);
-  });
+  }
 
-  // Populate planning section with all three slideshows
-  const gddSlides = data.slides || [data.planningImage || 'https://via.placeholder.com/400x300/4CAF50/white?text=GDD+Slides'];
-  initializeGDDSlideshow(gddSlides);
-  
-  const developmentSlides = data.developmentSlides || [];
-  if (developmentSlides.length > 0) {
-    initializeDevelopmentSlideshow(developmentSlides);
-    document.getElementById('developmentSlideshowSection').style.display = 'flex';
+  // Initialize slideshow
+  const slides = data.slides || [];
+  if (slides.length > 0) {
+    initializeSlideshow(slides);
+    document.querySelector('.modal-slideshow-section').style.display = 'flex';
   } else {
-    document.getElementById('developmentSlideshowSection').style.display = 'none';
+    document.querySelector('.modal-slideshow-section').style.display = 'none';
   }
   
-  const planningSlides = data.planningSlides || [];
-  if (planningSlides.length > 0) {
-    initializePlanningSlideshow(planningSlides);
-    document.getElementById('planningSlideshowSection').style.display = 'flex';
-  } else {
-    document.getElementById('planningSlideshowSection').style.display = 'none';
-  }
-  
-  document.getElementById('modalPlanningText').innerText = data.planningText || 'Planning details for this project.';
+  // Set slideshow description text
+  document.getElementById('slideshowText').innerText = data.slideshowText || '';
 
   // Show modal
   modal.style.display = 'flex';
