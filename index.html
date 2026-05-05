@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -7,842 +7,1757 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-<!-- Updated Modal Structure -->
-<div id="projectModal" class="modal">
-  <div class="modal-content">
-    <span class="modal-close" onclick="closeModal()">&times;</span>
-
-    <!-- Project Title (centered, large, bold) -->
-    <h2 id="modalTitle" class="modal-title"></h2>
-
-    <!-- Video (full width, responsive) -->
-    <div class="modal-video">
-      <iframe id="modalVideo" frameborder="0" allowfullscreen></iframe>
-    </div>
-
-    <!-- Summary (centered, bold, medium width) -->
-    <p id="modalSummary" class="modal-summary"></p>
-    
-    <!-- Separator strip -->
-    <div class="modal-strip"></div>
-
-    <!-- Details Section (Flex 70/30) -->
-    <div class="modal-details">
-      <!-- Left 70% - Project description -->
-      <div class="modal-description">
-        <h3>Project Description</h3>
-        <div id="modalDescriptions"></div>
-
-        <h3>My Role Within The Project</h3>
-        <ul id="modalRequirements"></ul>
-
-        <h3>What I Have Learnt</h3>
-        <ul id="modalLearnings"></ul>
-      </div>
-
-      <!-- Right 30% - Info table -->
-      <div class="modal-info">
-        <h3>Project Details</h3>
-        <div class="info-row">
-          <span class="info-label">Project Name:</span>
-          <span class="info-value" id="modalProjectName"></span>
-        </div>
-        <div class="info-row">
-          <span class="info-label">Role:</span>
-          <span class="info-value" id="modalRole"></span>
-        </div>
-        <div class="info-row">
-          <span class="info-label">Date:</span>
-          <span class="info-value" id="modalDate"></span>
-        </div>
-        <div class="info-row">
-          <span class="info-label">Software:</span>
-          <span class="info-value" id="modalSoftware"></span>
-        </div>
-      </div>
-    </div>
-    
-    <!-- Separator strip -->
-    <div class="modal-strip"></div>
-
-    <!-- Single Slideshow Section -->
-    <div class="modal-slideshow-section">
-      <!-- Centered title -->
-      <h3 class="slideshow-title">Project Documentation</h3>
-      
-      <!-- Single Slideshow -->
-      <div class="slideshow-container" id="slideshowContainer">
-        <img id="slideshowImage" src="" alt="Development shot" class="slideshow-image" onclick="enlargeImage(this.src)">
-      </div>
-      
-      <!-- Navigation bar -->
-      <div class="slideshow-nav" id="slideshowNav">
-        <button class="nav-arrow" onclick="changeSlide(-1)">‹</button>
-        <span class="slide-counter" id="slideCounter">1 / 1</span>
-        <button class="nav-arrow" onclick="changeSlide(1)">›</button>
-      </div>
-      
-      <!-- Description text below slideshow -->
-      <div class="slideshow-description">
-        <p id="slideshowText"></p>
-      </div>
-    </div>
-  </div>
-</div>
+<script>
+  window.__IMG_FALLBACK__ = "assets/placeholder.svg";
+  window.__imgFallback = function imgFallback(imgEl) {
+    const fallback = (imgEl && imgEl.dataset && imgEl.dataset.fallback) || window.__IMG_FALLBACK__;
+    if (!imgEl || (imgEl.src && imgEl.src.endsWith(fallback))) return;
+    imgEl.onerror = null;
+    imgEl.src = fallback;
+  };
+</script>
 
 <!-- Lightbox for enlarged image -->
-<div class="lightbox" id="lightbox">
-  <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
-  <img id="lightboxImage" src="" alt="Enlarged image">
+<div class="lightbox" id="lightbox" aria-hidden="true">
+  <button class="lightbox-close" onclick="closeLightbox()" aria-label="Close enlarged image">&times;</button>
+  <img id="lightboxImage" src="" alt="Enlarged image" data-fallback="assets/placeholder.svg" onerror="__imgFallback(this)">
 </div>
 
-<nav class="nav">
-  <a href="#projects" class="nav-link">Projects</a>
-  <a href="#about" class="nav-link">About Me</a>
-  <a href="#contact" class="nav-link">Contact Me</a>
+<!-- Slider viewport: holds Home, About, and one slide per project -->
+<main class="slider-viewport" id="sliderViewport" aria-live="polite">
+  <div class="slider-track" id="sliderTrack">
+
+    <!-- HOME SLIDE -->
+    <section class="slide slide--home" data-slide-id="home" aria-label="Home">
+      <div class="home-hero">
+        <h1 class="home-hero__name">Jacques Gwenin</h1>
+        <p class="home-hero__tagline">Game Designer &amp; Unreal Developer</p>
+        <p class="home-hero__pitch">Player-first combat designer focused on solving real gameplay problems through iteration and feedback.</p>
+
+        <div class="quick-links">
+          <button type="button" class="quick-link quick-link--primary" data-goto="firstProject">
+            View Projects
+          </button>
+          <button type="button" class="quick-link" data-goto="about">
+            About Me
+          </button>
+          <a class="quick-link quick-link--icon" href="mailto:gweninj@gmail.com" aria-label="Email">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false">
+              <path d="M2 4a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V4zM4 5.5v13h16v-13H4zm8 5.75L6.75 6.5h10.5L12 11.25z"/>
+            </svg>
+            <span>Email</span>
+          </a>
+          <a class="quick-link quick-link--icon" href="https://linkedin.com/in/jacques-gwenin-695b3a270" target="_blank" rel="noopener" aria-label="LinkedIn">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false">
+              <path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.22 8h4.53v12H.22V8zm6.5 0h4.34v1.71h.06c.6-1.14 2.06-2.34 4.24-2.34 4.53 0 5.37 2.98 5.37 6.85v7.78h-4.53v-6.9c0-1.65-.03-3.78-2.3-3.78-2.3 0-2.65 1.8-2.65 3.67v7h-4.53V8z"/>
+            </svg>
+            <span>LinkedIn</span>
+          </a>
+        </div>
+
+        <div class="home-filters" aria-label="Project filters">
+          <button type="button" class="filter-chip is-active" data-filter="all">All</button>
+          <button type="button" class="filter-chip" data-filter="combat">Combat Design</button>
+          <button type="button" class="filter-chip" data-filter="level">Level Design</button>
+          <button type="button" class="filter-chip" data-filter="solo">Solo</button>
+          <button type="button" class="filter-chip" data-filter="collab">Collaborative</button>
+          <button type="button" class="filter-chip" data-filter="personal">Personal</button>
+          <button type="button" class="filter-chip" data-filter="university">University</button>
+          <button type="button" class="filter-chip" data-filter="professional">Professional</button>
+          <button type="button" class="filter-chip" data-filter="systems">System Design</button>
+          <button type="button" class="filter-chip" data-filter="unreal">Unreal Engine</button>
+          <button type="button" class="filter-chip" data-filter="godot">Godot</button>
+          <button type="button" class="filter-chip" data-filter="unity">Unity</button>
+          <button type="button" class="filter-chip" data-filter="hammer">Hammer</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT SLIDE -->
+    <section class="slide slide--about" data-slide-id="about" aria-label="About Me">
+      <div class="project-page project-page--about">
+        <header class="project-page__header">
+          <h2 class="project-page__title">About Me</h2>
+          <p class="project-page__summary">Game Designer &amp; Unreal Developer</p>
+        </header>
+
+        <div class="project-page__row">
+          <div class="about-col about-col--photo">
+            <img
+              src="images/Me.png"
+              alt="Jacques Gwenin"
+              class="about-photo"
+              data-fallback="assets/placeholder.svg"
+              onerror="__imgFallback(this)"
+            />
+          </div>
+
+          <div class="about-col about-col--main">
+            <div class="project-page__description about-bio">
+              <h3>About</h3>
+              <p>I'm Jacques Gwenin, a Games Designer and Developer specialising in Unreal Engine 5 (Blueprint &amp; C++), with additional experience in Unity (C#) and Godot (GDScript). I recently graduated from Staffordshire University, an Authorised Unreal Training Centre, with a First-Class Degree in Games Design.</p>
+              <p>My skillset spans technical design, modular combat systems, AI behaviours, 2D/2.5D development (PaperZD), level and environmental design, and Unreal landscaping. I thrive in both creative and technical roles - from rapid prototyping and system design through to motion capture acting, Photoshop work, and delivering polished player experiences.</p>
+              <p>I'm also a strong team player, with proven leadership and collaboration experience across both group and solo projects. Whether working on AI-driven combat encounters or building immersive game worlds, I approach challenges with a mix of creativity, problem-solving, and a hardworking, hands-on attitude.</p>
+              <p>Now, I'm excited to take the next step into my first industry role, where I can bring my energy, adaptability, and dedication to delivering high-quality gameplay experiences.</p>
+            </div>
+
+            <div class="project-page__description about-skills">
+              <h3>Skills</h3>
+              <ul class="info-list info-list--cols">
+                <li>Unreal Engine 5 (Blueprint &amp; C++)</li>
+                <li>Unity (C#) and Godot (GDScript)</li>
+                <li>Modular combat systems, AI &amp; behaviour design, rapid prototyping</li>
+                <li>2D/2.5D development (PaperZD)</li>
+                <li>Level &amp; environmental design, Unreal landscaping</li>
+                <li>Team leadership &amp; collaboration</li>
+                <li>Motion capture acting</li>
+                <li>Photoshop</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- PROJECT SLIDES are rendered into here by JS -->
+
+  </div>
+</main>
+
+<!-- Clickable page navigation arrows --> 
+<div class="page-arrows" aria-label="Slide navigation">
+  <button type="button" class="page-arrow page-arrow--prev" id="navPrev" aria-label="Previous page">
+    <span aria-hidden="true">&#8249;</span>
+  </button>
+  <button type="button" class="page-arrow page-arrow--next" id="navNext" aria-label="Next page">
+    <span aria-hidden="true">&#8250;</span>
+  </button>
+</div>
+
+<!-- Fixed bottom hotbar -->
+<nav class="hotbar" id="hotbar" aria-label="Project navigator">
+  <button type="button" class="hotbar__home" data-goto="home" aria-label="Home">
+    <svg class="hotbar__home-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false">
+      <path fill="currentColor" d="M12 3.2 2.8 11.2a1 1 0 0 0 1.3 1.5l.9-.8V20a2 2 0 0 0 2 2h4.5a.75.75 0 0 0 .75-.75V16a.75.75 0 0 1 .75-.75h2.6a.75.75 0 0 1 .75.75v5.25c0 .41.34.75.75.75H17a2 2 0 0 0 2-2v-8.1l.9.8a1 1 0 1 0 1.3-1.5L12 3.2z"/>
+    </svg>
+  </button>
+  <div class="hotbar__scroll" id="hotbarScroll" role="tablist">
+    <!-- Hotbar tiles are rendered here by JS -->
+  </div>
 </nav>
 
-<!-- Main content wrapper -->
-<div class="main-content">
-
-<section id="hero" class="hero">
-  <h1>Jacques Gwenin</h1>
-  <p>Game Designer & Unreal Developer</p>
-</section>
-
-<div class="strip"></div>
- 
-<section id="projects" class="projects">
-  <h2>My Projects</h2>
-  <div class="project-grid">
-
-    <div class="project">
-      <img src="images/polyknight.png" alt="PolyKnight" onclick="openModal('PolyKnight')" />
-      <h3>PolyKnight</h3>
-      <p class="outlined-text">Soulslike game with modular combat systems</p>
-      <div class="tags">
-        
-        <span class="tag solo">Solo</span>
-        <span class="tag Blueprint">Blueprint</span>
-      </div>
-    </div>
-   
-    <div class="project">
-      <img src="images/Tempus_Rattus.png" alt="Tempus Rattus" onclick="openModal('TempusRattus')" />
-      <h3>Tempus Rattus</h3>
-      <p class="outlined-text">Collaborative plague spreading game</p>
-      <div class="tags">
-        
-        <span class="tag group">Group</span>
-        <span class="tag LeadDesigner">Lead Designer</span>
-        <span class="tag cpp">C++</span>
-        <span class="tag Blueprint">Blueprint</span>
-      </div>
-    </div>
-
-    <div class="project">
-      <img src="images/Area_26.png" alt="Area 26" onclick="openModal('Area26')" />
-      <h3> Area 26</h3>
-      <p class="outlined-text"> Horror-themed cleaner sim made in UE5</p>
-      <div class="tags">
-        
-        <span class="tag group">Group</span>
-        <span class="tag Blueprint">Blueprint</span>
-      </div>
-    </div>
-    
-    <div class="project">
-      <img src="images/PixelBorne.png" alt="PixelBorne" onclick="openModal('PixelBorne')" />
-      <h3>PixelBorne</h3>
-      <p class="outlined-text">Wave Based Survival game</p>
-      <div class="tags">
-        
-        <span class="tag solo">Solo</span>
-        <span class="tag paperZD">paperZD</span>
-        <span class="tag Blueprint">Blueprint</span>
-      </div>
-    </div>
-
-    <div class="project">
-      <img src="images/C++.png" alt="C++ Dungeon Crawler" onclick="openModal('C++DungeonCrawler')" />
-      <h3>C++ Dungeon Crawler</h3>
-      <p class="outlined-text">Top Down Dungeon Crawler</p>
-      <div class="tags">
-        
-        <span class="tag solo">Solo</span>
-        <span class="tag paperZD">paperZD</span>
-        <span class="tag cpp">C++</span>
-        <span class="tag Blueprint">Blueprint</span>
-      </div>
-    </div>
-
-    <div class="project">
-      <img src="images/TF2.png" alt="TF2" onclick="openModal('TF2')" />
-      <h3>TF2 Map</h3>
-      <p class="outlined-text">Custom multi-layered KOTH map</p>
-      <div class="tags">
-        <span class="tag hammer">Hammer Editor</span>
-        <span class="tag solo">Solo</span>
-        <span class="tag Environment">Environment</span>
-      </div>
-    </div>
-
-    <div class="project">
-      <img src="images/Landscape_Project.png" alt="Landscape Project" onclick="openModal('LandscapeProject')" />
-      <h3>Landscape Project</h3>
-      <p class="outlined-text">Environment in UE5</p>
-      <div class="tags">
-        
-        <span class="tag solo">Solo</span>
-        <span class="tag Environment">Environment</span>
-      </div>
-    </div>
-    
-    <div class="project">
-      <img src="images/Vampire_Survivors_Like.png" alt="Vamp Project" onclick="openModal('VampireSurvivorsLike')" />
-      <h3>Horde Survival</h3>
-      <p class="outlined-text">Roguelike Horde Survival</p>
-      <div class="tags">
-        
-        <span class="tag solo">Solo</span>
-        <span class="tag gdscript">GDScript</span>
-      </div>
-    </div>
-
-<div class="project">
-      <img src="images/Robot.png" alt="Robot Project" onclick="openModal('Robot Repair Shop')" />
-      <h3>Robot Repair Shop</h3>
-      <p class="outlined-text">Robot Repair Narrative</p>
-      <div class="tags">
-        
-        <span class="tag group">Group</span>
-        <span class="tag unity">C#</span>
-      </div>
-    </div>
-	
-	<div class="project">
-      <img src="images/Paragon.png" alt="Paragon Project" onclick="openModal('C++ AI Combat')" />
-      <h3>C++ AI Combat</h3>
-      <p class="outlined-text">Attacking, Investigating and Idle States</p>
-      <div class="tags">
-        
-        <span class="tag solo">Solo</span>
-        <span class="tag cpp">C++</span>
-      </div>
-    </div>
-	
-	<div class="project">
-      <img src="images/Fishing.png" alt="Fishing Project" onclick="openModal('Horror Fishing')" />
-      <h3>Fishing Horror</h3>
-      <p class="outlined-text">Fishing Horror in the 1900s</p>
-      <div class="tags">
-        
-        <span class="tag group">Group</span>
-        <span class="tag unity">C#</span>
-      </div>
-    </div>
-	
-	<div class="project">
-      <img src="images/Lancer.png" alt="Lancer Project" onclick="openModal('Lancer Framework')" />
-      <h3>Lancer Framework</h3>
-      <p class="outlined-text">SCI-FI FPS adventure</p>
-      <div class="tags">
-        
-        <span class="tag solo">Solo</span>
-        <span class="tag Blueprint">Blueprint</span>
-      </div>
-    </div>
-	
-    <div class="project">
-      <img src="images/2D_Knight.png" alt="2D Knight" onclick="openModal('2DKnight')" />
-      <h3>2D Knight</h3>
-      <p class="outlined-text">Sidescrolling Dungeon Crawler</p>
-      <div class="tags">
-        
-        <span class="tag solo">Solo</span>
-        <span class="tag paperZD">paperZD</span>
-        <span class="tag Blueprint">Blueprint</span>
-      </div>
-    </div>
-    
-    <div class="project">
-      <img src="images/2.5D_Resource_Collector.png" alt="2.5D Resource Collector" onclick="openModal('2.5DResourceCollector')" />
-      <h3>2.5D Resource Collector</h3>
-      <p class="outlined-text">Top Down Resource Collector</p>
-      <div class="tags">
-        <span class="tag solo">Solo</span>
-        <span class="tag paperZD">paperZD</span>
-        <span class="tag Blueprint">Blueprint</span>
-      </div>
-    </div>
-
-  </div>
-</section>
-	
-<div class="strip"></div>
-
-<section id="about" class="about">
-  <div class="about-split">
-    <div class="about-left">
-      <img src="images/Me.png" alt="Jacques Gwenin" class="about-image" />
-    </div>
-	
-    <div class="about-right-top">
-  <h2>About Me</h2>
-  <p>I'm Jacques Gwenin, a Games Designer and Developer specialising in Unreal Engine 5 (Blueprint & C++), with additional experience in Unity (C#) and Godot (GDScript). I recently graduated from Staffordshire University, an Authorised Unreal Training Centre, with a First-Class Degree in Games Design.</p>
-  
-  <p>My skillset spans technical design, modular combat systems, AI behaviours, 2D/2.5D development (PaperZD), level and environmental design, and Unreal landscaping. I thrive in both creative and technical roles - from rapid prototyping and system design through to motion capture acting, Photoshop work, and delivering polished player experiences.</p>
-  
-  <p>I'm also a strong team player, with proven leadership and collaboration experience across both group and solo projects. Whether working on AI-driven combat encounters or building immersive game worlds, I approach challenges with a mix of creativity, problem-solving, and a hardworking, hands-on attitude, often influenced by my love for the outdoors.</p>
-  
-  <p>Now, I'm excited to take the next step into my first industry role, where I can bring my energy, adaptability, and dedication to delivering high-quality gameplay experiences. I'm approachable, professional, and always eager to learn - ready to contribute to a team and grow as a designer in the games industry!</p>
-
- <div class="strip"></div>
-      
-        <h2>Skills</h2>
-        <ul>
-          <li>Unreal Engine 5 (Blueprint & C++)</li>
-		  <li>Unity and C#</li>
-		  <li>Godot and GDScript</li>
-		  <li>Java Script</li>
-		  <li>Technical Design</li>
-          <li>Modular Combat Systems</li>
-          <li>PaperZD & 2D Development</li>
-		  <li>AI and AI Behaviour</li>
-          <li>Level & Environmental Design</li>
-          <li>Team Leadership & Collaboration</li>
-          <li>Unreal Landscaping Experience</li>
-          <li>Motion Capture Acting Experience</li>
-          <li>Rapid Prototyping</li>
-		  <li>Photoshop</li>
-        </ul>
-      </div>
-    </div>
-  </div>	
-</section>
-
-<div class="strip"></div>
- 
-<section id="contact" class="contact">
-  <h2>Contact Me</h2>
-  <div class="contact-buttons">
-    <a href="mailto:gweninj@gmail.com" class="contact-btn" aria-label="Email">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="white" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false">
-        <path d="M2 4a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V4zM4 5.5v13h16v-13H4zm8 5.75L6.75 6.5h10.5L12 11.25z"/>
-      </svg>
-    </a>
-    <a href="https://linkedin.com/in/jacques-gwenin-695b3a270" target="_blank" rel="noopener" class="contact-btn" aria-label="LinkedIn">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="white" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false">
-        <path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.22 8h4.53v12H.22V8zm6.5 0h4.34v1.71h.06c.6-1.14 2.06-2.34 4.24-2.34 4.53 0 5.37 2.98 5.37 6.85v7.78h-4.53v-6.9c0-1.65-.03-3.78-2.3-3.78-2.3 0-2.65 1.8-2.65 3.67v7h-4.53V8z"/>
-      </svg>
-    </a>
-  </div>
-</section>
-
-</div> <!-- End of .main-content -->
-
-<footer>
-  <p>© 2025 Jacques Gwenin</p>
-</footer>
-  
 <script>
-// Simplified slideshow variables
-let currentSlide = 1;
-let totalSlides = 1;
-let currentSlides = [];
-
-// Single slideshow functions
-function initializeSlideshow(slides) {
-  currentSlides = slides;
-  totalSlides = slides.length;
-  currentSlide = 1;
-  updateSlideDisplay();
-}
-
-function changeSlide(direction) {
-  currentSlide += direction;
-  
-  if (currentSlide > totalSlides) {
-    currentSlide = 1;
-  } else if (currentSlide < 1) {
-    currentSlide = totalSlides;
-  }
-  
-  updateSlideDisplay();
-}
-
-function updateSlideDisplay() {
-  if (currentSlides.length > 0) {
-    document.getElementById('slideshowImage').src = currentSlides[currentSlide - 1];
-    document.getElementById('slideCounter').textContent = `${currentSlide} / ${totalSlides}`;
-    
-    // Hide navigation if only one slide
-    if (totalSlides <= 1) {
-      document.getElementById('slideshowNav').style.display = 'none';
-    } else {
-      document.getElementById('slideshowNav').style.display = 'flex';
-    }
-  }
-}
-
 const projectData = {
+  "Kristala": {
+      video: "https://www.youtube.com/embed/R5Xe8aEfAaM",
+      thumb: "images/Kristala.png",
+      title: "Kristala (Industry Role)",
+      summary: "Third-person Dark Fantasy ARPG/Souls-like focused on improving combat feel, AI behaviour, UX, and boss design through player feedback, iteration, and system-level changes within Unreal Engine.",
+      descriptions: [
+        "Third-person Dark Fantasy ARPG/Souls-like where I focused on improving combat feel, AI behaviour, UX, and boss design through player feedback, iteration, and system-level changes within Unreal Engine."
+      ],
+      requirements: [
+        "Improved combat feel through iteration on attack timing, responsiveness, and player feedback",
+        "Redesigned parry counter system to increase reliability and player satisfaction",
+        "Balanced combat systems including stamina (balance), poise, and attack ranges",
+        "Overhauled boss encounters, improving behaviour flow, attack variety, and phase design",
+        "Developed AI behaviour improvements, including attack selection logic and pacing adjustments",
+        "Implemented modular VFX framework for attack telegraphing and readability",
+        "Collaborated closely with designers and animators to refine combat systems"
+      ],
+      learnings: [],
+      projectName: "Kristala",
+      role: "Game Designer (Industry)",
+      date: "2025–Present",
+      software: "Unreal Engine",
+      tags: ["industry"],
+      keySkills: [
+        "Combat Design",
+        "AI Behaviour",
+        "Systems Design",
+        "Boss Design",
+        "Gameplay Balancing",
+        "Unreal Engine",
+        "Player Feedback Integration"
+      ],
+      caseStudies: [
+        {
+          id: "BossOverhauling",
+          title: "Boss Overhauling (Lophi)",
+          problem: `When I joined the project, the first boss “Lophi” struggled with combat flow, variety, and readability. I was approached by the team to add a phase change and rework him - and honestly, I was excited. Boss fights have always been the moments that stick with me most as a player, so getting the chance to shape one myself was a big deal.
+
+At the time, Lophi often repeated behaviours and didn’t properly engage across different ranges. His attacks lacked threat, phase design was minimal, and there wasn’t much room for players to learn or master the fight. He especially didn’t feel like he lived up to his identity as a water mage.
+
+On top of that, I had to work within constraints:
+- Limited animations and resources
+- An unfamiliar ability system
+- No existing phase transition
+- Very little telegraphing for abilities`,
+          whatIDid: `I started by asking myself:
+“How can I expand what’s already here, and make this boss feel worthy of a second phase?”
+
+/*gap
+
+## Phase Design & Telegraphing
+First, I worked closely with our AI engineer to integrate a proper phase change system, triggering at 50% health.
+
+I wanted the transition to feel impactful - so I designed a moment where Lophi roars, the ground trembles (for that gameplay juice!), and water pillars erupt in coordinated patterns around the player.
+
+To support this, I built:
+- A modular pillar spawning function
+- A modular ability telegraphing system (using VFX + timing cues)
+
+Now, players can clearly see where pillars will emerge - giving them time to react, reposition, and eventually master the mechanic.
+
+## Expanding His Identity (Water Mage)
+I took inspiration from Dark Souls - specifically Gravelord Nito’s underground attack.
+
+That idea became:
+
+“The Tracking Pillar Attack”
+
+Water bubbles form beneath the player, then - after a delay - a pillar bursts upward.
+
+This solved multiple issues:
+- Clear telegraphing
+- A learnable mechanic
+- Reinforced Lophi’s identity
+
+## Improving Ranged Pressure
+Originally, Lophi’s ranged attacks were easy to avoid - everything boiled down to a simple side dodge.
+
+So I:
+- Increased projectile size → harder to evade
+- Expanded wave width → required better timing (sometimes double dodges)
+
+Then in Phase 2:
+- Projectiles fire twice in succession
+- Waves expand into three spaced attacks
+
+Now players must read and react, not panic dodge.
+
+## Reworking Melee (With Limited Animations)
+With limited animation budget, I reused and remixed what we had:
+- Cut and stitched animations into combos
+- Adjusted speeds and blending
+
+Example:
+“Heavy Stab” became → Light → Fast Light → Heavy Stab
+
+This gave Lophi:
+- Real combo pressure
+- More variation
+- Better responsiveness
+
+## Ability Rework (Short Burst)
+Lophi had a close-range attack that felt weak and unclear.
+
+So I:
+- Switched it to a cone collision covering about 60 degrees
+- Improved VFX clarity with the VFX team
+- Made it a red (unblockable) attack for Phase 2, so players are exposed to our mechanics early, leaving room for expansion and utility later on
+
+Now it:
+- Hits harder and more easily
+- Reads clearly
+- Raises the stakes in later phases
+
+## Mid-Range Pressure & Movement
+To fill the gap between close and long range:
+- Repurposed spin and jump attacks for mid-range
+- Added a Root Motion boost system (inspired by Elden Ring)
+
+This helped attacks:
+- Track the player better
+- Feel more threatening
+- Avoid “whiffing” issues
+- Give coverage for all ranges
+
+## Fixing Combat Flow (Key Change)
+The biggest issue was flow - Lophi wasn’t using his full kit. So I redesigned his behaviour loop:
+- Track number of melee actions
+- Force disengage after a threshold
+- Teleport to long range using EQS
+- Perform ranged attack
+- Re-engage player
+
+This created a clear loop:
+Pressure → Disengage → Ranged → Re-engage
+
+## Phase 2 Twist (Player Learning Payoff)
+In Phase 1:
+- Lophi disengages safely
+
+In Phase 2:
+- He ambush teleports back in - flipping expectations
+
+But, if the player deflects the follow-up attack:
+- Lophi is staggered
+- Free damage window
+
+This reinforces:
+- Learning
+- Confidence
+- Mastery of our mechanics`,
+          result: `Lophi now delivers a structured, engaging boss fight with clear progression between phases.
+
+- Players learn patterns, then adapt when those patterns evolve
+- Combat encourages use of core mechanics like deflecting
+- The fight feels varied, readable, and aligned with his identity
+
+Despite working within tight constraints, the boss now feels intentional, reactive, and rewarding to master.
+
+Feedback has been really positive - players often find the fight challenging at first, but quickly improve once they understand the flow. That learning curve was exactly what I was aiming for.
+
+And honestly - it made me enjoy designing bosses even more!`,
+          beforeMedia: ["https://www.youtube.com/watch?v=eOCyjKmlYUk"],
+          afterMedia: ["https://www.youtube.com/watch?v=-pFX5dcKOjg"],
+          galleryMedia: [
+            "slides/development/kristala/BossOverhauling/Slide1.png",
+            "slides/development/kristala/BossOverhauling/Slide2.png",
+            "slides/development/kristala/BossOverhauling/Slide3.png",
+            "slides/development/kristala/BossOverhauling/Slide4.png"
+          ]
+        },
+        {
+          id: "CombatTuning",
+          title: "Combat Tuning",
+          problem: `As development progressed, it became clear that the overall combat feel was inconsistent.
+
+Attacks were travelling too far, encounters felt overly floaty, and systems like stamina (“balance”) and poise weren’t being fully utilised. This led to situations where combat lacked intention - players could spam actions without meaningful consequence, and enemies didn’t always respond in a consistent or readable way.
+
+From both playtesting and observation, it felt like the game had strong foundations, but needed tightening and clarity to really shine.`,
+          whatIDid: `I approached this by focusing on grounding the combat - making every action feel deliberate, readable, and consistent.
+
+/*gap
+
+## Attack Distance Tuning
+One of the biggest issues was attack range. Some combos were reaching ~10 metres, which made combat feel loose and unrealistic.
+
+So I:
+- Measured distances using Unreal units and in-engine tools
+- Standardised attack ranges across the project
+- Reduced most attacks to ~5–6 metres, depending on type
+
+This immediately made combat feel:
+- Tighter
+- More controlled
+- Easier to read
+
+## Stamina (“Balance”) System Expansion
+The stamina system existed, but wasn’t doing enough. I expanded its role so it became a core decision-making system:
+- Heavy attacks consume balance
+- Dodging consumes balance
+- Sprinting consumes balance (only in combat, to preserve exploration)
+- Light attacks remain free
+- Spellcasting uses mana (kept distinct)
+
+This created meaningful trade-offs:
+Players must manage aggression vs survival - too much greed, and they risk getting "unbalanced" leaving them exposed to a heavy punish. The next step, was communicating this through UX. I took inspiration from "Khazan" for this. When the stamina is exhausted, and the player stance is broken, the bar flashes, and fills up, signalling the player has entered the vulnerability state, and how long they have left before they can get back into the action again.
+
+## Poise & Stagger Framework
+Enemy reactions were inconsistent, so I helped define a clearer structure, categorising enemies into tiers:
+
+Minions → always stagger
+Standard enemies → limited stagger chains
+Elite -> Harder to stagger
+Champion -> Very hard to stagger, but rewarding
+
+Properly Utilised the step-up system:
+- Poise thresholds step up when reached
+- Poise decays over time
+- Poise buildup is not added during staggers
+
+This prevented:
+- Infinite stun-locking
+- Unclear enemy behaviour
+
+And instead created:
+- Predictable, learnable combat responses
+
+## Player & Enemy Feedback
+I pushed for clearer combat feedback systems:
+
+- Designed UX for when the player becomes unbalanced
+- Proposed visual feedback on stamina to signal vulnerability
+- Explored adding SFX/feedback for posture breaks
+
+The goal was simple:
+- Players should feel when something important happens. They should be given enough time to react and act, but not too much where the action feels trivial.
+
+## Hit Detection Optimisation
+There was also a technical issue affecting both performance and reliability.
+
+Previously:
+- Multiple hit points per weapon were used
+- Hit detection was tied too closely to frame rate
+- This could cause missed hits or inconsistent results
+
+I reworked this by:
+- Reducing unnecessary trace points
+- Introducing a fallback system that connects trace paths
+- Ensuring hits remain consistent even under performance drops
+
+Leading to:
+- More reliable hit detection
+- Better performance
+- Fairer gameplay`,
+          result: `Combat now feels significantly more grounded, readable, and consistent.
+
+- Attack ranges are predictable and intentional
+- Players must manage stamina strategically
+- Enemy reactions follow clear rules
+- Hit detection is both reliable and performant
+
+These changes helped shift combat from:
+
+“functional but loose” to "tight, deliberate, and skill-driven"
+
+Most importantly, it reinforced the core design goal:
+Combat should reward awareness, timing, and decision-making - not just input speed. Balancing will always be one of the trickiest parts of Combat Design, it's been really beneficial to me to remind myself of WHY we make these changes, HOW will this positively contribute to the player experience.`,
+          beforeMedia: [
+            "slides/development/kristala/CombatTuning/AttackDistanceBefore.mp4",
+            "slides/development/kristala/CombatTuning/KotaRavagerBefore.mp4",
+            "slides/development/kristala/CombatTuning/UnbalancedBefore.mp4"
+          ],
+          afterMedia: [
+            "slides/development/kristala/CombatTuning/AttackDistanceAfter.mp4",
+            "slides/development/kristala/CombatTuning/KotaRavagerAfter.mp4",
+            "slides/development/kristala/CombatTuning/UnbalancedAfter.mp4"
+          ]
+        },
+        {
+          id: "ParryCounterImprovement",
+          title: "Parry / Counter Improvement",
+          problem: `During playtesting, we received consistent feedback that parry counters felt unreliable and difficult to land.
+
+Players often felt like they should have connected, but missed due to the attack’s long startup and awkward structure. This made the mechanic frustrating - especially since parrying is a core part of the combat system.
+
+Looking into it, the issue became clear:
+- The parry counter was a two-part attack, which made it slower than expected
+- Limited rotation made it easy to miss moving targets
+- The reward didn’t feel strong enough to justify the risk
+
+For a mechanic that should feel precise and rewarding, it instead felt inconsistent, and unintuitive.`,
+          whatIDid: `I approached this with a simple goal:
+Make parry counters feel reliable, responsive, and worth using.
+
+/*gap
+
+## Simplified the Attack
+The biggest issue was the structure.
+
+So I:
+- Removed the second phase of the attack by collaborating with the animation team
+- Reduced overall startup time
+
+This made the counter feel:
+- Faster
+- Cleaner
+- More in line with player expectation
+
+## Improved Targeting & Reliability
+Players were missing even when they reacted correctly.
+
+To fix this:
+- Increased the rotation window during the attack
+- Allowed better tracking of targets during execution
+
+Now, if the player times it correctly, it’s far more likely to connect.
+
+## Increased Reward
+Even when it landed, the payoff wasn’t strong enough.
+
+So I increased:
+- Damage
+- Poise damage
+- Stamina (“balance”) damage
+
+This reinforced the idea that:
+Parry = high-risk, high-reward
+
+## Worked with Animation & Feel
+I collaborated with the animator to ensure:
+- The attack visually matched its new speed
+- Transitions felt smooth and intentional
+
+Because responsiveness isn’t just numbers - it’s how it feels.`,
+          result: `Parry counters are now significantly more reliable and satisfying to use.
+
+- Players can trust the mechanic when they time it correctly
+- The faster execution improves responsiveness
+- Increased reward makes the risk worthwhile
+
+Feedback improved noticeably, with players finding the mechanic more consistent, more rewarding, and more fun to engage with.
+
+If players are telling you something feels off - listen, investigate, and fix the root cause. Sometimes the best improvements aren’t adding new features, but refining what’s already there until it feels right.`,
+          beforeMedia: [
+            "slides/development/kristala/ParryCounterImprovement/ParryCounterBefore.mp4"
+          ],
+          afterMedia: [
+            "slides/development/kristala/ParryCounterImprovement/ParryCounterAfter.mp4"
+          ]
+        },
+        
+      ],
+    slides: [
+      "slides/planning/kristala/BossOverhauling/Slide1.PNG"
+    ],
+  },
   "PolyKnight": {
-    video: "https://www.youtube.com/embed/mKESpgLJ9u8",
-    title: "PolyKnight",
-    summary: "A prototype Souls-like combat framework featuring stamina-based combat, AI-driven enemies, and a variety of attack and defensive mechanics.",
-    requirements: [
-  "Designed and implemented all combat mechanics including combos, stamina, blocking, dodging, and critical attacks.",
-  "Built AI behaviours with multiple states (Attacking, Blocking, Healing, Patrolling, Idle).",
-  "Developed custom components for player inputs, combos, health, and stamina systems.",
-  "Designed and tuned a boss encounter, balancing attack timings, rotations, and guard break mechanics.",
-  "Conducted research into Souls-like design, studying FromSoftware and indie examples to inform camera behaviour, enemy design, and combat flow."
-],
-    descriptions: ["PolyKnight is a fully modular combat system project inspired by FromSoftware titles and indie Souls-likes. Built in Unreal Engine 5 using a mix of Blueprint and C++, the project features advanced combat mechanics including stamina management, combo attacks, target locking, guard breaking, dodging, blocking, perfect blocking, light/heavy/sprint/jab/special attacks, and a boss encounter. Although held back by placeholder animations, PolyKnight demonstrates a flexible, scalable framework that could be expanded into a full narrative-driven action RPG with environmental storytelling and complex boss battles."],
-    learnings: [
-  "Gained deep understanding of combat design principles, particularly telegraphing, readability, and player feedback.",
-  "Discovered the challenges of root motion and animation systems, and developed a workaround using animation notifies for responsive combat.",
-  "Improved balancing and iteration skills through playtesting and feedback, adjusting damage values and guard break frequency.", 
-  "Strengthened ability to create modular, reusable systems that can scale into larger projects."
-],
-    projectName: "PolyKnight",
-    role: "Solo Developer",
-    date: "2024",
-    software: "Unreal Engine 5, Blueprint",
+      video: "https://www.youtube.com/embed/mKESpgLJ9u8",
+      thumb: "images/polyknight.png",
+      title: "PolyKnight",
+      summary: "A prototype Souls-like combat framework featuring stamina-based combat, AI-driven enemies, and a variety of attack and defensive mechanics.",
+      requirements: [
+        "Designed and implemented core combat systems (combos, stamina, blocking, dodging).",
+        "Built AI behaviours (attack, defend, patrol, heal).",
+        "Developed modular gameplay components.",
+        "Designed and balanced boss encounters."
+      ],
+      descriptions: ["Modular combat system inspired by Souls-like design, built in Unreal Engine 5. Focused on responsive mechanics, scalability, and combat feel, including stamina systems, combos, and boss encounters."],
+      learnings: [],
+      projectName: "PolyKnight",
+      role: "Solo Developer",
+      date: "2024",
+      software: "Unreal Engine 5, Blueprint",
+      tags: ["solo", "Blueprint"],
+      keySkills: ["Combat Design", "AI Behaviour", "Systems Design", "Balancing", "Unreal Engine 5", "Blueprint / C++"],
     slides: [
-      "slides/polyknight/Slide1.png",
-	  "slides/polyknight/Slide2.png",
-	  "slides/polyknight/Slide3.png",
-	  "slides/polyknight/Slide4.png",
-	  "slides/polyknight/Slide5.png",
-	  "slides/polyknight/Slide6.png",
-	  "slides/polyknight/Slide7.png",
-	  "slides/polyknight/Slide8.png",
-	  "slides/polyknight/Slide9.png",
-	  "slides/polyknight/Slide10.png"
-	  
+      "slides/planning/polyknight/Slide1.PNG",
+      "slides/planning/polyknight/Slide2.PNG",
+      "slides/planning/polyknight/Slide3.PNG",
+      "slides/planning/polyknight/Slide4.PNG",
+      "slides/planning/polyknight/Slide5.PNG",
+      "slides/planning/polyknight/Slide6.PNG",
+      "slides/planning/polyknight/Slide7.PNG",
+      "slides/planning/polyknight/Slide8.PNG",
+      "slides/planning/polyknight/Slide9.PNG",
+      "slides/planning/polyknight/Slide10.PNG",
+      "slides/planning/polyknight/Slide11.PNG",
+      "slides/planning/polyknight/GDD/Slide11.PNG",
+      "slides/planning/polyknight/GDD/Slide12.PNG",
+      "slides/planning/polyknight/GDD/Slide13.PNG",
+      "slides/planning/polyknight/GDD/Slide14.PNG",
+      "slides/planning/polyknight/GDD/Slide15.PNG",
+      "slides/planning/polyknight/GDD/Slide16.PNG",
+      "slides/planning/polyknight/GDD/Slide17.PNG",
+      "slides/planning/polyknight/GDD/Slide18.PNG",
+      "slides/planning/polyknight/GDD/Slide19.PNG",
+      "slides/planning/polyknight/GDD/Slide20.PNG",
+      "slides/planning/polyknight/GDD/Slide21.PNG",
+      "slides/planning/polyknight/GDD/Slide22.PNG",
+      "slides/planning/polyknight/GDD/Slide23.PNG",
+      "slides/planning/polyknight/GDD/Slide24.PNG",
+      "slides/planning/polyknight/GDD/Slide25.PNG",
+      "slides/planning/polyknight/GDD/Slide26.PNG",
+      "slides/planning/polyknight/GDD/Slide27.PNG",
+      "slides/planning/polyknight/GDD/Slide28.PNG",
+      "slides/planning/polyknight/GDD/Slide29.PNG",
+      "slides/planning/polyknight/GDD/Slide30.PNG",
+      "slides/planning/polyknight/GDD/Slide31.PNG",
+      "slides/planning/polyknight/GDD/Slide32.PNG",
+      "slides/planning/polyknight/GDD/Slide33.PNG",
+      "slides/planning/polyknight/GDD/Slide34.PNG",
+      "slides/planning/polyknight/GDD/Slide35.PNG",
+      "slides/planning/polyknight/GDD/Slide36.PNG",
+      "slides/planning/polyknight/GDD/Slide37.PNG",
+      "slides/planning/polyknight/GDD/Slide38.PNG",
+      "slides/planning/polyknight/GDD/Slide39.PNG",
+      "slides/planning/polyknight/GDD/Slide40.PNG",
+      "slides/planning/polyknight/GDD/Slide41.PNG",
+      "slides/planning/polyknight/GDD/Slide42.PNG",
+      "slides/planning/polyknight/GDD/Slide43.PNG",
+      "slides/planning/polyknight/GDD/Slide44.PNG",
+      "slides/planning/polyknight/GDD/Slide45.PNG",
+      "slides/planning/polyknight/GDD/Slide46.PNG",
+      "slides/planning/polyknight/GDD/Slide47.PNG",
+      "slides/planning/polyknight/GDD/Slide48.PNG",
+      "slides/planning/polyknight/GDD/Slide49.PNG",
+      "slides/planning/polyknight/GDD/Slide50.PNG",
+      "slides/planning/polyknight/GDD/Slide51.PNG",
+      "slides/planning/polyknight/GDD/Slide52.PNG",
+      "slides/planning/polyknight/GDD/Slide53.PNG",
+      "slides/planning/polyknight/GDD/Slide54.PNG",
+      "slides/planning/polyknight/GDD/Slide55.PNG",
+      "slides/planning/polyknight/GDD/Slide56.PNG",
+      "slides/planning/polyknight/GDD/Slide57.PNG",
+      "slides/planning/polyknight/GDD/Slide58.PNG",
+      "slides/planning/polyknight/GDD/Slide59.PNG",
+      "slides/planning/polyknight/GDD/Slide60.PNG",
+      "slides/planning/polyknight/GDD/Slide61.PNG",
+      "slides/planning/polyknight/GDD/Slide62.PNG",
+      "slides/planning/polyknight/GDD/Slide63.PNG",
+      "slides/planning/polyknight/GDD/Slide64.PNG",
+      "slides/planning/polyknight/GDD/Slide65.PNG",
+      "slides/planning/polyknight/GDD/Slide66.PNG",
+      "slides/planning/polyknight/GDD/Slide67.PNG",
+      "slides/planning/polyknight/GDD/Slide68.PNG",
+      "slides/development/polyknight/Slide4.PNG",
+      "slides/development/polyknight/Slide5.PNG",
+      "slides/development/polyknight/Slide6.PNG",
+      "slides/development/polyknight/Slide7.PNG",
+      "slides/development/polyknight/Slide8.PNG",
+      "slides/development/polyknight/Slide9.PNG",
+      "slides/development/polyknight/Slide17.PNG",
+      "slides/development/polyknight/Slide18.PNG",
+      "slides/development/polyknight/Slide19.PNG",
+      "slides/development/polyknight/Slide20.PNG",
+      "slides/development/polyknight/Slide21.PNG"
     ],
-    slideshowText: ""
   },
-  
-  "Area26": {
-    video: "https://www.youtube.com/embed/2gDWDx6aeNE",
-    title: "Area 26",
-    summary: "A collaborative horror project where players take the role of a cleaner in a secret underground facility after an alien containment breach. Balancing atmospheric tension with unique gameplay, players must complete modular cleaning tasks while avoiding the lurking threat.",
-    requirements: [
-  "Designed and implemented a modular cleaning framework, allowing tasks to be easily expanded and customised.",
-  "Created the level blockout in Unreal Engine, ensuring scale and flow matched design goals.",
-  "Conducted planning and layout in MagicaVoxel and Photoshop before moving into Unreal for iteration.",
-  "Adapted and collaborated with other designers to unify disparate systems into a cohesive cleaning mechanic.",
-  "Corrected initial map scale issues by creating a 1:1 accurate map, improving player navigation and immersion."
-],
-    descriptions: ["Area 26 combined horror and simulation elements, tasking the player with cleaning various hazardous messes - from blood to dirt to vomit - within a hostile sci-fi environment. The cleaning system was designed to be modular and highly flexible, with adjustable “dirt amounts,” types of mess, and tool effectiveness (including wetness mechanics). This gave the design team a framework to build varied, scalable tasks that deepened immersion.The game’s environments were blocked out in Unreal Engine, with planning supported by MagicaVoxel and Photoshop, ensuring strong level flow and pacing that maximised tension."],
-    learnings: [
-  "Strengthened my technical design abilities, particularly in modular frameworks that empower other designers.",
-  "Learned the importance of early planning and accurate scale in level design.",
-  "Enhanced team collaboration skills, resolving conflicting implementations into a cohesive system.",
-  "Gained experience balancing atmosphere and mechanics to sustain tension in a horror environment."
-],
-    projectName: "Area 26",
-    role: "Level Designer and Technical Designer",
-    date: "2024",
-    software: "Unreal Engine 5, Blueprint, Photoshop",
-    slides: [
-      "slides/area26/Slide1.png",
-      "slides/area26/Slide2.png",
-	  "slides/area26/Slide3.png",
-	  "slides/area26/Slide4.png"
-    ],
-    slideshowText: ""
-  },
-
   "TempusRattus": {
-    video: "https://www.youtube.com/embed/On4kEmmjCrk",
-    title: "Tempus Rattus",
-    summary: "A collaborative stealth-action game where players take control of a plague-spreading rat in 17th-century Europe, infecting villagers while evading the plague doctor.",
-    requirements: [
-  "Acted as Design Lead and Producer, organising meetings, assigning tasks, and setting weekly goals to keep the project on track.",
-  "Built AI functionality for the rat's abilities, ensuring engaging player–AI interactions.",
-  "Designed and implemented one of the levels, establishing a quality benchmark for mechanics and layout.",
-  "Contributed to motion capture acting, helping bring animations to life.",
-  "Coordinated across a large team, ensuring clear communication to prevent merge conflicts and workflow issues."
-],
-    descriptions: ["Tempus Rattus is a team-based university project developed by 20+ members. Players navigate environments using stealth mechanics such as bushes, mouse holes, and building undersides, while leveraging unique abilities to spread infection. A performance-based star system rewards strategic play, allowing players to allocate skill points to boost stats and upgrade abilities.Built on a C++ framework provided by the Tech Department, the game combined design, AI functionality, motion capture, and level design to create a polished prototype experience."],
-    learnings: [
-  "Developed leadership and organisational skills, balancing design vision with production responsibilities.",
-  "Improved team communication strategies, especially in large, partly remote teams.",
-  "Gained experience working with an external C++ framework, integrating gameplay systems within constraints.",
-  "Strengthened ability to set standards and guide a team, ensuring consistency across multiple designers."
-],
-    projectName: "Tempus Rattus",
-    role: "Lead Designer",
-    date: "2024",
-    software: "Unreal Engine 5, C++, Blueprint, Motion Capture",
+      video: "https://www.youtube.com/embed/On4kEmmjCrk",
+      thumb: "images/Tempus_Rattus.png",
+      title: "Tempus Rattus",
+      summary: "A collaborative stealth-action game where players take control of a plague-spreading rat in 17th-century Europe, infecting villagers while evading the plague doctor.",
+      roleIntro: "Design Lead & Producer for a 20+ member team",
+      requirements: [
+        "Organised sprints, assigned tasks, and set weekly goals.",
+        "Built AI functionality for player abilities.",
+        "Designed and implemented a full level.",
+        "Coordinated cross-discipline communication (design, tech, animation)."
+      ],
+      descriptions: ["Team-based stealth game developed in a 20+ person team. Focused on AI-driven abilities, level design, and coordinated production within a large-scale workflow."],
+      learnings: [
+        "Developed leadership and organisational skills, balancing design vision with production responsibilities.",
+        "Improved team communication strategies, especially in large, partly remote teams.",
+        "Gained experience working with an external C++ framework, integrating gameplay systems within constraints.",
+        "Strengthened ability to set standards and guide a team, ensuring consistency across multiple designers."
+      ],
+      projectName: "Tempus Rattus",
+      role: "Design Lead & Producer",
+      date: "2024",
+      software: "Unreal Engine 5, C++, Blueprint, Motion Capture",
+      tags: ["group", "LeadDesigner", "cpp", "Blueprint"],
+      keySkills: ["Design Leadership", "Production", "AI Systems", "Level Design", "Motion Capture", "Unreal Engine 5", "C++ / Blueprint"],
     slides: [
-      "slides/tempusrattus/Slide1.png",
-	  "slides/tempusrattus/Slide2.png",
-	  "slides/tempusrattus/Slide3.png",
-	  "slides/tempusrattus/Slide4.png",
-	  "slides/tempusrattus/Slide5.png",
-	  "slides/tempusrattus/Slide6.png",
-	  "slides/tempusrattus/Slide7.png",
-	  "slides/tempusrattus/Slide8.png"
+      "slides/planning/tempusrattus/Slide1.PNG",
+      "slides/planning/tempusrattus/Slide2.PNG",
+      "slides/planning/tempusrattus/Slide3.png",
+      "slides/planning/tempusrattus/Slide4.png",
+      "slides/planning/tempusrattus/Slide5.png",
+      "slides/planning/tempusrattus/Slide6.png",
+      "slides/planning/tempusrattus/Slide7.png",
+      "slides/planning/tempusrattus/Slide8.PNG",
+      "slides/planning/tempusrattus/Slide9.png",
+      "slides/planning/tempusrattus/GDD/Slide9.PNG",
+      "slides/planning/tempusrattus/GDD/Slide10.PNG",
+      "slides/planning/tempusrattus/GDD/Slide11.PNG",
+      "slides/planning/tempusrattus/GDD/Slide12.PNG",
+      "slides/planning/tempusrattus/GDD/Slide13.PNG",
+      "slides/planning/tempusrattus/GDD/Slide14.PNG",
+      "slides/planning/tempusrattus/GDD/Slide15.PNG",
+      "slides/planning/tempusrattus/GDD/Slide17.PNG",
+      "slides/planning/tempusrattus/GDD/Slide18.PNG",
+      "slides/planning/tempusrattus/GDD/Slide19.PNG",
+      "slides/planning/tempusrattus/GDD/Slide20.PNG",
+      "slides/planning/tempusrattus/GDD/Slide21.PNG",
+      "slides/planning/tempusrattus/GDD/Slide22.PNG",
+      "slides/development/tempusrattus/Slide1.png",
+      "slides/development/tempusrattus/Slide2.png",
+      "slides/development/tempusrattus/Slide3.png",
+      "slides/development/tempusrattus/Slide4.png",
+      "slides/development/tempusrattus/Slide5.png",
+      "slides/development/tempusrattus/Slide6.PNG"
     ],
-    slideshowText: ""
   },
-
-  "C++DungeonCrawler": {
-    video: "https://www.youtube.com/embed/YHhjJvPjehg",
-    title: "C++ Dungeon Crawler",
-    summary: "",
-    descriptions: [],
-    learnings: [],
-    projectName: "C++ Dungeon Crawler",
-    role: "Solo Developer",
-    date: "2024",
-    software: "Unreal Engine 5, C++, PaperZD",
+  "Area26": {
+      video: "https://www.youtube.com/embed/2gDWDx6aeNE",
+      thumb: "images/Area_26.png",
+      title: "Area 26",
+      summary: "Horror-simulation project focused on a modular cleaning system, enabling scalable tasks through adjustable dirt types, tool effectiveness, and environmental interaction.",
+      requirements: [
+        "Designed and implemented a modular cleaning system (scalable task framework).",
+        "Built level blockout in Unreal Engine, focusing on flow and pacing.",
+        "Planned layouts using MagicaVoxel and Photoshop before in-engine iteration.",
+        "Unified multiple design contributions into a cohesive gameplay system.",
+        "Resolved map scale issues by rebuilding environments at accurate 1:1 scale."
+      ],
+      descriptions: ["Horror-simulation project focused on a modular cleaning system, enabling scalable tasks through adjustable dirt types, tool effectiveness, and environmental interaction."],
+      learnings: [
+        "Strengthened my technical design abilities, particularly in modular frameworks that empower other designers.",
+        "Learned the importance of early planning and accurate scale in level design.",
+        "Enhanced team collaboration skills, resolving conflicting implementations into a cohesive system.",
+        "Gained experience balancing atmosphere and mechanics to sustain tension in a horror environment."
+      ],
+      projectName: "Area 26",
+      role: "Level Designer and Technical Designer",
+      date: "2024",
+      software: "Unreal Engine 5, Blueprint, Photoshop",
+      tags: ["group", "Blueprint"],
+      keySkills: ["Systems Design", "Level Design", "Unreal Engine", "Gameplay Design", "Iteration", "Environmental Design"],
     slides: [
-      "slides/C++/Slide1.png"
-	  
+      "slides/planning/area26/Slide1.png",
+      "slides/planning/area26/Slide2.png",
+      "slides/planning/area26/Slide3.png",
+      "slides/planning/area26/Slide4.png",
+      "slides/development/area26/Slide1.PNG",
+      "slides/development/area26/Slide2.PNG",
+      "slides/development/area26/Slide3.PNG",
+      "slides/development/area26/Slide4.PNG",
+      "slides/development/area26/Slide5.PNG",
+      "slides/development/area26/Slide6.PNG"
     ],
-    slideshowText: ""
   },
-
   "PixelBorne": {
-    video: "https://www.youtube.com/embed/_CA-M8LUWf0",
-    title: "PixelBorne",
-    summary: "",
-    descriptions: [],
-    learnings: [],
-    projectName: "PixelBorne",
-    role: "Solo Developer",
-    date: "2024",
-    software: "Unreal Engine 5, PaperZD, Blueprint",
+      video: "https://www.youtube.com/embed/_CA-M8LUWf0",
+      thumb: "images/PixelBorne.png",
+      title: "PixelBorne",
+      summary: "Wave-based survival game using PaperZD and Unreal Engine 5.",
+      requirements: [],
+      descriptions: [],
+      learnings: [],
+      projectName: "PixelBorne",
+      role: "Solo Developer",
+      date: "2024",
+      software: "Unreal Engine 5, PaperZD, Blueprint",
+      tags: ["solo", "paperZD", "Blueprint"],
     slides: [
-	  "slides/pixelborne/Slide1.png"
-	
-	],
-    slideshowText: ""
+      "slides/planning/pixelborne/Slide1.png",
+      "slides/development/pixelborne/Slide1.PNG",
+      "slides/development/pixelborne/Slide2.PNG",
+      "slides/development/pixelborne/Slide3.PNG",
+      "slides/development/pixelborne/Slide4.PNG",
+      "slides/development/pixelborne/Slide5.PNG",
+      "slides/development/pixelborne/Slide6.PNG",
+      "slides/development/pixelborne/Slide7.PNG"
+    ],
   },
-
+  "C++DungeonCrawler": {
+      video: "https://www.youtube.com/embed/YHhjJvPjehg",
+      thumb: "images/C++.png",
+      title: "C++ Dungeon Crawler",
+      summary: "Top-down dungeon crawler built in Unreal with C++ and PaperZD.",
+      requirements: [],
+      descriptions: [],
+      learnings: [],
+      projectName: "C++ Dungeon Crawler",
+      role: "Solo Developer",
+      date: "2024",
+      software: "Unreal Engine 5, C++, PaperZD",
+      tags: ["solo", "paperZD", "cpp", "Blueprint"],
+    slides: [
+      "slides/planning/C++/Slide1.png",
+      "slides/development/C++/Slide1.PNG",
+      "slides/development/C++/Slide2.PNG",
+      "slides/development/C++/Slide3.PNG",
+      "slides/development/C++/Slide4.PNG",
+      "slides/development/C++/Slide5.PNG",
+      "slides/development/C++/Slide6.PNG"
+    ],
+  },
   "TF2": {
-    video: "https://www.youtube.com/embed/4LLHukop_uk",
-    title: "TF2 Map 'Prison'",
-    summary: "",
-    requirements: [],
-    descriptions: [],
-    learnings: [],
-    projectName: "TF2 Map 'Prison'",
-    role: "Level Designer",
-    date: "2024",
-    software: "Hammer Editor",
+      video: "https://www.youtube.com/embed/4LLHukop_uk",
+      thumb: "images/TF2.png",
+      title: "TF2 Map 'Prison'",
+      summary: "Custom multi-layered KOTH map made in Hammer Editor.",
+      requirements: [],
+      descriptions: [],
+      learnings: [],
+      projectName: "TF2 Map 'Prison'",
+      role: "Level Designer",
+      date: "2024",
+      software: "Hammer Editor",
+      tags: ["hammer", "solo", "Environment"],
     slides: [
-	  "slides/TF2/Slide1.png",
-	  "slides/TF2/Slide2.png",
-	  "slides/TF2/Slide3.png",
-	  "slides/TF2/Slide4.png",
-	  "slides/TF2/Slide5.png",
-	  "slides/TF2/Slide6.png",
-	  "slides/TF2/Slide7.png"
-	
-	],
-    slideshowText: ""
+      "slides/planning/TF2/Slide1.png",
+      "slides/planning/TF2/Slide2.png",
+      "slides/planning/TF2/Slide3.png",
+      "slides/planning/TF2/Slide4.png",
+      "slides/planning/TF2/Slide5.png",
+      "slides/development/TF2/Slide1.png",
+      "slides/development/TF2/Slide2.png"
+    ],
   },
-  
+  "LandscapeProject": {
+      video: "https://www.youtube.com/embed/mkpuZoS2DYA",
+      thumb: "images/Landscape_Project.png",
+      title: "Landscape Project",
+      summary: "Environment built in Unreal Engine 5 using landscape tools.",
+      requirements: [],
+      descriptions: [],
+      learnings: [],
+      projectName: "Landscape Project",
+      role: "Environment Artist",
+      date: "2024",
+      software: "Unreal Engine 5, Landscape Tools",
+      tags: ["solo", "Environment"],
+    slides: [
+      "slides/development/Landscape/Slide1.png",
+      "slides/development/Landscape/Slide2.png",
+      "slides/development/Landscape/Slide3.png",
+      "slides/development/Landscape/Slide4.png",
+      "slides/development/Landscape/Slide5.png"
+    ],
+  },
   "VampireSurvivorsLike": {
-    video: "https://www.youtube.com/embed//w-tHehkkjFc",
-    title: "Horde Survival Game",
-    summary: "",
-    descriptions: [],
-    learnings: [],
-    projectName: "Horde Survival Game",
-    role: "Solo Developer",
-    date: "2024",
-    software: "Godot, GDScript, Pixelorama",
-    slides: [],
-    slideshowText: ""
-  },
-
-  "2DKnight": {
-    video: "https://www.youtube.com/embed/YajV2QFLZoQ",
-    title: "2D Knight",
-    summary: "",
-    descriptions: [],
-    learnings: [],
-    projectName: "2D Knight",
-    role: "Solo Developer",
-    date: "2024",
-    software: "Unreal Engine 5, PaperZD, Blueprint",
+      video: "https://www.youtube.com/embed/w-tHehkkjFc",
+      thumb: "images/Vampire_Survivors_Like.png",
+      title: "Horde Survival",
+      summary: "Roguelike horde survival prototype built in Godot.",
+      requirements: [],
+      descriptions: [],
+      learnings: [],
+      projectName: "Horde Survival",
+      role: "Solo Developer",
+      date: "2024",
+      software: "Godot, GDScript, Pixelorama",
+      tags: ["solo", "gdscript"],
     slides: [
-	  "slides/2DKnight/Slide1.png"
-	
-	],
-    slideshowText: ""
+    ],
   },
-
-  "2.5DResourceCollector": {
-    video: "https://www.youtube.com/embed/Cz6Z69CuXmQ?si=JStZ7zjOzXMBfJA5",
-    title: "2.5D Resource Collector",
-    summary: "",
-    descriptions: [],
-    learnings: [],
-    projectName: "2.5D Resource Collector",
-    role: "Solo Developer",
-    date: "2024",
-    software: "Unreal Engine 5, PaperZD, Blueprint",
-    slides: [
-	  "slides/2.5DKnight/Slide1.png"
-	
-	],
-    slideshowText: ""
-  },
-  
-  "Lancer Framework": {
-    video: "https://www.youtube.com/embed/PkI-zcqwjUU",
-    title: "Lancer Framework",
-    summary: "",
-    descriptions: [],
-    learnings: [],
-    projectName: "Lancer Framework",
-    role: "Solo Developer",
-    date: "2024",
-    software: "Unreal Engine 5, Magica Voxel, Blueprint",
-    slides: [
-	  "slides/lancer/Slide1.png",
-	  "slides/lancer/Slide2.png",
-	  "slides/lancer/Slide3.png",
-	  "slides/lancer/Slide4.png"
-	
-	],
-    slideshowText: ""
-  },
-  
   "Robot Repair Shop": {
-    video: "https://www.youtube.com/embed/MgosbriVylU",
-    title: "Robot Repair Shop",
-    summary: "",
-    descriptions: [],
-    learnings: [],
-    projectName: "Robot Repair Shop",
-    role: "Unity Developer",
-    date: "2025",
-    software: "Unity, Miro, Excel",
+      video: "https://www.youtube.com/embed/MgosbriVylU",
+      thumb: "images/Robot.png",
+      title: "Robot Repair Shop",
+      summary: "Narrative-driven robot repair experience built in Unity.",
+      requirements: [],
+      descriptions: [],
+      learnings: [],
+      projectName: "Robot Repair Shop",
+      role: "Unity Developer",
+      date: "2025",
+      software: "Unity, Miro, Excel",
+      tags: ["group", "unity"],
     slides: [
-	  "slides/robot/Slide1.png",
-	  "slides/robot/Slide2.png",
-	  "slides/robot/Slide3.png",
-	  "slides/robot/Slide4.png",
-	  "slides/robot/Slide5.png",
-	  "slides/robot/Slide6.png"
-	
-	],
-    slideshowText: ""
-  },
-
-  "Horror Fishing": {
-    video: "https://www.youtube.com/embed/KB2Ww73Ty6M",
-    title: "Black Tides",
-    summary: "Fishing Under Toxic Tides. https://prodbynaga.itch.io/black-tides",
-    descriptions: ["The player takes the role of an early 20th-century private investigator, hired to collect samples from a mysterious chemical spill near a remote lighthouse, finds his rational mind unraveling as the mutated specimens he fishes from the toxic depths drag him deeper into a sea of cosmic horror."],
-    requirements:[
-	"Engaged in daily meetings to discuss direction and provide updates.",
-	"Designed and Devloped a Fishing Loot Pool Data Asset, to be used when a fish is caught.",
-	"Implemented a Modular Skybox for worldbuilding.",
-	"Developed a Player progression system using Drift points to trigger events.",
-	"Created a Modular Journal System to Track narrative and tutorialise.",
-	"Landscaped, Planned and Grayboxed the player route."
-	],
-	learnings: [
-	"How to utilise Data assets in Unity.",
-	"How to provide toggleable industry standard debugging techniques.",
-	"Learnt how to use Unity's Landscaping mode.",
-	"Learnt Some optimisation techniques, only rendering water within a player radius.",
-	"Sprint style approach to development for Unity."
-	],
-    projectName: "Horror Fishing",
-    role: "Unity Developer",
-    date: "2025",
-    software: "Unity, Miro, Excel",
-    slides: [
-	  "slides/fishing/Slide1.png",
-	  "slides/fishing/Slide2.png",
-	  "slides/fishing/Slide3.png",
-	  "slides/fishing/Slide4.png",
-	  "slides/fishing/Slide5.png",
-	  "slides/fishing/Slide6.png",
-	  "slides/fishing/Slide7.png",
-	  "slides/fishing/Slide8.png",
-	  "slides/fishing/Slide9.png"
-	
-	],
-    slideshowText: ""
+      "slides/planning/robot/Slide2.PNG",
+      "slides/planning/robot/Slide4.png",
+      "slides/planning/robot/Slide5.PNG",
+      "slides/planning/robot/Slide6.png",
+      "slides/development/robot/Slide1.PNG",
+      "slides/development/robot/Slide2.PNG",
+      "slides/development/robot/Slide3.PNG",
+      "slides/development/robot/Slide4.PNG"
+    ],
   },
   "C++ AI Combat": {
-    video: "https://www.youtube.com/embed/MoQaRmIeLH4",
-    title: "C++ AI Combat",
-    summary: "",
-    descriptions: [],
-    learnings: [],
-    projectName: "C++ AI Combatk",
-    role: "Solo Developer",
-    date: "2024",
-    software: "Unreal Engine 5, C++, Rider, Visual Studio, Blueprint",
-    slides: [],
-    slideshowText: ""
-  },
-
-  "LandscapeProject": {
-    video: "https://www.youtube.com/embed/mkpuZoS2DYA",
-    title: "Landscape Project",
-    summary: "",
-    descriptions: [],
-    learnings: [],
-    projectName: "Landscape Project",
-    role: "Environment Artist",
-    date: "2024",
-    software: "Unreal Engine 5, Landscape Tools",
+      video: "https://www.youtube.com/embed/MoQaRmIeLH4",
+      thumb: "images/Paragon.png",
+      title: "C++ AI Combat",
+      summary: "Attacking, investigating, and idle AI states implemented in Unreal C++.",
+      requirements: [],
+      descriptions: [],
+      learnings: [],
+      projectName: "C++ AI Combat",
+      role: "Solo Developer",
+      date: "2024",
+      software: "Unreal Engine 5, C++, Rider, Visual Studio, Blueprint",
+      tags: ["solo", "cpp"],
     slides: [
-	"slides/Landscape/Slide1.png",
-	"slides/Landscape/Slide2.png",
-	"slides/Landscape/Slide3.png",
-	"slides/Landscape/Slide4.png",
-	"slides/Landscape/Slide5.png"
-	
-	],
-    slideshowText: ""
+    ],
+  },
+  "Horror Fishing": {
+      video: "https://www.youtube.com/embed/KB2Ww73Ty6M",
+      thumb: "images/Fishing.png",
+      title: "Black Tides",
+      summary: "Fishing under toxic tides. https://prodbynaga.itch.io/black-tides",
+      descriptions: ["Narrative-driven fishing and exploration experience set in a cosmic horror world, featuring progression systems, modular tools, and environmental storytelling."],
+      requirements: [
+        "Designed and implemented a Fishing Loot Pool system using Data Assets.",
+        "Built a player progression system using “Drift” points to trigger events.",
+        "Developed a modular journal system for narrative tracking and tutorials.",
+        "Created a modular skybox to support worldbuilding.",
+        "Planned, landscaped, and greyboxed the player route.",
+        "Contributed to daily design discussions and direction setting."
+      ],
+      learnings: [
+        "How to utilise Data assets in Unity.",
+        "How to provide toggleable industry standard debugging techniques.",
+        "Learnt how to use Unity's Landscaping mode.",
+        "Learnt some optimisation techniques, only rendering water within a player radius.",
+        "Sprint style approach to development for Unity."
+      ],
+      projectName: "Black Tides",
+      role: "Unity Developer",
+      date: "2025",
+      software: "Unity, Miro, Excel",
+      tags: ["group", "unity"],
+      keySkills: ["Unity", "Systems Design", "Data-Driven Tools", "Level Design", "Landscaping", "Team Collaboration"],
+    slides: [
+      "slides/planning/fishing/Slide1.png",
+      "slides/planning/fishing/Slide2.png",
+      "slides/planning/fishing/Slide3.png",
+      "slides/planning/fishing/Slide4.png",
+      "slides/development/fishing/Slide1.png",
+      "slides/development/fishing/Slide2.png",
+      "slides/development/fishing/Slide3.png",
+      "slides/development/fishing/Slide4.png",
+      "slides/development/fishing/Slide5.png"
+    ],
+  },
+  "Lancer Framework": {
+      video: "https://www.youtube.com/embed/PkI-zcqwjUU",
+      thumb: "images/Lancer.png",
+      title: "Lancer Framework",
+      summary: "SCI-FI FPS adventure prototype.",
+      requirements: [],
+      descriptions: [],
+      learnings: [],
+      projectName: "Lancer Framework",
+      role: "Solo Developer",
+      date: "2024",
+      software: "Unreal Engine 5, Magica Voxel, Blueprint",
+      tags: ["solo", "Blueprint"],
+    slides: [
+      "slides/planning/lancer/Slide1.png",
+      "slides/planning/lancer/Slide2.png",
+      "slides/planning/lancer/Slide3.png",
+      "slides/planning/lancer/Slide4.png",
+      "slides/planning/lancer/Slide5.png",
+      "slides/planning/lancer/Slide6.png",
+      "slides/planning/lancer/Slide7.png",
+      "slides/development/lancer/Slide1.PNG",
+      "slides/development/lancer/Slide2.PNG",
+      "slides/development/lancer/Slide3.PNG",
+      "slides/development/lancer/Slide4.PNG",
+      "slides/development/lancer/Slide5.PNG",
+      "slides/development/lancer/Slide6.PNG",
+      "slides/development/lancer/Slide7.PNG",
+      "slides/development/lancer/Slide8.PNG",
+      "slides/development/lancer/Slide9.PNG",
+      "slides/development/lancer/Slide10.PNG",
+      "slides/development/lancer/Slide11.PNG",
+      "slides/development/lancer/Slide12.PNG",
+      "slides/development/lancer/Slide13.PNG",
+      "slides/development/lancer/Slide14.PNG"
+    ],
+  },
+  "2DKnight": {
+      video: "https://www.youtube.com/embed/YajV2QFLZoQ",
+      thumb: "images/2D_Knight.png",
+      title: "2D Knight",
+      summary: "Sidescrolling dungeon crawler using PaperZD.",
+      requirements: [],
+      descriptions: [],
+      learnings: [],
+      projectName: "2D Knight",
+      role: "Solo Developer",
+      date: "2024",
+      software: "Unreal Engine 5, PaperZD, Blueprint",
+      tags: ["solo", "paperZD", "Blueprint"],
+    slides: [
+      "slides/planning/2DKnight/Slide1.png",
+      "slides/development/2DKnight/Slide1.png",
+      "slides/development/2DKnight/Slide2.PNG",
+      "slides/development/2DKnight/Slide3.PNG",
+      "slides/development/2DKnight/Slide4.PNG",
+      "slides/development/2DKnight/Slide5.PNG",
+      "slides/development/2DKnight/Slide6.PNG"
+    ],
+  },
+  "2.5DResourceCollector": {
+      video: "https://www.youtube.com/embed/Cz6Z69CuXmQ",
+      thumb: "images/2.5D_Resource_Collector.png",
+      title: "2.5D Resource Collector",
+      summary: "Top-down resource collector built in Unreal with PaperZD.",
+      requirements: [],
+      descriptions: [],
+      learnings: [],
+      projectName: "2.5D Resource Collector",
+      role: "Solo Developer",
+      date: "2024",
+      software: "Unreal Engine 5, PaperZD, Blueprint",
+      tags: ["solo", "paperZD", "Blueprint"],
+    slides: [
+      "slides/planning/2.5DKnight/Slide1.png",
+      "slides/development/2.5DKnight/Slide1.png",
+      "slides/development/2.5DKnight/Slide2.PNG",
+      "slides/development/2.5DKnight/Slide3.PNG",
+      "slides/development/2.5DKnight/Slide4.PNG",
+      "slides/development/2.5DKnight/Slide5.PNG",
+      "slides/development/2.5DKnight/Slide6.PNG"
+    ],
   }
 };
 
-function openModal(projectKey) {
-  const data = projectData[projectKey];
-  if (!data) {
-    alert('Project data not found!');
+
+
+const projectOrder = [
+  "Kristala",
+  "PolyKnight",
+  "TempusRattus",
+  "Area26",
+  "PixelBorne",
+  "C++DungeonCrawler",
+  "TF2",
+  "LandscapeProject",
+  "VampireSurvivorsLike",
+  "Robot Repair Shop",
+  "C++ AI Combat",
+  "Horror Fishing",
+  "Lancer Framework",
+  "2DKnight",
+  "2.5DResourceCollector"
+];
+
+const slideOrder = ["home", "about", ...projectOrder];
+
+function escapeHtml(str) {
+  return String(str ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+function richTextToHtml(input) {
+  const text = String(input ?? "").replace(/\r\n/g, "\n").replace(/\r/g, "\n").trim();
+  if (!text) return `<p>TBD</p>`;
+
+  const lines = text.split("\n");
+  const out = [];
+
+  let inList = false;
+  let para = [];
+  let hasSection = false;
+
+  const flushPara = () => {
+    if (!para.length) return;
+    const joined = para.join(" ").replace(/\s+/g, " ").trim();
+    if (joined) out.push(`<p>${escapeHtml(joined)}</p>`);
+    para = [];
+  };
+
+  const closeList = () => {
+    if (!inList) return;
+    out.push(`</ul>`);
+    inList = false;
+  };
+
+  for (const rawLine of lines) {
+    const line = String(rawLine ?? "");
+    const trimmed = line.trim();
+
+    if (!trimmed) {
+      flushPara();
+      closeList();
+      continue;
+    }
+
+    if (trimmed === "/*gap") {
+      flushPara();
+      closeList();
+      // Use a divider + gap to clearly separate intro -> section heading
+      out.push(`<div class="rt-divider"></div><div class="rt-gap"></div>`);
+      continue;
+    }
+
+    if (trimmed.startsWith("### ")) {
+      flushPara();
+      closeList();
+      if (hasSection) out.push(`<div class="rt-divider"></div>`);
+      hasSection = true;
+      out.push(`<h5 class="rt-h">${escapeHtml(trimmed.slice(4).trim())}</h5>`);
+      continue;
+    }
+
+    if (trimmed.startsWith("## ")) {
+      flushPara();
+      closeList();
+      if (hasSection) out.push(`<div class="rt-divider"></div>`);
+      hasSection = true;
+      out.push(`<h4 class="rt-h">${escapeHtml(trimmed.slice(3).trim())}</h4>`);
+      continue;
+    }
+
+    if (trimmed.startsWith("# ")) {
+      flushPara();
+      closeList();
+      if (hasSection) out.push(`<div class="rt-divider"></div>`);
+      hasSection = true;
+      out.push(`<h3 class="rt-h">${escapeHtml(trimmed.slice(2).trim())}</h3>`);
+      continue;
+    }
+
+    if (trimmed.startsWith("- ")) {
+      flushPara();
+      if (!inList) {
+        out.push(`<ul class="rt-ul">`);
+        inList = true;
+      }
+      out.push(`<li>${escapeHtml(trimmed.slice(2).trim())}</li>`);
+      continue;
+    }
+
+    closeList();
+    para.push(trimmed);
+  }
+
+  flushPara();
+  closeList();
+  return out.join("");
+}
+
+function youtubeWatchToEmbed(url) {
+  const raw = String(url ?? "").trim();
+  if (!raw) return "";
+  try {
+    const u = new URL(raw, window.location.href);
+    const host = (u.hostname || "").replace(/^www\./, "").toLowerCase();
+
+    if (host === "youtube.com" || host === "m.youtube.com") {
+      if (u.pathname.startsWith("/embed/")) return u.href;
+      const v = u.searchParams.get("v");
+      if (v) return `https://www.youtube.com/embed/${encodeURIComponent(v)}`;
+    }
+
+    if (host === "youtu.be") {
+      const id = u.pathname.split("/").filter(Boolean)[0];
+      if (id) return `https://www.youtube.com/embed/${encodeURIComponent(id)}`;
+    }
+  } catch (e) {}
+  return "";
+}
+
+function renderCaseMediaItem(src, fallbackText) {
+  const raw = String(src ?? "").trim();
+  if (!raw) {
+    return `<div class="case-compare__frame">${escapeHtml(fallbackText || "Add media here")}</div>`;
+  }
+
+  const lower = raw.toLowerCase();
+  const yt = youtubeWatchToEmbed(raw);
+
+  if (yt) {
+    return `
+      <div class="case-compare__frame has-media">
+        <iframe
+          class="case-media"
+          src="${escapeHtml(yt)}"
+          title="${escapeHtml(fallbackText || "Video")}"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen></iframe>
+      </div>
+    `;
+  }
+
+  if (lower.endsWith(".mp4") || lower.endsWith(".webm")) {
+    return `
+      <div class="case-compare__frame has-media">
+        <video class="case-media" src="${escapeHtml(raw)}" autoplay muted loop controls playsinline preload="metadata"></video>
+      </div>
+    `;
+  }
+
+  return `
+    <div class="case-compare__frame has-media">
+      <img class="case-media" src="${escapeHtml(raw)}" alt="" data-fallback="assets/placeholder.svg" onerror="__imgFallback(this)">
+    </div>
+  `;
+}
+
+function renderCaseMediaPairs(beforeMedia, afterMedia) {
+  const before = Array.isArray(beforeMedia) ? beforeMedia.filter(Boolean) : [];
+  const after = Array.isArray(afterMedia) ? afterMedia.filter(Boolean) : [];
+  const total = Math.max(before.length, after.length);
+  if (!total) return "";
+
+  const items = [];
+  for (let i = 0; i < total; i++) {
+    items.push(`
+      <div class="case-compare__item">
+        <div class="case-compare__label">Before</div>
+        ${renderCaseMediaItem(before[i], "Before")}
+      </div>
+    `);
+    items.push(`
+      <div class="case-compare__item">
+        <div class="case-compare__label">After</div>
+        ${renderCaseMediaItem(after[i], "After")}
+      </div>
+    `);
+  }
+  return `<div class="case-compare-stack">${items.join("")}</div>`;
+}
+
+const SKILL_TAG_LABELS = {
+  solo: "Solo project",
+  group: "Team project",
+  Blueprint: "Blueprint",
+  cpp: "C++",
+  LeadDesigner: "Lead design",
+  paperZD: "PaperZD",
+  unreal: "Unreal Engine",
+  unity: "Unity",
+  godot: "Godot",
+  gdscript: "GDScript",
+  hammer: "Hammer Editor",
+  Environment: "Environment art",
+  industry: "Industry experience",
+};
+
+function tagToSkillLabel(tag) {
+  const k = String(tag);
+  if (Object.prototype.hasOwnProperty.call(SKILL_TAG_LABELS, k)) {
+    return SKILL_TAG_LABELS[k];
+  }
+  return k
+    .replace(/([a-z])([A-Z])/g, "$1 $2")
+    .replace(/_/g, " ")
+    .replace(/\b\w/g, (c) => c.toUpperCase());
+}
+
+function buildKeySkillsMarkup(data) {
+  const explicit = Array.isArray(data.keySkills) ? data.keySkills.filter(Boolean) : [];
+  const labels = explicit.length
+    ? explicit
+    : (Array.isArray(data.tags) ? data.tags.map(tagToSkillLabel) : []);
+  if (!labels.length) return "";
+  const pills = labels
+    .map((s) => `<span class="skill-pill">${escapeHtml(s)}</span>`)
+    .join("");
+  return `
+    <div class="project-page__description project-page__key-skills">
+      <h3>Key Skills</h3>
+      <div class="skill-pills">${pills}</div>
+    </div>
+  `;
+}
+
+function getTitleDateLabel(data) {
+  const raw = (data && (data.displayDate ?? data.date)) ? String(data.displayDate ?? data.date) : "";
+  if (!raw) return "";
+  const m = raw.match(/\b(19|20)\d{2}\b/);
+  // Prefer a single year for clean titles; fall back to the original string.
+  return m ? m[0] : raw;
+}
+
+function renderProjectSlide(key, data) {
+  const roleItems = [
+    ...(data.roleIntro ? [data.roleIntro] : []),
+    ...((data.requirements || []).filter(Boolean))
+  ];
+  const roleList = roleItems
+    .map(item => `<li>${escapeHtml(item)}</li>`)
+    .join("");
+  const hasRoleSection = roleItems.length > 0;
+  const description = (data.descriptions && data.descriptions[0]) || "";
+  const keySkillsMarkup = buildKeySkillsMarkup(data);
+  const titleDate = getTitleDateLabel(data);
+  const titleDateMarkup = titleDate ? ` <span class="project-page__title-date">(${escapeHtml(titleDate)})</span>` : "";
+
+  const caseStudies = Array.isArray(data.caseStudies) ? data.caseStudies : [];
+
+  const caseStudyMarkup = caseStudies.length
+    ? `
+      <div class="case-study">
+        <h3 class="case-study__title">Case Study</h3>
+        <div class="case-study__grid">
+          ${caseStudies.map((cs) => `
+            <article class="case-card">
+              <h4 class="case-card__title">${escapeHtml(cs.title || cs.id || "Case Study")}</h4>
+              <div class="case-card__content">
+                <div class="case-card__text">
+                  <div class="case-row"><span class="case-label">Problem</span><div class="case-value richtext">${richTextToHtml(cs.problem)}</div></div>
+                  <div class="case-row"><span class="case-label">What I did</span><div class="case-value richtext">${richTextToHtml(cs.whatIDid)}</div></div>
+                  <div class="case-row"><span class="case-label">Result</span><div class="case-value richtext">${richTextToHtml(cs.result)}</div></div>
+                </div>
+                <div class="case-card__visual">
+                  ${renderCaseMediaPairs(cs.beforeMedia, cs.afterMedia)}
+                  ${Array.isArray(cs.galleryMedia) && cs.galleryMedia.length
+                    ? `
+                      <div class="case-gallery">
+                        ${cs.galleryMedia.map((src) => `
+                          <div class="case-gallery__item">
+                            ${renderCaseMediaItem(src, "Image")}
+                          </div>
+                        `).join("")}
+                      </div>
+                    `
+                    : ""
+                  }
+                </div>
+              </div>
+            </article>
+          `).join("")}
+        </div>
+        <div class="case-study__divider"></div>
+      </div>
+    `
+    : "";
+
+  const allSlides = data.slides || [];
+  const captions = Array.isArray(data.slideCaptions) ? data.slideCaptions : [];
+  const planning = [];
+  const action = [];
+  const designDoc = [];
+
+  allSlides.forEach((src, idx) => {
+    const s = String(src || "");
+    const cap = captions[idx] || "";
+    const item = { src: s, caption: cap };
+    const p = s.toLowerCase();
+    const isDesignDoc =
+      p.includes("/planning/") && p.includes("/gdd/") ||
+      p.includes("\\planning\\") && p.includes("\\gdd\\") ||
+      p.includes("/planning\\") && p.includes("\\gdd\\") ||
+      p.includes("\\planning/") && p.includes("/gdd/");
+    const isDevelopment =
+      p.includes("/development/") ||
+      p.includes("\\development\\") ||
+      p.includes("/development\\") ||
+      p.includes("\\development/");
+    const isPlanning =
+      !isDesignDoc &&
+      (p.includes("/planning/") ||
+        p.includes("\\planning\\") ||
+        p.includes("/planning\\") ||
+        p.includes("\\planning/"));
+
+    if (isDesignDoc) designDoc.push(item);
+    else if (isDevelopment) action.push(item);
+    else if (isPlanning) planning.push(item);
+    else action.push(item);
+  });
+
+  // Encode JSON for data-* safely (avoid HTML entity decoding issues)
+  const planningJson = encodeURIComponent(JSON.stringify(planning));
+  const actionJson = encodeURIComponent(JSON.stringify(action));
+  const designJson = encodeURIComponent(JSON.stringify(designDoc));
+
+  return `
+    <section class="slide slide--project" data-slide-id="${escapeHtml(key)}" aria-label="${escapeHtml(data.title)}">
+      <div class="project-page">
+        <header class="project-page__header">
+          <h2 class="project-page__title">${escapeHtml(data.title)}${titleDateMarkup}</h2>
+          ${data.summary ? `<p class="project-page__summary">${escapeHtml(data.summary)}</p>` : ""}
+        </header>
+
+        <div class="project-page__row project-page__row--hero">
+          <div class="project-page__media">
+            <div class="video-frame">
+              <iframe
+                data-video="${escapeHtml(data.video || "")}"
+                src=""
+                title="${escapeHtml(data.title)} video"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+            </div>
+          </div>
+
+          <div class="project-page__side">
+            ${description ? `<div class="project-page__description"><h3>Project Description</h3><p>${escapeHtml(description)}</p></div>` : ""}
+            ${hasRoleSection ? `<div class="project-page__description"><h3>Role</h3><ul class="info-list">${roleList}</ul></div>` : ""}
+            ${keySkillsMarkup}
+          </div>
+        </div>
+
+        <div class="project-page__scroll" aria-label="Project documentation">
+          <div class="scroll-hint">Scroll for more <span aria-hidden="true">&#x2193;</span></div>
+          ${caseStudyMarkup}
+          <h3 class="screenshots-title">Project Documentation</h3>
+          ${(planning.length || action.length || designDoc.length)
+            ? `
+              <div class="doc-slideshow" data-planning="${planningJson}" data-action="${actionJson}" data-design="${designJson}">
+                <div class="doc-tabs" role="tablist" aria-label="Documentation categories">
+                  <button type="button" class="doc-tab is-active" data-doc-tab="planning">Planning</button>
+                  <button type="button" class="doc-tab" data-doc-tab="design">Design Document</button>
+                  <button type="button" class="doc-tab" data-doc-tab="action">Action shots</button>
+                </div>
+
+                <div class="doc-stage">
+                  <button type="button" class="doc-arrow" data-doc-nav="prev" aria-label="Previous image">&#8249;</button>
+                  <div class="doc-viewport" aria-live="polite"></div>
+                  <button type="button" class="doc-arrow" data-doc-nav="next" aria-label="Next image">&#8250;</button>
+                </div>
+
+                <div class="doc-meta">
+                  <div class="doc-counter" aria-live="polite">1 / 1</div>
+                  <p class="doc-caption"></p>
+                </div>
+              </div>
+            `
+            : `<p class="screenshots-empty">More planning images and screenshots coming soon.</p>`}
+        </div>
+      </div>
+    </section>
+  `;
+}
+
+function renderHotbarTile(key, data) {
+  return `
+    <button type="button" class="hotbar__tile" role="tab" data-slide-id="${escapeHtml(key)}" aria-label="${escapeHtml(data.title)}">
+      <img src="${escapeHtml(data.thumb)}" alt="" data-fallback="assets/placeholder.svg" onerror="__imgFallback(this)" />
+      <span class="hotbar__label">${escapeHtml(data.title)}</span>
+    </button>
+  `;
+}
+
+function renderAboutTile() {
+  return `
+    <button type="button" class="hotbar__tile hotbar__tile--about" role="tab" data-slide-id="about" aria-label="About Me">
+      <img src="images/Me.png" alt="" data-fallback="assets/placeholder.svg" onerror="__imgFallback(this)" />
+      <span class="hotbar__label">About</span>
+    </button>
+  `;
+}
+
+(function buildPage() {
+  const track = document.getElementById("sliderTrack");
+  const projectMarkup = projectOrder
+    .filter(k => projectData[k])
+    .map(k => renderProjectSlide(k, projectData[k]))
+    .join("");
+  track.insertAdjacentHTML("beforeend", projectMarkup);
+
+  const hotbarScroll = document.getElementById("hotbarScroll");
+  const hotbarMarkup = [
+    renderAboutTile(),
+    ...projectOrder
+      .filter(k => projectData[k])
+      .map(k => renderHotbarTile(k, projectData[k]))
+  ].join("");
+  hotbarScroll.insertAdjacentHTML("beforeend", hotbarMarkup);
+})();
+
+let currentIndex = 0;
+
+function getSlideEls() {
+  return document.querySelectorAll("#sliderTrack > .slide");
+}
+
+function getSlideIdByIndex(i) {
+  return slideOrder[i] || slideOrder[0];
+}
+
+function getIndexBySlideId(id) {
+  const idx = slideOrder.indexOf(id);
+  return idx === -1 ? 0 : idx;
+}
+
+function updateActiveTile() {
+  const activeId = getSlideIdByIndex(currentIndex);
+  document.querySelectorAll(".hotbar__tile").forEach(btn => {
+    const isActive = btn.dataset.slideId === activeId;
+    btn.classList.toggle("is-active", isActive);
+    if (isActive) {
+      btn.setAttribute("aria-current", "page");
+      try { btn.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" }); } catch (e) {}
+    } else {
+      btn.removeAttribute("aria-current");
+    }
+  });
+  const homeBtn = document.querySelector(".hotbar__home");
+  if (homeBtn) homeBtn.classList.toggle("is-active", activeId === "home");
+}
+
+function updateNavButtons() {
+  const prev = document.getElementById("navPrev");
+  const next = document.getElementById("navNext");
+  if (!prev || !next) return;
+  prev.disabled = currentIndex <= 0;
+  next.disabled = currentIndex >= slideOrder.length - 1;
+  prev.classList.toggle("is-hidden", slideOrder.length <= 1);
+  next.classList.toggle("is-hidden", slideOrder.length <= 1);
+}
+
+function syncIframes() {
+  const slides = getSlideEls();
+  slides.forEach((slide, i) => {
+    const iframe = slide.querySelector("iframe[data-video]");
+    if (!iframe) return;
+    const target = iframe.dataset.video || "";
+    if (i === currentIndex) {
+      if (iframe.src !== target && target) iframe.src = target;
+    } else if (iframe.src) {
+      iframe.src = "";
+    }
+  });
+}
+
+function applyTransform() {
+  const track = document.getElementById("sliderTrack");
+  track.style.transform = `translateX(${-currentIndex * 100}vw)`;
+  track.style.setProperty("--index", String(currentIndex));
+}
+
+function goTo(index, opts = {}) {
+  const total = slideOrder.length;
+  const clamped = Math.max(0, Math.min(total - 1, index));
+  if (clamped === currentIndex && !opts.force) return;
+  currentIndex = clamped;
+  applyTransform();
+  updateActiveTile();
+  updateNavButtons();
+  syncIframes();
+  const slides = getSlideEls();
+  const active = slides[currentIndex];
+  if (active && opts.resetScroll !== false) active.scrollTop = 0;
+}
+
+function goToSlideId(id) {
+  goTo(getIndexBySlideId(id));
+}
+
+let activeFilter = "all";
+
+function normalizeText(v) {
+  return String(v || "").toLowerCase();
+}
+
+const PROJECT_TRACK = {
+  Kristala: "professional",
+
+  PolyKnight: "personal",
+  PixelBorne: "personal",
+  LandscapeProject: "personal",
+  VampireSurvivorsLike: "personal",
+  "C++ AI Combat": "personal",
+
+  Area26: "university",
+  TempusRattus: "university",
+  "C++DungeonCrawler": "university",
+  TF2: "university",
+  "Lancer Framework": "university",
+  "2DKnight": "university",
+  "2.5DResourceCollector": "university",
+};
+
+function matchesFilter(filterId, key) {
+  if (filterId === "all") return true;
+  const d = projectData[key] || {};
+  const tags = Array.isArray(d.tags) ? d.tags.map(normalizeText) : [];
+  const skills = Array.isArray(d.keySkills) ? d.keySkills.map(normalizeText) : [];
+  const software = normalizeText(d.software);
+  const desc = normalizeText((d.descriptions && d.descriptions[0]) || "");
+  const req = Array.isArray(d.requirements) ? d.requirements.map(normalizeText).join(" ") : "";
+
+  const has = (needle) => skills.some(s => s.includes(needle)) || desc.includes(needle) || req.includes(needle);
+
+  if (filterId === "solo") return tags.includes("solo") || normalizeText(d.role).includes("solo");
+  if (filterId === "collab") return tags.includes("group") || tags.includes("collaborative") || normalizeText(d.role).includes("lead") || normalizeText(d.role).includes("team");
+  if (filterId === "combat") return has("combat");
+  if (filterId === "level") return has("level") || has("environment");
+  if (filterId === "systems") return has("system") || has("systems");
+  if (filterId === "unreal") return software.includes("unreal") || skills.some(s => s.includes("unreal")) || tags.includes("blueprint") || tags.includes("cpp");
+  if (filterId === "godot") return software.includes("godot") || tags.includes("godot") || tags.includes("gdscript");
+  if (filterId === "unity") return software.includes("unity") || tags.includes("unity");
+  if (filterId === "hammer") return software.includes("hammer") || tags.includes("hammer");
+  if (filterId === "personal") return PROJECT_TRACK[key] === "personal";
+  if (filterId === "university") return PROJECT_TRACK[key] === "university";
+  if (filterId === "professional") return PROJECT_TRACK[key] === "professional";
+
+  return true;
+}
+
+function applyProjectFilter() {
+  document.querySelectorAll(".filter-chip").forEach((btn) => {
+    btn.classList.toggle("is-active", btn.dataset.filter === activeFilter);
+  });
+
+  document.querySelectorAll(".hotbar__tile[data-slide-id]").forEach((btn) => {
+    const id = btn.dataset.slideId;
+    if (!id || id === "about" || !projectData[id]) return;
+    const match = matchesFilter(activeFilter, id);
+    btn.classList.toggle("is-filtered-out", !match);
+  });
+}
+
+document.addEventListener("click", function (e) {
+  const chip = e.target.closest(".filter-chip");
+  if (chip && chip.dataset.filter) {
+    const next = chip.dataset.filter;
+    // Clicking the active tag toggles back to All.
+    activeFilter = (next === activeFilter && next !== "all") ? "all" : next;
+    applyProjectFilter();
     return;
   }
 
-  const modal = document.getElementById('projectModal');
+  const tile = e.target.closest(".hotbar__tile");
+  if (tile && tile.dataset.slideId) {
+    goToSlideId(tile.dataset.slideId);
+    return;
+  }
+  const home = e.target.closest(".hotbar__home");
+  if (home) { goToSlideId("home"); return; }
 
-  // Populate modal content
-  document.getElementById('modalVideo').src = data.video;
-  document.getElementById('modalTitle').innerText = data.title;
-  document.getElementById('modalSummary').innerText = data.summary;
-
-  // Populate project details
-  document.getElementById('modalProjectName').innerText = data.projectName || data.title;
-  document.getElementById('modalRole').innerText = data.role || "Developer";
-  document.getElementById('modalDate').innerText = data.date || "2024";
-  document.getElementById('modalSoftware').innerText = data.software || "Various";
-
-  // Populate descriptions
-  const descList = document.getElementById('modalDescriptions');
-  descList.innerHTML = '';
-  if (data.descriptions && data.descriptions.length > 0) {
-    const p = document.createElement('p');
-    p.innerText = data.descriptions[0];
-    p.style.lineHeight = '1.6';
-    p.style.color = '#d0d0d0';
-    p.style.marginBottom = '1rem';
-    descList.appendChild(p);
-  } else {
-    const p = document.createElement('p');
-    p.innerText = "";
-    p.style.lineHeight = '1.6';
-    p.style.color = '#d0d0d0';
-    descList.appendChild(p);
+  const goto = e.target.closest("[data-goto]");
+  if (goto) {
+    const dest = goto.dataset.goto;
+    if (dest === "home") goToSlideId("home");
+    else if (dest === "about") goToSlideId("about");
+    else if (dest === "firstProject" && projectOrder.length) goToSlideId(projectOrder[0]);
+    return;
   }
 
-  // Populate requirements
-  const reqList = document.getElementById('modalRequirements');
-  reqList.innerHTML = '';
-  if (data.requirements && data.requirements.length > 0) {
-    data.requirements.forEach(item => {
-      const li = document.createElement('li');
-      li.innerText = item;
-      reqList.appendChild(li);
-    });
-  } else {
-    const li = document.createElement('li');
-    li.innerText = "";
-    reqList.appendChild(li);
+  const lightbox = document.getElementById("lightbox");
+  if (e.target === lightbox) closeLightbox();
+});
+
+// Initial home filter state (must run after functions are defined)
+applyProjectFilter();
+
+document.getElementById("navPrev")?.addEventListener("click", () => goTo(currentIndex - 1));
+document.getElementById("navNext")?.addEventListener("click", () => goTo(currentIndex + 1));
+
+document.addEventListener("keydown", function (e) {
+  const lightbox = document.getElementById("lightbox");
+  if (lightbox.classList.contains("active")) {
+    if (e.key === "Escape") closeLightbox();
+    return;
   }
 
-  // Populate learnings
-  const learningsList = document.getElementById('modalLearnings');
-  learningsList.innerHTML = '';
-  if (data.learnings && data.learnings.length > 0) {
-    data.learnings.forEach(point => {
-      const li = document.createElement('li');
-      li.innerText = point;
-      learningsList.appendChild(li);
-    });
-  } else {
-    const li = document.createElement('li');
-    li.innerText = "";
-    learningsList.appendChild(li);
+  if (e.key === "ArrowRight") {
+    goTo(currentIndex + 1);
+    e.preventDefault();
+  } else if (e.key === "ArrowLeft") {
+    goTo(currentIndex - 1);
+    e.preventDefault();
+  } else if (e.key === "Home") {
+    goToSlideId("home");
+    e.preventDefault();
+  } else if (e.key === "End" && projectOrder.length) {
+    goToSlideId(projectOrder[projectOrder.length - 1]);
+    e.preventDefault();
+  } else if (e.key === "Escape") {
+    goToSlideId("home");
   }
+});
 
-  // Initialize slideshow
-  const slides = data.slides || [];
-  if (slides.length > 0) {
-    initializeSlideshow(slides);
-    document.querySelector('.modal-slideshow-section').style.display = 'flex';
-  } else {
-    document.querySelector('.modal-slideshow-section').style.display = 'none';
-  }
-  
-  // Set slideshow description text
-  document.getElementById('slideshowText').innerText = data.slideshowText || '';
-
-  // Show modal
-  modal.style.display = 'flex';
-  void modal.offsetWidth;
-  modal.classList.add('active');
-  document.body.style.overflow = 'hidden';
-}
-
-function closeModal() {
-  const modal = document.getElementById('projectModal');
-  modal.classList.remove('active');
-
-  setTimeout(() => {
-    modal.style.display = 'none';
-    document.getElementById('modalVideo').src = '';
-    document.body.style.overflow = '';
-  }, 400);
-}
-
-// Lightbox functions
 function enlargeImage(imageSrc) {
-  document.getElementById('lightboxImage').src = imageSrc;
-  document.getElementById('lightbox').classList.add('active');
+  const lb = document.getElementById("lightbox");
+  const lower = String(imageSrc || "").toLowerCase();
+  if (lower.endsWith(".mp4") || lower.endsWith(".webm")) {
+    window.open(imageSrc, "_blank", "noopener,noreferrer");
+    return;
+  }
+  document.getElementById("lightboxImage").src = imageSrc;
+  lb.classList.add("active");
+  lb.setAttribute("aria-hidden", "false");
 }
 
 function closeLightbox() {
-  document.getElementById('lightbox').classList.remove('active');
+  const lb = document.getElementById("lightbox");
+  lb.classList.remove("active");
+  lb.setAttribute("aria-hidden", "true");
 }
 
-// Event listeners
-window.addEventListener('click', function (event) {
-  const modal = document.getElementById('projectModal');
-  const lightbox = document.getElementById('lightbox');
-  
-  if (event.target === modal) {
-    closeModal();
-  }
-  if (event.target === lightbox) {
-    closeLightbox();
-  }
-});
+window.addEventListener("resize", applyTransform);
+applyTransform();
+updateActiveTile();
+updateNavButtons();
+syncIframes();
 
-document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape') {
-    if (document.getElementById('lightbox').classList.contains('active')) {
-      closeLightbox();
-    } else if (document.getElementById('projectModal').classList.contains('active')) {
-      closeModal();
+function initDocSlideshows() {
+  document.querySelectorAll(".doc-slideshow").forEach((root) => {
+    let planning = [];
+    let design = [];
+    let action = [];
+    try { planning = JSON.parse(decodeURIComponent(root.dataset.planning || "[]")) || []; } catch (e) {}
+    try { design = JSON.parse(decodeURIComponent(root.dataset.design || "[]")) || []; } catch (e) {}
+    try { action = JSON.parse(decodeURIComponent(root.dataset.action || "[]")) || []; } catch (e) {}
+
+    const tabButtons = root.querySelectorAll(".doc-tab");
+    const viewport = root.querySelector(".doc-viewport");
+    const captionEl = root.querySelector(".doc-caption");
+    const counterEl = root.querySelector(".doc-counter");
+    const prevBtn = root.querySelector('[data-doc-nav="prev"]');
+    const nextBtn = root.querySelector('[data-doc-nav="next"]');
+
+    let currentTab = "planning";
+    let idx = 0;
+
+    function items() {
+      const list = currentTab === "planning" ? planning : (currentTab === "design" ? design : action);
+      return Array.isArray(list) ? list : [];
     }
-  }
-});
+
+    function setTab(tab) {
+      currentTab = tab;
+      idx = 0;
+      tabButtons.forEach(b => b.classList.toggle("is-active", b.dataset.docTab === tab));
+      render();
+    }
+
+    function render() {
+      const list = items();
+      const safeIdx = Math.max(0, Math.min((list.length || 1) - 1, idx));
+      idx = safeIdx;
+
+      const item = list[safeIdx];
+      const src = item?.src || "";
+      const cap = item?.caption || "";
+
+      if (viewport) {
+        viewport.innerHTML = "";
+        if (!src) {
+          viewport.style.cursor = "default";
+        } else {
+          const lower = src.toLowerCase();
+          const isVideo = lower.endsWith(".mp4") || lower.endsWith(".webm");
+          if (isVideo) {
+            const v = document.createElement("video");
+            v.className = "doc-video";
+            v.src = src;
+            v.controls = true;
+            v.playsInline = true;
+            v.preload = "metadata";
+            viewport.appendChild(v);
+            viewport.style.cursor = "default";
+          } else {
+            const img = document.createElement("img");
+            img.className = "doc-image";
+            img.src = src;
+            img.alt = `Documentation image ${safeIdx + 1}`;
+            img.dataset.fallback = "assets/placeholder.svg";
+            img.onerror = function () { __imgFallback(img); };
+            img.style.cursor = "zoom-in";
+            img.onclick = () => enlargeImage(src);
+            viewport.appendChild(img);
+          }
+        }
+      }
+
+      if (counterEl) counterEl.textContent = list.length ? `${safeIdx + 1} / ${list.length}` : "0 / 0";
+      if (captionEl) {
+        const tabLabel =
+          currentTab === "planning"
+            ? "Planning"
+            : (currentTab === "design" ? "Design Document" : "Action shot");
+        captionEl.textContent = cap || (list.length ? `${tabLabel} ${safeIdx + 1}` : "");
+      }
+
+      const atStart = safeIdx <= 0;
+      const atEnd = safeIdx >= list.length - 1;
+      if (prevBtn) prevBtn.disabled = list.length <= 1 || atStart;
+      if (nextBtn) nextBtn.disabled = list.length <= 1 || atEnd;
+
+      if (tabButtons.length) {
+        const planningEnabled = planning.length > 0;
+        const designEnabled = design.length > 0;
+        const actionEnabled = action.length > 0;
+        tabButtons.forEach(b => {
+          if (b.dataset.docTab === "planning") b.disabled = !planningEnabled;
+          if (b.dataset.docTab === "design") b.disabled = !designEnabled;
+          if (b.dataset.docTab === "action") b.disabled = !actionEnabled;
+        });
+        // Prefer planning, then design doc, then action shots
+        if (!planningEnabled && designEnabled && currentTab === "planning") setTab("design");
+        if (!planningEnabled && !designEnabled && actionEnabled && currentTab !== "action") setTab("action");
+      }
+    }
+
+    prevBtn?.addEventListener("click", () => { idx -= 1; render(); });
+    nextBtn?.addEventListener("click", () => { idx += 1; render(); });
+    tabButtons.forEach((b) => b.addEventListener("click", () => setTab(b.dataset.docTab)));
+
+    render();
+  });
+}
+
+initDocSlideshows();
 </script>
+
+<footer class="site-footer">
+  <p>&copy; 2025 Jacques Gwenin</p>
+</footer>
+
 </body>
 </html>
+
+
