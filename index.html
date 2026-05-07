@@ -9,9 +9,25 @@
 <body>
 <script>
   window.__IMG_FALLBACK__ = "assets/placeholder.svg";
+  window.__preferWebp = function preferWebp(src) {
+    const raw = String(src ?? "");
+    return raw.replace(/\.(png|jpe?g)$/i, ".webp");
+  };
   window.__imgFallback = function imgFallback(imgEl) {
-    const fallback = (imgEl && imgEl.dataset && imgEl.dataset.fallback) || window.__IMG_FALLBACK__;
-    if (!imgEl || (imgEl.src && imgEl.src.endsWith(fallback))) return;
+    if (!imgEl) return;
+
+    // First fallback: if we tried .webp and it failed, revert to original src once.
+    const original = imgEl.dataset && imgEl.dataset.originalSrc;
+    const tried = imgEl.dataset && imgEl.dataset.triedOriginal === "1";
+    if (original && !tried) {
+      imgEl.dataset.triedOriginal = "1";
+      imgEl.src = original;
+      return;
+    }
+
+    // Final fallback: placeholder
+    const fallback = (imgEl.dataset && imgEl.dataset.fallback) || window.__IMG_FALLBACK__;
+    if (imgEl.src && imgEl.src.endsWith(fallback)) return;
     imgEl.onerror = null;
     imgEl.src = fallback;
   };
@@ -20,7 +36,7 @@
 <!-- Lightbox for enlarged image -->
 <div class="lightbox" id="lightbox" aria-hidden="true">
   <button class="lightbox-close" onclick="closeLightbox()" aria-label="Close enlarged image">&times;</button>
-  <img id="lightboxImage" src="" alt="Enlarged image" data-fallback="assets/placeholder.svg" onerror="__imgFallback(this)">
+  <img id="lightboxImage" src="" alt="Enlarged image" data-fallback="assets/placeholder.svg" onerror="__imgFallback(this)" decoding="async">
 </div>
 
 <!-- Slider viewport: holds Home, About, and one slide per project -->
@@ -84,9 +100,12 @@
         <div class="project-page__row">
           <div class="about-col about-col--photo">
             <img
-              src="images/Me.png"
+              src="images/Me.webp"
               alt="Jacques Gwenin"
               class="about-photo"
+              loading="lazy"
+              decoding="async"
+              data-original-src="images/Me.png"
               data-fallback="assets/placeholder.svg"
               onerror="__imgFallback(this)"
             />
@@ -1145,7 +1164,7 @@ function renderCaseMediaItem(src, fallbackText) {
 
   return `
     <div class="case-compare__frame has-media">
-      <img class="case-media" src="${escapeHtml(raw)}" alt="" data-fallback="assets/placeholder.svg" onerror="__imgFallback(this)">
+      <img class="case-media" src="${escapeHtml(window.__preferWebp(raw))}" alt="" loading="lazy" decoding="async" fetchpriority="low" data-original-src="${escapeHtml(raw)}" data-fallback="assets/placeholder.svg" onerror="__imgFallback(this)">
     </div>
   `;
 }
@@ -1382,7 +1401,7 @@ function renderProjectSlide(key, data) {
 function renderHotbarTile(key, data) {
   return `
     <button type="button" class="hotbar__tile" role="tab" data-slide-id="${escapeHtml(key)}" aria-label="${escapeHtml(data.title)}">
-      <img src="${escapeHtml(data.thumb)}" alt="" data-fallback="assets/placeholder.svg" onerror="__imgFallback(this)" />
+      <img src="${escapeHtml(window.__preferWebp(data.thumb))}" alt="" loading="lazy" decoding="async" fetchpriority="low" data-original-src="${escapeHtml(data.thumb)}" data-fallback="assets/placeholder.svg" onerror="__imgFallback(this)" />
       <span class="hotbar__label">${escapeHtml(data.title)}</span>
     </button>
   `;
@@ -1391,7 +1410,7 @@ function renderHotbarTile(key, data) {
 function renderAboutTile() {
   return `
     <button type="button" class="hotbar__tile hotbar__tile--about" role="tab" data-slide-id="about" aria-label="About Me">
-      <img src="images/Me.png" alt="" data-fallback="assets/placeholder.svg" onerror="__imgFallback(this)" />
+      <img src="${escapeHtml(window.__preferWebp("images/Me.png"))}" alt="" loading="lazy" decoding="async" fetchpriority="low" data-original-src="images/Me.png" data-fallback="assets/placeholder.svg" onerror="__imgFallback(this)" />
       <span class="hotbar__label">About</span>
     </button>
   `;
@@ -1702,8 +1721,11 @@ function initDocSlideshows() {
           } else {
             const img = document.createElement("img");
             img.className = "doc-image";
-            img.src = src;
+            img.src = window.__preferWebp(src);
             img.alt = `Documentation image ${safeIdx + 1}`;
+            img.loading = "lazy";
+            img.decoding = "async";
+            img.dataset.originalSrc = src;
             img.dataset.fallback = "assets/placeholder.svg";
             img.onerror = function () { __imgFallback(img); };
             img.style.cursor = "zoom-in";
