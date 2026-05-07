@@ -39,7 +39,7 @@ body {
   background-color: var(--bg-1);
   background-image:
     linear-gradient(rgba(30, 30, 30, 0.52), rgba(30, 30, 30, 0.52)),
-    url("textures/UEGrid.png");
+    url("textures/UEGrid.webp");
   background-repeat: repeat, repeat;
   color: var(--text);
   line-height: 1.6;
@@ -114,7 +114,7 @@ a { color: inherit; }
   background-color: var(--bg-1);
   background-image:
     linear-gradient(rgba(30, 30, 30, 0.52), rgba(30, 30, 30, 0.52)),
-    url("textures/UEGrid.png");
+    url("textures/UEGrid.webp");
   background-repeat: repeat, repeat;
   background-size: auto, auto;
 }
@@ -280,8 +280,15 @@ a { color: inherit; }
   background-color: var(--bg-1);
   background-image:
     linear-gradient(rgba(30, 30, 30, 0.52), rgba(30, 30, 30, 0.52)),
-    url("textures/UEGrid.png");
+    url("textures/UEGrid.webp");
   background-repeat: repeat, repeat;
+  /* Hide the "useless" scrollbar chrome while still allowing scroll if needed. */
+  scrollbar-width: none; /* Firefox */
+}
+
+.slide--about::-webkit-scrollbar {
+  width: 0;
+  height: 0;
 }
 
 .project-page--about .project-page__summary {
