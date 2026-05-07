@@ -1180,6 +1180,8 @@ video.case-media {
     padding-left: max(1rem, var(--project-arrow-gutter));
     padding-right: max(1rem, var(--project-arrow-gutter-right));
   }
+  :root { --project-arrow-gutter-right: 140px; }
+  .project-page__scroll { transform: none; }
   .project-page__row {
     grid-template-columns: 1fr;
   }
@@ -1220,13 +1222,33 @@ video.case-media {
   .slide.slide--project {
     padding: 1.5rem max(0.85rem, 1rem) 2.5rem;
   }
+  :root {
+    --project-arrow-gutter: 0px;
+    --project-arrow-gutter-right: 0px;
+    --project-content-offset-x: 0px;
+  }
   .home-hero__name { font-size: 2rem; }
+  .home-filters { width: min(100%, 640px); }
   .quick-links { gap: 0.5rem; }
   .quick-link { padding: 0.7rem 1rem; font-size: 0.9rem; }
+  .hotbar { padding: 0 0.5rem; gap: 0.5rem; }
+  .hotbar__scroll { gap: 0.6rem; padding: 0.6rem 0.25rem; }
   .hotbar__tile { width: 80px; height: 80px; }
   .hotbar__tile--about { width: 80px; }
   .hotbar__home { width: 80px; height: 80px; }
   .info-list--cols { columns: 1; }
   .page-arrow { display: none; }
   .doc-viewport { height: 320px; }
+  .case-card__text { padding-left: 0; padding-right: 0; }
+}
+
+@media (max-width: 420px) {
+  :root { --hotbar-h: 78px; }
+  .slide { padding: 1.25rem 1rem 2.25rem; }
+  .slide.slide--project { padding: 1.25rem 0.95rem 2.25rem; }
+  .quick-link { flex: 1 1 auto; justify-content: center; }
+  .hotbar__tile,
+  .hotbar__home { width: 72px; height: 72px; }
+  .hotbar__label { font-size: 0.62rem; }
+  .doc-viewport { height: 260px; }
 }
