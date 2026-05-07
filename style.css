@@ -1227,6 +1227,10 @@ video.case-media {
     --project-arrow-gutter-right: 0px;
     --project-content-offset-x: 0px;
   }
+  /* iOS Safari can be quirky with transforms + vw, so hard-reset on phones. */
+  .project-page__scroll { transform: none !important; }
+  .slide--project { overflow-x: clip; }
+  .case-study { max-width: 100%; width: 100%; }
   .home-hero__name { font-size: 2rem; }
   .home-filters { width: min(100%, 640px); }
   .quick-links { gap: 0.5rem; }
