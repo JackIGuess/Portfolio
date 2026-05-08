@@ -1401,7 +1401,7 @@ function renderProjectSlide(key, data) {
 function renderHotbarTile(key, data) {
   return `
     <button type="button" class="hotbar__tile" role="tab" data-slide-id="${escapeHtml(key)}" aria-label="${escapeHtml(data.title)}">
-      <img src="${escapeHtml(window.__preferWebp(data.thumb))}" alt="" loading="lazy" decoding="async" fetchpriority="low" data-original-src="${escapeHtml(data.thumb)}" data-fallback="assets/placeholder.svg" onerror="__imgFallback(this)" />
+      <img draggable="false" src="${escapeHtml(window.__preferWebp(data.thumb))}" alt="" loading="lazy" decoding="async" fetchpriority="low" data-original-src="${escapeHtml(data.thumb)}" data-fallback="assets/placeholder.svg" onerror="__imgFallback(this)" />
       <span class="hotbar__label">${escapeHtml(data.title)}</span>
     </button>
   `;
@@ -1410,7 +1410,7 @@ function renderHotbarTile(key, data) {
 function renderAboutTile() {
   return `
     <button type="button" class="hotbar__tile hotbar__tile--about" role="tab" data-slide-id="about" aria-label="About Me">
-      <img src="${escapeHtml(window.__preferWebp("images/Me.png"))}" alt="" loading="lazy" decoding="async" fetchpriority="low" data-original-src="images/Me.png" data-fallback="assets/placeholder.svg" onerror="__imgFallback(this)" />
+      <img draggable="false" src="${escapeHtml(window.__preferWebp("images/Me.png"))}" alt="" loading="lazy" decoding="async" fetchpriority="low" data-original-src="images/Me.png" data-fallback="assets/placeholder.svg" onerror="__imgFallback(this)" />
       <span class="hotbar__label">About</span>
     </button>
   `;
@@ -1577,6 +1577,104 @@ function applyProjectFilter() {
   });
 }
 
+function initHotbarWheelScroll() {
+  const hotbarScroll = document.getElementById("hotbarScroll");
+  if (!hotbarScroll) return;
+
+  // On desktop, users often expect mouse wheel to pan the horizontal hotbar.
+  // Only intercept when the bar can actually scroll horizontally.
+  hotbarScroll.addEventListener("wheel", (e) => {
+    if (e.ctrlKey) return; // allow browser zoom gesture
+    const maxScroll = hotbarScroll.scrollWidth - hotbarScroll.clientWidth;
+    if (maxScroll <= 0) return;
+
+    const dx = Math.abs(e.deltaX || 0);
+    const dy = Math.abs(e.deltaY || 0);
+    if (dx > dy) return; // already a horizontal gesture (trackpad)
+
+    e.preventDefault();
+    hotbarScroll.scrollLeft += (e.deltaY || 0);
+  }, { passive: false });
+}
+
+function initHotbarDragScroll() {
+  const hotbarScroll = document.getElementById("hotbarScroll");
+  if (!hotbarScroll) return;
+
+  let isPointerDown = false;
+  let didDrag = false;
+  let startX = 0;
+  let startScrollLeft = 0;
+  const DRAG_THRESHOLD_PX = 12;
+  let activePointerId = null;
+
+  function canScrollHorizontally() {
+    return (hotbarScroll.scrollWidth - hotbarScroll.clientWidth) > 1;
+  }
+
+  // Prevent the browser's default "drag image" ghost behavior in the hotbar.
+  hotbarScroll.addEventListener("dragstart", (e) => {
+    const img = e.target && e.target.closest ? e.target.closest("img") : null;
+    if (!img) return;
+    e.preventDefault();
+  });
+
+  hotbarScroll.addEventListener("pointerdown", (e) => {
+    // Left-click only for mouse; touch/pen are fine.
+    if (e.pointerType === "mouse" && e.button !== 0) return;
+    if (!canScrollHorizontally()) return;
+
+    isPointerDown = true;
+    didDrag = false;
+    activePointerId = e.pointerId;
+    startX = e.clientX;
+    startScrollLeft = hotbarScroll.scrollLeft;
+  });
+
+  hotbarScroll.addEventListener("pointermove", (e) => {
+    if (!isPointerDown) return;
+    if (activePointerId != null && e.pointerId !== activePointerId) return;
+    const dx = e.clientX - startX;
+    if (!didDrag && Math.abs(dx) > DRAG_THRESHOLD_PX) {
+      didDrag = true;
+      try { hotbarScroll.setPointerCapture(e.pointerId); } catch (err) {}
+      hotbarScroll.classList.add("is-dragging");
+    }
+    if (!didDrag) return;
+
+    // Prevent selecting text/images while dragging
+    e.preventDefault();
+    hotbarScroll.scrollLeft = startScrollLeft - dx;
+  }, { passive: false });
+
+  function endPointerDrag(e) {
+    if (!isPointerDown) return;
+    if (activePointerId != null && e.pointerId !== activePointerId) return;
+    isPointerDown = false;
+    activePointerId = null;
+    try { hotbarScroll.releasePointerCapture(e.pointerId); } catch (err) {}
+    hotbarScroll.classList.remove("is-dragging");
+
+    // If we dragged, suppress the click that usually follows pointerup.
+    if (didDrag) {
+      const stopper = (ev) => {
+        ev.preventDefault();
+        ev.stopPropagation();
+        hotbarScroll.removeEventListener("click", stopper, true);
+      };
+      hotbarScroll.addEventListener("click", stopper, true);
+    }
+  }
+
+  hotbarScroll.addEventListener("pointerup", endPointerDrag);
+  hotbarScroll.addEventListener("pointercancel", endPointerDrag);
+  hotbarScroll.addEventListener("lostpointercapture", () => {
+    isPointerDown = false;
+    activePointerId = null;
+    hotbarScroll.classList.remove("is-dragging");
+  });
+}
+
 document.addEventListener("click", function (e) {
   const chip = e.target.closest(".filter-chip");
   if (chip && chip.dataset.filter) {
@@ -1610,6 +1708,8 @@ document.addEventListener("click", function (e) {
 
 // Initial home filter state (must run after functions are defined)
 applyProjectFilter();
+initHotbarWheelScroll();
+initHotbarDragScroll();
 
 document.getElementById("navPrev")?.addEventListener("click", () => goTo(currentIndex - 1));
 document.getElementById("navNext")?.addEventListener("click", () => goTo(currentIndex + 1));

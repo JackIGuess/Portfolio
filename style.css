@@ -360,6 +360,8 @@ a { color: inherit; }
   max-width: none;
   width: 100%;
   margin: 0 auto;
+  /* Visually center ALL project content between asymmetric arrow gutters */
+  transform: translateX(var(--project-content-offset-x));
 }
 
 .project-page {
@@ -438,8 +440,8 @@ a { color: inherit; }
   grid-template-columns: minmax(0, 1fr) minmax(268px, min(480px, 36vw));
   gap: clamp(0.6rem, 1.2vw, 1rem);
   align-items: start;
-  /* Shift the pair slightly left without separating them */
-  margin-left: clamp(-3rem, -3vw, -1rem);
+  /* Keep hero aligned with centered sections (case study/docs) */
+  margin-left: 0;
 }
 
 .project-page__media {
@@ -605,8 +607,7 @@ a { color: inherit; }
   padding-top: 2rem;
   border-top: 4px solid var(--bg-0);
   text-align: center;
-  /* Match case study visual centering within asymmetric arrow gutters */
-  transform: translateX(var(--project-content-offset-x));
+  /* Centering handled on `.slide--project .project-page` */
 }
 
 .scroll-hint {
@@ -1014,9 +1015,16 @@ video.case-media {
   overflow-x: auto;
   overflow-y: hidden;
   padding: 0.85rem 0.5rem;
-  overflow: visible;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+  touch-action: pan-x;
   scrollbar-width: thin;
   scrollbar-color: var(--accent) transparent;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .hotbar__scroll { cursor: grab; }
+  .hotbar__scroll.is-dragging { cursor: grabbing; }
 }
 
 .hotbar__scroll::-webkit-scrollbar { height: 6px; }
@@ -1066,6 +1074,8 @@ video.case-media {
   height: 100%;
   object-fit: cover;
   display: block;
+  user-select: none;
+  -webkit-user-drag: none;
 }
 
 .hotbar__label {
@@ -1188,7 +1198,7 @@ video.case-media {
     padding-right: max(1rem, var(--project-arrow-gutter-right));
   }
   :root { --project-arrow-gutter-right: 140px; }
-  .project-page__scroll { transform: none; }
+  .slide--project .project-page { transform: none; }
   .project-page__row {
     grid-template-columns: 1fr;
   }
