@@ -24,7 +24,10 @@ html {
   --bg-3: #2b2b2b;
   --text: #ffffff;
   --text-muted: #d0d0d0;
-  --hotbar-h: 110px;
+  --hotbar-tile: 96px;
+  /* Room above/below tiles so hover/active scale isn't clipped */
+  --hotbar-pad-y: 10px;
+  --hotbar-h: calc(var(--hotbar-tile) + var(--hotbar-pad-y) * 2);
   --transition: 450ms cubic-bezier(0.22, 0.61, 0.36, 1);
   /* Horizontal inset on project slides so content clears fixed page arrows (~44px + margin) */
   --project-arrow-gutter: 60px;
@@ -451,8 +454,14 @@ a { color: inherit; }
 }
 
 .project-page__row--hero .project-page__media {
-  gap: 0;
+  gap: 1rem;
   justify-content: flex-end;
+  align-items: flex-end;
+}
+
+.project-page__row--hero .project-page__media > .project-page__description {
+  width: 100%;
+  max-width: 1000px;
 }
 
 .project-page__side {
@@ -811,12 +820,12 @@ a { color: inherit; }
   display: inline-block;
   color: var(--accent);
   font-weight: 800;
-  font-size: 0.98rem; /* match richtext subheading size */
+  font-size: 1.2rem;
   text-transform: none;
   letter-spacing: 0;
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.35rem;
   width: 100%;
-  text-align: center;
+  text-align: left;
 }
 
 .case-value {
@@ -825,7 +834,7 @@ a { color: inherit; }
 }
 
 .case-value.richtext p {
-  margin: 0.55rem 0 0;
+  margin: 0.75rem 0 0;
 }
 
 .case-value.richtext p:first-child {
@@ -833,27 +842,26 @@ a { color: inherit; }
 }
 
 .case-value.richtext .rt-h {
-  /* Match the blue label style (but white) */
-  margin: 0.9rem 0 0.55rem;
+  margin: 1.15rem 0 0.55rem;
   color: var(--text);
   font-weight: 800;
-  font-size: 0.98rem;
+  font-size: 1.05rem;
   line-height: 1.25;
   text-transform: none;
   letter-spacing: 0;
 }
 
-.case-value.richtext h3.rt-h { font-size: 0.98rem; }
-.case-value.richtext h4.rt-h { font-size: 0.98rem; }
-.case-value.richtext h5.rt-h { font-size: 0.98rem; }
+.case-value.richtext h3.rt-h { font-size: 1.05rem; }
+.case-value.richtext h4.rt-h { font-size: 1.05rem; }
+.case-value.richtext h5.rt-h { font-size: 1.05rem; }
 
 .case-value.richtext .rt-ul {
-  margin: 0.35rem 0 0.25rem;
-  padding-left: 1.1rem;
+  margin: 0.4rem 0 0.3rem;
+  padding-left: 1.7rem;
 }
 
 .case-value.richtext .rt-ul li {
-  margin: 0.2rem 0;
+  margin: 0.4rem 0;
 }
 
 .case-compare {
@@ -877,7 +885,7 @@ a { color: inherit; }
 .case-compare__label {
   color: var(--accent);
   font-weight: 800;
-  font-size: 0.98rem; /* match richtext subheading size */
+  font-size: 1.2rem;
   text-transform: none;
   letter-spacing: 0;
   margin-bottom: 0; /* keep media close under label */
@@ -976,8 +984,8 @@ video.case-media {
 
 .hotbar__home {
   flex: 0 0 auto;
-  width: 96px;
-  height: 96px;
+  width: var(--hotbar-tile);
+  height: var(--hotbar-tile);
   background: var(--bg-3);
   border: 2px solid #3a3a3a;
   border-radius: 10px;
@@ -1014,12 +1022,17 @@ video.case-media {
   gap: 0.9rem;
   overflow-x: auto;
   overflow-y: hidden;
-  padding: 0.85rem 0.5rem;
+  padding: var(--hotbar-pad-y) 0.5rem;
   -webkit-overflow-scrolling: touch;
   overscroll-behavior-x: contain;
   touch-action: pan-x;
-  scrollbar-width: thin;
-  scrollbar-color: var(--accent) transparent;
+  /* Scroll via wheel/drag; keep the track hidden */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.hotbar__scroll::-webkit-scrollbar {
+  display: none;
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -1027,17 +1040,11 @@ video.case-media {
   .hotbar__scroll.is-dragging { cursor: grabbing; }
 }
 
-.hotbar__scroll::-webkit-scrollbar { height: 6px; }
-.hotbar__scroll::-webkit-scrollbar-thumb {
-  background: var(--accent);
-  border-radius: 3px;
-}
-
 .hotbar__tile {
   flex: 0 0 auto;
   position: relative;
-  width: 96px;
-  height: 96px;
+  width: var(--hotbar-tile);
+  height: var(--hotbar-tile);
   background: #000;
   border: 2px solid #3a3a3a;
   border-radius: 8px;
@@ -1116,7 +1123,7 @@ video.case-media {
 }
 
 .hotbar__tile--about {
-  width: 96px;
+  width: var(--hotbar-tile);
 }
 
 /* =============================================================
@@ -1189,7 +1196,7 @@ video.case-media {
    Responsive
    ============================================================= */
 @media (max-width: 1024px) {
-  :root { --hotbar-h: 96px; }
+  :root { --hotbar-tile: 84px; }
   .slide { padding: 2rem 2.25rem 3rem; }
   .slide.slide--project {
     padding-top: 2rem;
@@ -1234,7 +1241,7 @@ video.case-media {
 }
 
 @media (max-width: 640px) {
-  :root { --hotbar-h: 86px; }
+  :root { --hotbar-tile: 80px; }
   .slide { padding: 1.5rem 1.25rem 2.5rem; }
   .slide.slide--project {
     padding: 1.5rem max(0.85rem, 1rem) 2.5rem;
@@ -1253,10 +1260,7 @@ video.case-media {
   .quick-links { gap: 0.5rem; }
   .quick-link { padding: 0.7rem 1rem; font-size: 0.9rem; }
   .hotbar { padding: 0 0.5rem; gap: 0.5rem; }
-  .hotbar__scroll { gap: 0.6rem; padding: 0.6rem 0.25rem; }
-  .hotbar__tile { width: 80px; height: 80px; }
-  .hotbar__tile--about { width: 80px; }
-  .hotbar__home { width: 80px; height: 80px; }
+  .hotbar__scroll { gap: 0.6rem; padding: var(--hotbar-pad-y) 0.25rem; }
   .info-list--cols { columns: 1; }
   .page-arrow { display: none; }
   .doc-viewport { height: 320px; }
@@ -1264,12 +1268,10 @@ video.case-media {
 }
 
 @media (max-width: 420px) {
-  :root { --hotbar-h: 78px; }
+  :root { --hotbar-tile: 72px; }
   .slide { padding: 1.25rem 1rem 2.25rem; }
   .slide.slide--project { padding: 1.25rem 0.95rem 2.25rem; }
   .quick-link { flex: 1 1 auto; justify-content: center; }
-  .hotbar__tile,
-  .hotbar__home { width: 72px; height: 72px; }
   .hotbar__label { font-size: 0.62rem; }
   .doc-viewport { height: 260px; }
 }

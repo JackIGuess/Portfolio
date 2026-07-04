@@ -336,7 +336,10 @@ And honestly - it made me enjoy designing bosses even more!`,
             "slides/development/kristala/BossOverhauling/Slide1.png",
             "slides/development/kristala/BossOverhauling/Slide2.png",
             "slides/development/kristala/BossOverhauling/Slide3.png",
-            "slides/development/kristala/BossOverhauling/Slide4.png"
+            "slides/development/kristala/BossOverhauling/Slide4.png",
+            "slides/development/kristala/BossOverhauling/Slide5.webp",
+            "slides/development/kristala/BossOverhauling/Slide7.webp",
+            "slides/development/kristala/BossOverhauling/Slide8.webp"
           ]
         },
         {
@@ -516,6 +519,11 @@ If players are telling you something feels off - listen, investigate, and fix th
           ],
           afterMedia: [
             "slides/development/kristala/ParryCounterImprovement/ParryCounterAfter.mp4"
+          ],
+          galleryMedia: [
+            "slides/development/kristala/ParryCounterImprovement/Slide1.webp",
+            "slides/development/kristala/ParryCounterImprovement/Slide2.webp",
+            "slides/development/kristala/ParryCounterImprovement/Slide3.webp"
           ]
         },
         
@@ -523,11 +531,14 @@ If players are telling you something feels off - listen, investigate, and fix th
     slides: [
       "slides/planning/kristala/BossOverhauling/Slide1.PNG"
     ],
+    slideCaptions: [
+      "Above is a flow diagram I designed and presented to my team, addressing combat flow issues and how we might improve them with a bit of technical guidance."
+    ],
   },
   "PolyKnight": {
       video: "https://www.youtube.com/embed/mKESpgLJ9u8",
       thumb: "images/polyknight.png",
-      title: "PolyKnight",
+      title: "PolyKnight (FYP)",
       summary: "A prototype Souls-like combat framework featuring stamina-based combat, AI-driven enemies, and a variety of attack and defensive mechanics.",
       requirements: [
         "Designed and implemented core combat systems (combos, stamina, blocking, dodging).",
@@ -724,15 +735,30 @@ If players are telling you something feels off - listen, investigate, and fix th
       video: "https://www.youtube.com/embed/_CA-M8LUWf0",
       thumb: "images/PixelBorne.png",
       title: "PixelBorne",
-      summary: "Wave-based survival game using PaperZD and Unreal Engine 5.",
-      requirements: [],
-      descriptions: [],
+      summary: "Endless wave survival prototype with Bloodborne-inspired combat, built in Unreal Engine 5 using PaperZD and third-party assets.",
+      requirements: [
+        "Designed and implemented a combat kit with light attacks, charge attacks, and a gun used to interrupt enemy attacks",
+        "Built an endless wave survival loop with escalating difficulty as waves progress",
+        "Integrated Synty and itch.io assets into a cohesive playable prototype",
+        "Planned an upgrade progression system and area transitions that unlock as levels are cleared and difficulty ramps up"
+      ],
+      descriptions: [
+        "Endless wave survival prototype inspired by Bloodborne, built in Unreal Engine 5 with PaperZD. I focused on a readable combat kit - light attacks, charge attacks, and a gun for interrupting enemy attacks - using Synty and itch.io assets. The long-term design included upgrade progression and moving the player into new areas as each level is cleared, with waves getting harder over time."
+      ],
       learnings: [],
       projectName: "PixelBorne",
       role: "Solo Developer",
       date: "2024",
       software: "Unreal Engine 5, PaperZD, Blueprint",
       tags: ["solo", "paperZD", "Blueprint"],
+      keySkills: [
+        "Combat Design",
+        "Wave Design",
+        "Gameplay Prototyping",
+        "PaperZD",
+        "Unreal Engine 5",
+        "Blueprint"
+      ],
     slides: [
       "slides/planning/pixelborne/Slide1.png",
       "slides/development/pixelborne/Slide1.PNG",
@@ -748,15 +774,30 @@ If players are telling you something feels off - listen, investigate, and fix th
       video: "https://www.youtube.com/embed/YHhjJvPjehg",
       thumb: "images/C++.png",
       title: "C++ Dungeon Crawler",
-      summary: "Top-down dungeon crawler built in Unreal with C++ and PaperZD.",
-      requirements: [],
-      descriptions: [],
+      summary: "Top-down dungeon crawler built in Unreal Engine 5 with C++ and PaperZD, featuring puzzles, a hub world, and persistent progress.",
+      requirements: [
+        "Implemented core gameplay systems in C++ to strengthen engine-side programming skills",
+        "Designed and built a playable dungeon level with puzzles and memory-based challenges",
+        "Created a hub world that lets players travel between levels",
+        "Added save and load support so progress persists across sessions and level visits"
+      ],
+      descriptions: [
+        "Top-down dungeon crawler built in Unreal Engine 5 with C++ and PaperZD. I used this project to prove out my C++ skills while shipping a fun, playable level with puzzles and memory challenges. Players return to a hub world to access other levels, and progress is saved so they can pick up where they left off."
+      ],
       learnings: [],
       projectName: "C++ Dungeon Crawler",
       role: "Solo Developer",
       date: "2024",
       software: "Unreal Engine 5, C++, PaperZD",
       tags: ["solo", "paperZD", "cpp", "Blueprint"],
+      keySkills: [
+        "C++",
+        "Unreal Engine 5",
+        "Systems Design",
+        "Puzzle Design",
+        "Save Systems",
+        "PaperZD"
+      ],
     slides: [
       "slides/planning/C++/Slide1.png",
       "slides/development/C++/Slide1.PNG",
@@ -771,15 +812,30 @@ If players are telling you something feels off - listen, investigate, and fix th
       video: "https://www.youtube.com/embed/4LLHukop_uk",
       thumb: "images/TF2.png",
       title: "TF2 Map 'Prison'",
-      summary: "Custom multi-layered KOTH map made in Hammer Editor.",
-      requirements: [],
-      descriptions: [],
+      summary: "Custom multi-layered King of the Hill map built in Hammer Editor, iterated through playtests with other students.",
+      requirements: [
+        "Designed a multi-layered symmetrical KOTH layout focused on flow, sightlines, and competitive balance",
+        "Built the full map in Hammer Editor to practise multiplayer level design craft",
+        "Playtested with other students and iterated on layout based on feedback",
+        "Refined routes, verticality, and control-point access to improve pacing and readability"
+      ],
+      descriptions: [
+        "Custom multi-layered King of the Hill map built in Hammer Editor to test my multiplayer level design skills. The layout is symmetrical, with stacked routes and vertical play around the control point. I playtested with other students and iterated on the design from that feedback."
+      ],
       learnings: [],
       projectName: "TF2 Map 'Prison'",
       role: "Level Designer",
       date: "2024",
       software: "Hammer Editor",
       tags: ["hammer", "solo", "Environment"],
+      keySkills: [
+        "Level Design",
+        "Multiplayer Layout",
+        "Playtesting",
+        "Iteration",
+        "Hammer Editor",
+        "Spatial Design"
+      ],
     slides: [
       "slides/planning/TF2/Slide1.png",
       "slides/planning/TF2/Slide2.png",
@@ -794,15 +850,30 @@ If players are telling you something feels off - listen, investigate, and fix th
       video: "https://www.youtube.com/embed/mkpuZoS2DYA",
       thumb: "images/Landscape_Project.png",
       title: "Landscape Project",
-      summary: "Environment built in Unreal Engine 5 using landscape tools.",
-      requirements: [],
-      descriptions: [],
+      summary: "Environment study in Unreal Engine 5 focused on landscape tools, Nanite, and Lumen.",
+      requirements: [
+        "Built an outdoor environment using Unreal Engine 5 landscape tools",
+        "Practised terrain sculpting, material layering, and foliage placement for readable space",
+        "Used Nanite to work with high-detail meshes efficiently in-scene",
+        "Lit and iterated the environment with Lumen for dynamic global illumination"
+      ],
+      descriptions: [
+        "Environment study built in Unreal Engine 5 to get familiar with landscape tools, Nanite, and Lumen. I focused on sculpting terrain, dressing the space, and lighting it so the scene reads clearly as a playable outdoor environment."
+      ],
       learnings: [],
       projectName: "Landscape Project",
       role: "Environment Artist",
       date: "2024",
       software: "Unreal Engine 5, Landscape Tools",
       tags: ["solo", "Environment"],
+      keySkills: [
+        "Environment Art",
+        "Landscape Tools",
+        "Nanite",
+        "Lumen",
+        "Unreal Engine 5",
+        "Lighting"
+      ],
     slides: [
       "slides/development/Landscape/Slide1.png",
       "slides/development/Landscape/Slide2.png",
@@ -815,15 +886,30 @@ If players are telling you something feels off - listen, investigate, and fix th
       video: "https://www.youtube.com/embed/w-tHehkkjFc",
       thumb: "images/Vampire_Survivors_Like.png",
       title: "Horde Survival",
-      summary: "Roguelike horde survival prototype built in Godot.",
-      requirements: [],
-      descriptions: [],
+      summary: "Vampire Survivors-inspired horde survival prototype in Godot, built with a strong focus on performance.",
+      requirements: [
+        "Prototyped a Vampire Survivors-style horde survival loop with roguelite elements",
+        "Prioritised optimisation early so large enemy counts remained playable",
+        "Sustained 60 FPS in scenarios with 1500+ enemies on screen",
+        "Paused further development after joining Kristala, having proven the performance and core loop goals"
+      ],
+      descriptions: [
+        "Horde survival prototype inspired by Vampire Survivors and roguelite design, built in Godot. I focused heavily on optimisation from the start, getting scenarios with 1500+ enemies while maintaining 60 FPS. I stepped away from the project after finding Kristala, but it was a strong exercise in performance-minded gameplay systems."
+      ],
       learnings: [],
       projectName: "Horde Survival",
       role: "Solo Developer",
       date: "2024",
       software: "Godot, GDScript, Pixelorama",
       tags: ["solo", "gdscript"],
+      keySkills: [
+        "Optimisation",
+        "Horde Design",
+        "Roguelite Systems",
+        "Godot",
+        "GDScript",
+        "Performance Profiling"
+      ],
     slides: [
     ],
   },
@@ -831,15 +917,30 @@ If players are telling you something feels off - listen, investigate, and fix th
       video: "https://www.youtube.com/embed/MgosbriVylU",
       thumb: "images/Robot.png",
       title: "Robot Repair Shop",
-      summary: "Narrative-driven robot repair experience built in Unity.",
-      requirements: [],
-      descriptions: [],
+      summary: "Narrative robot repair experience in Unity, with UI navigation, a journal system, and mini-games.",
+      requirements: [
+        "Built the gameplay framework for a narrative robot repair experience in Unity",
+        "Implemented randomly selected robot voices to support character variety",
+        "Designed and developed UI navigation and a journal system for story and progress tracking",
+        "Shipped a start-to-finish playable loop with supporting mini-games"
+      ],
+      descriptions: [
+        "Narrative-driven robot repair experience built in Unity. I made the gameplay framework, including randomly selected robot voices, UI navigation, and a journal system. The result is a start-to-finish playable loop with a couple of mini-games supporting the narrative."
+      ],
       learnings: [],
       projectName: "Robot Repair Shop",
       role: "Unity Developer",
       date: "2025",
       software: "Unity, Miro, Excel",
       tags: ["group", "unity"],
+      keySkills: [
+        "Unity",
+        "Narrative Systems",
+        "UI Design",
+        "Journal Systems",
+        "Gameplay Frameworks",
+        "Team Collaboration"
+      ],
     slides: [
       "slides/planning/robot/Slide2.PNG",
       "slides/planning/robot/Slide4.png",
@@ -855,15 +956,30 @@ If players are telling you something feels off - listen, investigate, and fix th
       video: "https://www.youtube.com/embed/MoQaRmIeLH4",
       thumb: "images/Paragon.png",
       title: "C++ AI Combat",
-      summary: "Attacking, investigating, and idle AI states implemented in Unreal C++.",
-      requirements: [],
-      descriptions: [],
+      summary: "Modular AI combat system in Unreal C++, using Paragon assets for patrol, combat, and investigation behaviours.",
+      requirements: [
+        "Built a modular AI system in Unreal Engine C++ using free Paragon assets",
+        "Implemented core behaviours including patrolling, idling, and attacking",
+        "Added lose-sight handling so AI returns to patrol after combat ends",
+        "Created investigation behaviour for points of interest to support more reactive encounters"
+      ],
+      descriptions: [
+        "Modular AI combat prototype built in Unreal Engine 5 with C++, using free Paragon assets. I focused on a reusable behaviour setup covering patrolling, idling, attacking, returning to patrol after losing sight, and investigating points of interest."
+      ],
       learnings: [],
       projectName: "C++ AI Combat",
       role: "Solo Developer",
       date: "2024",
       software: "Unreal Engine 5, C++, Rider, Visual Studio, Blueprint",
       tags: ["solo", "cpp"],
+      keySkills: [
+        "C++",
+        "AI Behaviour",
+        "State Machines",
+        "Unreal Engine 5",
+        "Systems Design",
+        "Combat AI"
+      ],
     slides: [
     ],
   },
@@ -910,15 +1026,30 @@ If players are telling you something feels off - listen, investigate, and fix th
       video: "https://www.youtube.com/embed/PkI-zcqwjUU",
       thumb: "images/Lancer.png",
       title: "Lancer Framework",
-      summary: "SCI-FI FPS adventure prototype.",
-      requirements: [],
-      descriptions: [],
+      summary: "Sci-fi FPS adventure built inside an existing framework, with custom quests, a space-themed level, and inspired gameplay mechanics.",
+      requirements: [
+        "Designed and implemented quests within an existing gameplay framework",
+        "Built a space-themed level that supported the quest and exploration flow",
+        "Added an Eagle Vision-inspired awareness mechanic for reading the environment",
+        "Designed shootable targets that activate gameplay systems, inspired by moments like Borderlands 2's siren rescue sequence"
+      ],
+      descriptions: [
+        "Sci-fi FPS adventure prototype built by designing quests and a level inside an existing framework. I focused on mechanics inspired by other games, including an Eagle Vision-style awareness tool from Assassin's Creed, and shootable targets that activate systems - similar to the Borderlands 2 sequence where you free Handsome Jack's daughter."
+      ],
       learnings: [],
       projectName: "Lancer Framework",
       role: "Solo Developer",
       date: "2024",
       software: "Unreal Engine 5, Magica Voxel, Blueprint",
       tags: ["solo", "Blueprint"],
+      keySkills: [
+        "Quest Design",
+        "Level Design",
+        "Gameplay Mechanics",
+        "Systems Integration",
+        "Unreal Engine 5",
+        "Blueprint"
+      ],
     slides: [
       "slides/planning/lancer/Slide1.png",
       "slides/planning/lancer/Slide2.png",
@@ -947,15 +1078,30 @@ If players are telling you something feels off - listen, investigate, and fix th
       video: "https://www.youtube.com/embed/YajV2QFLZoQ",
       thumb: "images/2D_Knight.png",
       title: "2D Knight",
-      summary: "Sidescrolling dungeon crawler using PaperZD.",
-      requirements: [],
-      descriptions: [],
+      summary: "Full side-scrolling level in Unreal Engine 5 with PaperZD, including checkpoints, level loading, and score tracking.",
+      requirements: [
+        "Built a complete side-scrolling level using PaperZD in Unreal Engine 5",
+        "Implemented checkpoints so players could recover progress within the level",
+        "Added level loading support for moving between play spaces",
+        "Tracked player score as part of the completed gameplay loop"
+      ],
+      descriptions: [
+        "Side-scrolling dungeon crawler level built in Unreal Engine 5 with PaperZD. I focused on shipping a full playable level with checkpoints, level loading, and score tracking, rather than an isolated mechanic demo."
+      ],
       learnings: [],
       projectName: "2D Knight",
       role: "Solo Developer",
       date: "2024",
       software: "Unreal Engine 5, PaperZD, Blueprint",
       tags: ["solo", "paperZD", "Blueprint"],
+      keySkills: [
+        "Level Design",
+        "PaperZD",
+        "Gameplay Systems",
+        "Checkpoints",
+        "Unreal Engine 5",
+        "Blueprint"
+      ],
     slides: [
       "slides/planning/2DKnight/Slide1.png",
       "slides/development/2DKnight/Slide1.png",
@@ -970,15 +1116,30 @@ If players are telling you something feels off - listen, investigate, and fix th
       video: "https://www.youtube.com/embed/Cz6Z69CuXmQ",
       thumb: "images/2.5D_Resource_Collector.png",
       title: "2.5D Resource Collector",
-      summary: "Top-down resource collector built in Unreal with PaperZD.",
-      requirements: [],
-      descriptions: [],
+      summary: "Resource-gathering and base-building prototype with an expandable loop of collect, upgrade, build, and defend.",
+      requirements: [
+        "Designed an expandable gameplay loop around gathering, upgrading, building, and defence",
+        "Implemented resource systems for meat (healing), coins (upgrades), wood (construction), and gold mines",
+        "Built structures for defence and units to support base growth",
+        "Created a clear end goal: fill every building plot in the level while fending off goblin attacks"
+      ],
+      descriptions: [
+        "Resource-collecting prototype built in Unreal Engine 5 with PaperZD. Players gather meat to heal, coins to upgrade, and wood to build structures for defence and units, plus gold mines for economy. The loop expands as you grow the base and fend off goblins, with the goal of filling every building plot in the level."
+      ],
       learnings: [],
       projectName: "2.5D Resource Collector",
       role: "Solo Developer",
       date: "2024",
       software: "Unreal Engine 5, PaperZD, Blueprint",
       tags: ["solo", "paperZD", "Blueprint"],
+      keySkills: [
+        "Systems Design",
+        "Resource Economy",
+        "Base Building",
+        "Gameplay Loops",
+        "PaperZD",
+        "Unreal Engine 5"
+      ],
     slides: [
       "slides/planning/2.5DKnight/Slide1.png",
       "slides/development/2.5DKnight/Slide1.png",
@@ -1357,10 +1518,10 @@ function renderProjectSlide(key, data) {
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowfullscreen></iframe>
             </div>
+            ${description ? `<div class="project-page__description"><h3>Project Description</h3><p>${escapeHtml(description)}</p></div>` : ""}
           </div>
 
           <div class="project-page__side">
-            ${description ? `<div class="project-page__description"><h3>Project Description</h3><p>${escapeHtml(description)}</p></div>` : ""}
             ${hasRoleSection ? `<div class="project-page__description"><h3>Role</h3><ul class="info-list">${roleList}</ul></div>` : ""}
             ${keySkillsMarkup}
           </div>
